@@ -1,6 +1,6 @@
-﻿namespace system4.DB
+﻿namespace system4.DB.Entity
 {
-    public class EntitySecret
+    public class Secret
     {
         public const string Server = "127.0.0.1";
 

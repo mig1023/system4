@@ -12,5 +12,11 @@ namespace system4.DB
         public string Fingerprint { get; set; }
 
         public string Email { get; set; }
+
+        public string UserLName { get; set; }
+
+        public string UserName { get; set; }
+
+        public string UserSName { get; set; }
     }
 }

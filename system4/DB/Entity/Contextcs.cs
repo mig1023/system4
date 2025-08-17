@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace system4.DB
+namespace system4.DB.Entity
 {
-    public class EntityContextcs
+    public class Contextcs
     {
         public class EntityContext : DbContext
         {
@@ -13,10 +13,10 @@ namespace system4.DB
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                var server = EntitySecret.Server;
-                var user = EntitySecret.User;
-                var password = EntitySecret.Password;
-                var db = EntitySecret.Database;
+                var server = Secret.Server;
+                var user = Secret.User;
+                var password = Secret.Password;
+                var db = Secret.Database;
 
                 optionsBuilder.UseMySql($"server={server};user={user};password={password};database={db};",
                     new MySqlServerVersion(new Version(11, 8, 2)));

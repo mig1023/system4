@@ -1,9 +1,9 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace system4.DB
+namespace system4.DB.Entity
 {
-    public class EntityCryptography
+    public class Cryptography
     {
         public static bool ValidatePassword(string passwordHash, string password) =>
             GenerateMySQLHash(password) == passwordHash;

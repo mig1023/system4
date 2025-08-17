@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-using system4.DB;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Numerics;
+using System.Security.Claims;
 
 namespace system4.Pages
 {
@@ -16,9 +17,15 @@ namespace system4.Pages
 
         public IActionResult OnPost()
         {
-            if (EntityServices.VerifyPassword(Users.Login, Users.Pass))
+            if (DB.Entity.Services.VerifyPassword(Users.Login, Users.Pass))
             {
                 DB.Session.SetCookies(Users.Login, PageContext.HttpContext);
+
+                var user = DB.Entity.Services.GetUser(Users.Login);
+
+                HttpContext.Session.SetString("fullUserName",
+                    $"{user.UserName} {user.UserSName} {user.UserLName}");
+
                 return RedirectToPage("Index");
             }
             else
