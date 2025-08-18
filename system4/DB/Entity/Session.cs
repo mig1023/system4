@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
-namespace system4.DB
+namespace system4.DB.Entity
 {
     public class Session
     {

@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using System.Numerics;
-using System.Security.Claims;
 
 namespace system4.Pages
 {
@@ -19,7 +16,7 @@ namespace system4.Pages
         {
             if (DB.Entity.Services.VerifyPassword(Users.Login, Users.Pass))
             {
-                DB.Session.SetCookies(Users.Login, PageContext.HttpContext);
+                DB.Entity.Session.SetCookies(Users.Login, PageContext.HttpContext);
 
                 var user = DB.Entity.Services.GetUser(Users.Login);
 

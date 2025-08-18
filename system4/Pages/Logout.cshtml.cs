@@ -7,7 +7,7 @@ namespace system4.Pages
     {
         public IActionResult OnGet()
         {
-            DB.Session.SetCookiesOut(PageContext.HttpContext);
+            DB.Entity.Session.SetCookiesOut(PageContext.HttpContext);
             return RedirectToPage("Login");
         }
     }
