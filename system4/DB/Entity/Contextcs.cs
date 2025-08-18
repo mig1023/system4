@@ -17,8 +17,9 @@ namespace system4.DB.Entity
                 var user = Secret.User;
                 var password = Secret.Password;
                 var db = Secret.Database;
+                var options = "Convert Zero Datetime=True";
 
-                optionsBuilder.UseMySql($"server={server};user={user};password={password};database={db};",
+                optionsBuilder.UseMySql($"server={server};user={user};password={password};database={db};{options}",
                     new MySqlServerVersion(new Version(11, 8, 2)));
             }
         }

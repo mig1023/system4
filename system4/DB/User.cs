@@ -33,13 +33,13 @@ namespace system4.DB
 
         public DateTime Birthday { get; set; }
 
-        public int Locked { get; set; }
+        public int? Locked { get; set; }
 
-        public DateTime LockDate { get; set; }
+        public DateTime? LockDate { get; set; }
 
-        public string LockedBy{ get; set; }
+        public string? LockedBy{ get; set; }
 
-        public string LockReason { get; set; }
+        public string? LockReason { get; set; }
 
         public string Branches { get; set; }
 
@@ -47,8 +47,8 @@ namespace system4.DB
 
         public string Printer { get; set; }
 
-        public string Cashbox { get; set; }
+        public string? Cashbox { get; set; }
 
-        public string CompanyID { get; set; }
+        public int? CompanyID { get; set; }
     }
 }

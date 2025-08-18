@@ -175,40 +175,40 @@ namespace system4.DB
 
         public string NullaCity { get; set; }
 
-        public string FirstCity { get; set; }
+        public string? FirstCity { get; set; }
 
-        public int SchengenAppDataID { get; set; }
+        public int? SchengenAppDataID { get; set; }
 
-        public DateTime AppDateBM { get; set; }
+        public DateTime? AppDateBM { get; set; }
 
-        public int TimeslotBMID { get; set; }
+        public int? TimeslotBMID { get; set; }
 
-        public int ConcilFree { get; set; }
+        public int? ConcilFree { get; set; }
 
-        public int Short { get; set; }
+        public int? Short { get; set; }
 
-        public int AnketaSrv { get; set; }
+        public int? AnketaSrv { get; set; }
 
-        public int PhotoSrv { get; set; }
+        public int? PhotoSrv { get; set; }
 
-        public string SchengenJSON { get; set; }
+        public string? SchengenJSON { get; set; }
 
-        public string AdditionalPurpose { get; set; }
+        public string? AdditionalPurpose { get; set; }
 
-        public string OtherCitizenship { get; set; }
+        public string? OtherCitizenship { get; set; }
 
-        public string VisaAdeviso { get; set; }
+        public string? VisaAdeviso { get; set; }
 
-        public int ConcilOnlinePay { get; set; }
+        public int? ConcilOnlinePay { get; set; }
 
-        public int BlockOnlineApp { get; set; }
+        public int? BlockOnlineApp { get; set; }
 
-        public string CheckDocComment { get; set; }
+        public string? CheckDocComment { get; set; }
 
-        public string OtherPeopleFillDataNames { get; set; }
+        public string? OtherPeopleFillDataNames { get; set; }
 
-        public string OtherPeopleFillDataAddress { get; set; }
+        public string? OtherPeopleFillDataAddress { get; set; }
 
-        public string OtherPeopleFillDataPhone { get; set; }
+        public string? OtherPeopleFillDataPhone { get; set; }
     }
 }

@@ -33,13 +33,13 @@ namespace system4.DB
 
         public int Status { get; set; }
 
-        public DateTime ReleaseTime { get; set; }
+        public DateTime? ReleaseTime { get; set; }
 
         public int SMS { get; set; }
 
         public int Telephone { get; set; }
 
-        public string TelephoneNum { get; set; }
+        public string? TelephoneNum { get; set; }
 
         public string FName { get; set; }
 
@@ -81,22 +81,22 @@ namespace system4.DB
 
         public int Dwhom { get; set; }
 
-        public int CompanyID { get; set; }
+        public int? CompanyID { get; set; }
 
-        public int Draft { get; set; }
+        public int? Draft { get; set; }
 
-        public string Itinerario { get; set; }
+        public string? Itinerario { get; set; }
 
-        public string Vettore { get; set; }
+        public string? Vettore { get; set; }
 
-        public string Frontiera { get; set; }
+        public string? Frontiera { get; set; }
 
-        public int Cost { get; set; }
+        public int? Cost { get; set; }
 
-        public string BankID { get; set; }
+        public string? BankID { get; set; }
 
-        public int PrintSrv { get; set; }
+        public int? PrintSrv { get; set; }
 
-        public int OfficeToReceive { get; set; }
+        public int? OfficeToReceive { get; set; }
     }
 }
