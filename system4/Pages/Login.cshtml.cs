@@ -18,7 +18,7 @@ namespace system4.Pages
             {
                 DB.Entity.Session.SetCookies(Users.Login, PageContext.HttpContext);
 
-                var user = DB.Entity.Services.GetUser(Users.Login);
+                var user = DB.Entity.Get.User(Users.Login);
 
                 HttpContext.Session.SetString("fullUserName",
                     $"{user.UserName} {user.UserSName} {user.UserLName}");

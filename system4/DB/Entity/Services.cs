@@ -4,23 +4,9 @@ namespace system4.DB.Entity
 {
     public class Services
     {
-        public static User GetUser(string login)
-        {
-            using (EntityContext db = new EntityContext())
-            {
-                User user = db.Users
-                    .SingleOrDefault(x => x.Login == login);
-
-                if (user == null)
-                    return null;
-
-                return user;
-            }
-        }
-
         public static bool VerifyPassword(string login, string password)
         {
-            User user = GetUser(login);
+            User user = Get.User(login);
 
             if (user == null)
                 return false;

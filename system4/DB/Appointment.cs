@@ -2,7 +2,7 @@
 
 namespace system4.DB
 {
-    public class Appointments
+    public class Appointment
     {
         [Key]
         public int Id { get; set; }

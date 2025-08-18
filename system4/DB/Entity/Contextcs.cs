@@ -11,6 +11,10 @@ namespace system4.DB.Entity
 
             public DbSet<User> Users { get; set; }
 
+            public DbSet<Appointment> Appointments { get; set; }
+
+            public DbSet<AppData> AppDatas { get; set; }
+
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
                 var server = Secret.Server;
