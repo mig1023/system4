@@ -7,10 +7,10 @@
 <div class="text-center">
     <h1 class="display-4">App List</h1>
     
-    @foreach (DB.Appointment app in Model.Appointments)
+    @foreach (Data.Appointment app in Model.Appointments)
     {
         <a class="normal-link" href="/apps/@app.Id/">@app.AppNum</a>
-        @app.AppDate
+        @app.AppDate.Date.ToString("dd.MM.yyyy")
 
         <br />
     }

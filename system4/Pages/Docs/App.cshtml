@@ -1,0 +1,26 @@
+﻿@page "/apps/{appid}"
+@model system4.Pages.Docs.AppModel
+@{
+    ViewData["Title"] = "App";
+}
+
+<div class="text-center">
+    <h1 class="display-4">App @Model.Appointment.AppNum</h1>
+    App date: @Model.Appointment.AppDate.ToString("dd.MM.yyyy")
+    <br />
+    Center: @Model.Appointment.CenterID
+    <br />
+    Timeslot: @Model.Appointment.TimeslotID
+    <br />
+    Status: @Model.Appointment.Status
+    <br />
+    Person: @Model.Appointment.LName @Model.Appointment.FName @Model.Appointment.MName
+    <br />
+    Passport: @Model.Appointment.PassNum
+    <br />
+    Address: @Model.Appointment.Address
+    <br />
+    Dates: @Model.Appointment.SDate - @Model.Appointment.FDate
+    <br />
+    EMail: @Model.Appointment.EMail
+</div>

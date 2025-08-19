@@ -29,5 +29,28 @@ namespace system4.DB.Entity
                 return apps;
             }
         }
+
+        public static Appointment App(int appid)
+        {
+            using (var db = new EntityContext())
+            {
+                var app = db.Appointments
+                    .SingleOrDefault(x => x.Id == appid);
+
+                return app;
+            }
+        }
+
+        public static List<AppData> AppData(int appid)
+        {
+            using (var db = new EntityContext())
+            {
+                var apps = db.AppData
+                    .Where(x => x.AppID == appid)
+                    .ToList();
+
+                return apps;
+            }
+        }
     }
 }

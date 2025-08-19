@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace system4.DB
 {
@@ -183,7 +184,7 @@ namespace system4.DB
 
         public int? TimeslotBMID { get; set; }
 
-        public int? ConcilFree { get; set; }
+        //public int? ConcilFree { get; set; }
 
         public int? Short { get; set; }
 

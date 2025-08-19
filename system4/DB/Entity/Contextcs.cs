@@ -13,7 +13,7 @@ namespace system4.DB.Entity
 
             public DbSet<Appointment> Appointments { get; set; }
 
-            public DbSet<AppData> AppDatas { get; set; }
+            public DbSet<AppData> AppData { get; set; }
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {

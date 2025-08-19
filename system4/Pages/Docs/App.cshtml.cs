@@ -6,13 +6,13 @@ using system4.DB;
 namespace system4.Pages.Docs
 {
     [Authorize]
-    public class AppsModel : PageModel
+    public class AppModel : PageModel
     {
-        public List<Data.Appointment> Appointments { get; set; }
+        public Data.Appointment Appointment { get; set; }
 
-        public void OnGet()
+        public void OnGet(int appid)
         {
-            Appointments = Data.Appointment.List(DateTime.Now.ToString());
+            Appointment = Data.Appointment.Get(appid);
         }
     }
 }
