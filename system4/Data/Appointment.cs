@@ -6,7 +6,7 @@ namespace system4.Data
 {
     public class Appointment : DB.Appointment
     {
-        List<AppData> AppData { get; set; }
+        public List<AppData> AppData { get; set; }
 
         private static Appointment Converter(DB.Appointment dbApp)
         {
