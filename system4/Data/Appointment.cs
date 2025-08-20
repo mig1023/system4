@@ -14,6 +14,8 @@ namespace system4.Data
 
         public List<AppComments> Comments { get; set; }
 
+        public string StatusLine { get; set; }
+
         private static Appointment Converter(DB.Appointment dbApp)
         {
             var app = new Appointment();
@@ -38,11 +40,15 @@ namespace system4.Data
         public static Appointment Get(int appid)
         {
             var app = Converter(DB.Entity.Get.App(appid));
-
-            app.AppData = DB.Entity.Get.AppData(appid);
+            
             app.Comments = DB.Entity.Get.AppComments(appid);
             app.Center = DB.Entity.Get.Branches(app.CenterID);
             app.VisaType = DB.Entity.Get.VisaTypes(app.VType);
+            app.StatusLine = DB.Entity.Get.Statuses(app.Status);
+
+            app.AppData = DB.Entity.Get.AppData(appid)
+                .Select(x => Data.AppData.Converter(x))
+                .ToList();
 
             return app;
         }

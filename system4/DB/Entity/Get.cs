@@ -86,5 +86,25 @@ namespace system4.DB.Entity
                 return type;
             }
         }
+
+        public static string Statuses(int status)
+        {
+            var statuses = new Dictionary<int, string>
+            {
+                [1] = "pending",
+                [2] = "canceled",
+                [3] = "no_show",
+                [4] = "complete",
+                [5] = "revisit",
+
+                [10] = "doc_preview",
+                [11] = "doc_checked",
+                [12] = "doc_complete",
+
+                [13] = "remote_app",
+            };
+
+            return statuses[status];
+        }
     }
 }

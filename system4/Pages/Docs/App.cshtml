@@ -29,8 +29,8 @@
                     <div class="col-sm-9">@Model.Appointment.VisaType.VName</div>
                 </div>  
                 <div class="row align-items-start">
-                    <div class="col-3">Statuse:</div>
-                    <div class="col-sm-9">@Model.Appointment.Status</div>
+                    <div class="col-3">Status:</div>
+                    <div class="col-sm-9">@Model.Appointment.StatusLine</div>
                 </div> 
                 <div class="row align-items-start">
                     <div class="col-3">Delivering:</div>
@@ -84,13 +84,14 @@
     <div class="container p-0">
         @{
             int i = 1;
-            foreach (DB.AppData app in Model.Appointment.AppData)
+            foreach (Data.AppData app in Model.Appointment.AppData)
             {
                 <div class="row align-items-start">
                     <div class="col-1">@(i++).</div>
                     <div class="col align-items-start">@app.FName @app.LName</div>
                     <div class="col">@app.PassNum</div>
                     <div class="col">@app.BirthDate.ToString("dd.MM.yyyy")</div>
+                    <div class="col">@app.StatusLine</div>
                 </div>
             }
         }
@@ -104,10 +105,11 @@
     <div class="border border-danger">
         @foreach (DB.AppComments comment in Model.Appointment.Comments)
         {
-            <div class="row align-items-start p-3">
-                <text>@comment.CommentText</text>
-                <text>@comment.Login</text>
-                <text>@comment.CommentDate.ToString("dd.MM.yyyy")</text>
+            <div class="row align-items-start m-3 comment_text">
+                <span>@comment.CommentText
+                    <span class="comment_text_data">@comment.Login</span>
+                    <span class="comment_text_data">@comment.CommentDate.ToString("dd.MM.yyyy HH:nn")</span>
+                </span>
             </div>
         }
 
