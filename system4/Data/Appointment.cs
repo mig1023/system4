@@ -16,6 +16,12 @@ namespace system4.Data
 
         public string StatusLine { get; set; }
 
+        public string SMSLine { get; set; }
+
+        public string DeliveringLine { get; set; }
+
+        public List<string> POALines { get; set; }
+
         private static Appointment Converter(DB.Appointment dbApp)
         {
             var app = new Appointment();
@@ -33,6 +39,17 @@ namespace system4.Data
 
             appNum.RemoveAt(0);
             app.AppNum = string.Join("/", appNum);
+
+            app.SMSLine = app.SMS > 0 ? $"SMS ({app.Mobile})" : "нет";
+            app.DeliveringLine = app.Shipping > 0 ? app.ShAddress : "нет";
+
+            app.POALines = new List<string>
+            {
+                $"по доверенности ",
+                $"{app.LName} {app.FName} {app.MName}",
+                $"{app.PassNum}",
+                $"{app.PassWhom}"
+            }; 
 
             return app;
         }
