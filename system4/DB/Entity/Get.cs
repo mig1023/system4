@@ -75,5 +75,16 @@ namespace system4.DB.Entity
                 return branch;
             }
         }
+        
+        public static VisaTypes VisaTypes(int appid)
+        {
+            using (var db = new EntityContext())
+            {
+                var type = db.VisaTypes
+                    .SingleOrDefault(x => x.Id == appid);
+
+                return type;
+            }
+        }
     }
 }

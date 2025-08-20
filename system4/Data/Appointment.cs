@@ -8,6 +8,8 @@ namespace system4.Data
     {
         public Branches Center { get; set; }
 
+        public VisaTypes VisaType { get; set; }
+
         public List<AppData> AppData { get; set; }
 
         public List<AppComments> Comments { get; set; }
@@ -40,6 +42,7 @@ namespace system4.Data
             app.AppData = DB.Entity.Get.AppData(appid);
             app.Comments = DB.Entity.Get.AppComments(appid);
             app.Center = DB.Entity.Get.Branches(app.CenterID);
+            app.VisaType = DB.Entity.Get.VisaTypes(app.VType);
 
             return app;
         }

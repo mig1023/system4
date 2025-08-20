@@ -19,6 +19,9 @@ namespace system4.DB.Entity
 
             public DbSet<Branches> Branches { get; set; }
 
+            public DbSet<VisaTypes> VisaTypes { get; set; }
+
+
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
                 var server = Secret.Server;
