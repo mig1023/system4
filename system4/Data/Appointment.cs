@@ -6,6 +6,8 @@ namespace system4.Data
 {
     public class Appointment : DB.Appointment
     {
+        public Branches Center { get; set; }
+
         public List<AppData> AppData { get; set; }
 
         public List<AppComments> Comments { get; set; }
@@ -37,6 +39,7 @@ namespace system4.Data
 
             app.AppData = DB.Entity.Get.AppData(appid);
             app.Comments = DB.Entity.Get.AppComments(appid);
+            app.Center = DB.Entity.Get.Branches(app.CenterID);
 
             return app;
         }

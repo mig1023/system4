@@ -64,5 +64,16 @@ namespace system4.DB.Entity
                 return comments;
             }
         }
+
+        public static Branches Branches(int appid)
+        {
+            using (var db = new EntityContext())
+            {
+                var branch = db.Branches
+                    .SingleOrDefault(x => x.Id == appid);
+
+                return branch;
+            }
+        }
     }
 }
