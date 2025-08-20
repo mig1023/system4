@@ -8,6 +8,8 @@ namespace system4.Data
     {
         public List<AppData> AppData { get; set; }
 
+        public List<AppComments> Comments { get; set; }
+
         private static Appointment Converter(DB.Appointment dbApp)
         {
             var app = new Appointment();
@@ -34,6 +36,7 @@ namespace system4.Data
             var app = Converter(DB.Entity.Get.App(appid));
 
             app.AppData = DB.Entity.Get.AppData(appid);
+            app.Comments = DB.Entity.Get.AppComments(appid);
 
             return app;
         }

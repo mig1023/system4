@@ -52,5 +52,17 @@ namespace system4.DB.Entity
                 return apps;
             }
         }
+
+        public static List<AppComments> AppComments(int appid)
+        {
+            using (var db = new EntityContext())
+            {
+                var comments = db.AppComments
+                    .Where(x => x.AppID == appid)
+                    .ToList();
+
+                return comments;
+            }
+        }
     }
 }

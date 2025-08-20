@@ -15,6 +15,8 @@ namespace system4.DB.Entity
 
             public DbSet<AppData> AppData { get; set; }
 
+            public DbSet<AppComments> AppComments { get; set; }
+
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
                 var server = Secret.Server;

@@ -96,3 +96,20 @@
         }
     </div>
 </div>
+
+@if (Model.Appointment.Comments.Count > 0)
+{
+    <p> </p>
+
+    <div class="border border-danger">
+        @foreach (DB.AppComments comment in Model.Appointment.Comments)
+        {
+            <div class="row align-items-start p-3">
+                <text>@comment.CommentText</text>
+                <text>@comment.Login</text>
+                <text>@comment.CommentDate.ToString("dd.MM.yyyy")</text>
+            </div>
+        }
+
+    </div>
+}
