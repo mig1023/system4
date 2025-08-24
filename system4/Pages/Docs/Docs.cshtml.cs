@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace system4.Pages.Docs
 {
     [Authorize]
-    public class AppsModel : PageModel
+    public class DocsModel : PageModel
     {
-        public List<DAL.Appointment> Appointments { get; set; }
+        public List<DAL.DocPack> DocPack { get; set; }
 
         public void OnGet()
         {
-            Appointments = DAL.Appointment.List(DateTime.Now.ToString());
+            DocPack = DAL.DocPack.List(DateTime.Now.ToString());
         }
     }
 }

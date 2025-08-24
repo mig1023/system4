@@ -1,0 +1,18 @@
+﻿@page "/docs/"
+@model system4.Pages.Docs.DocsModel
+@{
+    ViewData["Title"] = "Docs";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Договоры</h1>
+
+    @foreach (DAL.DocPack doc in Model.DocPack)
+    {
+        <a class="normal-link" href="/docs/@doc.Id/">@doc.AgreementNo</a>
+        @doc.PDate.Date.ToString("dd.MM.yyyy")
+
+        <br />
+    }
+
+</div>
