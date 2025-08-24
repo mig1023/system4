@@ -86,19 +86,35 @@
             <div class="container">
                 <div class="row align-items-start">
                     <div class="col-4">Оформлен:</div>
-                    <div class="col-sm-8">XXXXXXXXXX</div>
+                    @if (Model.DocPack.DovDate.Date != DateTime.MinValue)
+                    {
+                        <div class="col-sm-8"><b>по доверенности (№ 
+                            @Model.DocPack.DovNum от @Model.DocPack.DovDate.ToString("dd.MM.yyyy"))</b></div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-8">лично</div>
+                    }
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">На кого:</div>
-                    <div class="col-sm-8">XXXXXXXXXX</div>
+                    <div class="col-sm-8">@Model.DocPack.LName @Model.DocPack.FName @Model.DocPack.MName</div>
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Паспорт:</div>
-                    <div class="col-sm-8">XXXXXXXXXX</div>
+                    <div class="col-sm-8">@Model.DocPack.PassNum, @Model.DocPack.PassDate, @Model.DocPack.PassWhom</div>
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Телефон:</div>
-                    <div class="col-sm-8">XXXXXXXXXX</div>
+                    <div class="col-sm-8">@Model.DocPack.Phone</div>
+                </div>
+                <div class="row align-items-start">
+                    <div class="col-4">Адрес:</div>
+                    <div class="col-sm-8">@Model.DocPack.Address</div>
+                </div>
+                <div class="row align-items-start">
+                    <div class="col-4">Информация:</div>
+                    <div class="col-sm-8">ХХХХ</div>
                 </div>
             </div>
         </div>
