@@ -56,9 +56,29 @@
                     }
                 </div>
                 <div class="row align-items-start">
+                    <div class="col-4">Сумма по договору:</div>
+                    <div class="col-sm-8">@Model.DocPack.DSum @Model.DocPack.Cur</div>
+                </div>
+                <div class="row align-items-start">
+                    <div class="col-4">Сумма КС:</div>
+                    <div class="col-sm-8">ХХХХ @Model.DocPack.Cur</div>
+                </div>
+                <div class="row align-items-start">
+                    <div class="col-4">Тип оплаты:</div>
+                    <div class="col-sm-8">@Model.DocPack.PType</div>
+                </div>
+                <div class="row align-items-start">
                     <div class="col-4">Запись на подачу:</div>
                     <div class="col-sm-8"><a class="normal-link" href="/apps/@Model.DocPack.Appointment.Id/">
                         @Model.DocPack.Appointment.AppNum</a></div>
+                </div>
+                <div class="row align-items-start">
+                    <div class="col-4">Ксерокопия:</div>
+                    <div class="col-sm-8">@Model.DocPack.XeroxPage страниц</div>
+                </div>
+                <div class="row align-items-start">
+                    <div class="col-4">Страховка:</div>
+                    <div class="col-sm-8">@Model.DocPack.InsSum @Model.DocPack.Cur</div>
                 </div>
             </div>
         </div>
