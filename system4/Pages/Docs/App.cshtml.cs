@@ -6,11 +6,11 @@ namespace system4.Pages.Docs
     [Authorize]
     public class AppModel : PageModel
     {
-        public Data.Appointment Appointment { get; set; }
+        public DAL.Appointment Appointment { get; set; }
 
         public void OnGet(int appid)
         {
-            Appointment = Data.Appointment.Get(appid);
+            Appointment = DAL.Appointment.Get(appid);
         }
     }
 }

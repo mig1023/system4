@@ -8,11 +8,11 @@ namespace system4.Pages.Docs
     [Authorize]
     public class AppsModel : PageModel
     {
-        public List<Data.Appointment> Appointments { get; set; }
+        public List<DAL.Appointment> Appointments { get; set; }
 
         public void OnGet()
         {
-            Appointments = Data.Appointment.List(DateTime.Now.ToString());
+            Appointments = DAL.Appointment.List(DateTime.Now.ToString());
         }
     }
 }

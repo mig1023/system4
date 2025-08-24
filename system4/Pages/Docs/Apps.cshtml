@@ -7,7 +7,7 @@
 <div class="text-center">
     <h1 class="display-4">Записи на подачу</h1>
     
-    @foreach (Data.Appointment app in Model.Appointments)
+    @foreach (DAL.Appointment app in Model.Appointments)
     {
         <a class="normal-link" href="/apps/@app.Id/">@app.AppNum</a>
         @app.AppDate.Date.ToString("dd.MM.yyyy")

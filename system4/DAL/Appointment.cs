@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using system4.DB;
 
-namespace system4.Data
+namespace system4.DAL
 {
     public class Appointment : DB.Appointment
     {
@@ -64,7 +64,7 @@ namespace system4.Data
             app.StatusLine = DB.Entity.Get.Statuses(app.Status);
 
             app.AppData = DB.Entity.Get.AppData(appid)
-                .Select(x => Data.AppData.Converter(x))
+                .Select(x => DAL.AppData.Converter(x))
                 .ToList();
 
             return app;
