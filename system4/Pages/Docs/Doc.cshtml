@@ -61,3 +61,27 @@
         </div>
     </div>
 </div>
+
+<div class="container p-0">
+    <h1 class="display-5 padding_headers">Список заявителей:</h1>
+    <div class="container p-0">
+        @{
+            int i = 1;
+            foreach (DAL.DocPackInfo docinfo in Model.DocPack.DocPackInfo)
+            {
+                foreach (DAL.DocPackList doclist in docinfo.DocPackList)
+                {
+                    <div class="row align-items-start">
+                        <div class="col-1">@(i++).</div>
+                        <div class="col align-items-start">@doclist.FName @doclist.LName</div>
+                        <div class="col">@doclist.PassNum</div>
+                        <div class="col">@doclist.BthDate.ToString("dd.MM.yyyy")</div>
+                        <div class="col">@doclist.FlyDate.ToString("dd.MM.yyyy")</div>
+                        <div class="col">@docinfo.BankId / @doclist.CBankId</div>
+                        <div class="col">@doclist.StatusLine</div>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

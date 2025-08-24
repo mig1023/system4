@@ -2,6 +2,8 @@
 {
     public class DocPackList : DB.DocPackList
     {
+        public string StatusLine { get; set; }
+
         public static DocPackList Converter(DB.DocPackList dbInfo)
         {
             var doc = new DocPackList();
@@ -10,6 +12,8 @@
             {
                 doc.GetType().GetProperty(prop.Name).SetValue(doc, prop.GetValue(dbInfo, null), null);
             }
+
+            doc.StatusLine = Constants.DocStatuses(doc.Status);
 
             return doc;
         }
