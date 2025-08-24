@@ -31,11 +31,18 @@
                 </div>  
                 <div class="row align-items-start">
                     <div class="col-4">Статус:</div>
-                    <div class="col-sm-8"><b>@Model.Appointment.StatusLine</b></div>
+                    <div class="col-sm-8"><b>@DAL.Constants.AppStatuses(Model.Appointment.Status)</b></div>
                 </div> 
                 <div class="row align-items-start">
                     <div class="col-4">Доставка:</div>
-                    <div class="col-sm-8">@Model.Appointment.DeliveringLine</div>
+                    @if (Model.Appointment.Shipping > 0)
+                    {
+                        <div class="col-sm-8">@Model.Appointment.ShAddress</div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-8">нет</div>
+                    }
                 </div> 
                 <div class="row align-items-start">
                     <div class="col-4">Отправка SMS:</div>
@@ -53,10 +60,10 @@
                     @if (Model.Appointment.Dwhom > 0)
                     {
                         <div class="col-sm-8 poa_style">
-                            @foreach (string line in Model.Appointment.POALines)
-                            {
-                                @line<br />
-                            }
+                            по доверенности<br />
+                            @Model.Appointment.LName @Model.Appointment.LName @Model.Appointment.LName<br/>
+                            @Model.Appointment.PassNum<br />
+                            @Model.Appointment.PassWhom
                         </div>
                     }
                     else
@@ -103,7 +110,7 @@
                     <div class="col align-items-start">@app.FName @app.LName</div>
                     <div class="col">@app.PassNum</div>
                     <div class="col">@app.BirthDate.ToString("dd.MM.yyyy")</div>
-                    <div class="col">@app.StatusLine</div>
+                    <div class="col">@DAL.Constants.AppStatuses(app.Status)</div>
                 </div>
             }
         }

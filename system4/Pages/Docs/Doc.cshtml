@@ -101,7 +101,7 @@
                         <div class="col">@doclist.BthDate.ToString("dd.MM.yyyy")</div>
                         <div class="col">@doclist.FlyDate.ToString("dd.MM.yyyy")</div>
                         <div class="col">@docinfo.BankId / @doclist.CBankId</div>
-                        <div class="col">@doclist.StatusLine</div>
+                        <div class="col">@DAL.Constants.DocStatuses(doclist.Status)</div>
                     </div>
                 }
             }

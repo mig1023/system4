@@ -14,12 +14,6 @@ namespace system4.DAL
 
         public List<AppComments> Comments { get; set; }
 
-        public string StatusLine { get; set; }
-
-        public string DeliveringLine { get; set; }
-
-        public List<string> POALines { get; set; }
-
         private static Appointment Converter(DB.Appointment dbApp)
         {
             var app = new Appointment();
@@ -38,16 +32,6 @@ namespace system4.DAL
             appNum.RemoveAt(0);
             app.AppNum = string.Join("/", appNum);
 
-            app.DeliveringLine = app.Shipping > 0 ? app.ShAddress : "нет";
-
-            app.POALines = new List<string>
-            {
-                $"по доверенности ",
-                $"{app.LName} {app.FName} {app.MName}",
-                $"{app.PassNum}",
-                $"{app.PassWhom}"
-            }; 
-
             return app;
         }
 
@@ -58,8 +42,6 @@ namespace system4.DAL
             app.Comments = DB.Entity.Get.AppComments(appid);
             app.Center = DB.Entity.Get.Branches(app.CenterID);
             app.VisaType = DB.Entity.Get.VisaTypes(app.VType);
-
-            app.StatusLine = Constants.AppStatuses(app.Status);
 
             app.AppData = DB.Entity.Get.AppData(appid)
                 .Select(x => DAL.AppData.Converter(x))
