@@ -16,8 +16,6 @@ namespace system4.DAL
 
         public string StatusLine { get; set; }
 
-        public string SMSLine { get; set; }
-
         public string DeliveringLine { get; set; }
 
         public List<string> POALines { get; set; }
@@ -40,7 +38,6 @@ namespace system4.DAL
             appNum.RemoveAt(0);
             app.AppNum = string.Join("/", appNum);
 
-            app.SMSLine = app.SMS > 0 ? $"SMS ({app.Mobile})" : "нет";
             app.DeliveringLine = app.Shipping > 0 ? app.ShAddress : "нет";
 
             app.POALines = new List<string>
