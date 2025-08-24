@@ -31,7 +31,18 @@
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Доставка:</div>
-                    <div class="col-sm-8">XXXXXXX</div>
+                    @if (Model.DocPack.Shipping > 0)
+                    {
+                        <div class="col-sm-8 poa_style">
+                            @Model.DocPack.AddrIndex<br/>
+                            @Model.DocPack.ShippingAddress<br />
+                            @Model.DocPack.ShippingPhone
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-8">нет</div>
+                    }
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Отправка SMS:</div>
