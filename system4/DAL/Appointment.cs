@@ -61,7 +61,8 @@ namespace system4.DAL
             app.Comments = DB.Entity.Get.AppComments(appid);
             app.Center = DB.Entity.Get.Branches(app.CenterID);
             app.VisaType = DB.Entity.Get.VisaTypes(app.VType);
-            app.StatusLine = DB.Entity.Get.Statuses(app.Status);
+
+            app.StatusLine = Constants.AppStatuses(app.Status);
 
             app.AppData = DB.Entity.Get.AppData(appid)
                 .Select(x => DAL.AppData.Converter(x))

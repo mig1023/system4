@@ -15,7 +15,7 @@ namespace system4.DAL
                 app.GetType().GetProperty(prop.Name).SetValue(app, prop.GetValue(dbApp, null), null);
             }
 
-            app.StatusLine = DB.Entity.Get.Statuses(app.Status);
+            app.StatusLine = Constants.AppStatuses(app.Status);
 
             return app;
         }

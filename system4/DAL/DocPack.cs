@@ -1,9 +1,16 @@
 ﻿using System.Text.RegularExpressions;
+using system4.DB;
 
 namespace system4.DAL
 {
     public class DocPack : DB.DocPack
     {
+        public Branches Center { get; set; }
+
+        public VisaTypes VisaTypeLine { get; set; }
+
+        public string StatusLine { get; set; }
+
         public List<DocPackInfo> DocPackInfo { get; set; }
 
         private static DocPack Converter(DB.DocPack dbDoc)
@@ -30,6 +37,11 @@ namespace system4.DAL
         public static DocPack Get(int docid)
         {
             var doc = Converter(DB.Entity.Get.Doc(docid));
+
+            doc.Center = DB.Entity.Get.Branches(doc.CenterID);
+            doc.VisaTypeLine = DB.Entity.Get.VisaTypes(doc.VisaType);
+
+            doc.StatusLine = Constants.DocStatuses(doc.PStatus);
 
             doc.DocPackInfo = DB.Entity.Get.DocInfo(docid)
                 .Select(x => DAL.DocPackInfo.Converter(x))
