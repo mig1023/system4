@@ -4,6 +4,8 @@
     {
         public string StatusLine { get; set; }
 
+        public AppData AppData { get; set; }
+
         public static DocPackList Converter(DB.DocPackList dbInfo)
         {
             var doc = new DocPackList();

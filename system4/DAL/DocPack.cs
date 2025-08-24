@@ -13,6 +13,8 @@ namespace system4.DAL
 
         public List<DocPackInfo> DocPackInfo { get; set; }
 
+        public Appointment Appointment { get; set; }
+
         private static DocPack Converter(DB.DocPack dbDoc)
         {
             var doc = new DocPack();
@@ -38,10 +40,10 @@ namespace system4.DAL
         {
             var doc = Converter(DB.Entity.Get.Doc(docid));
 
-            doc.Center = DB.Entity.Get.Branches(doc.CenterID);
+            doc.Center = DB.Entity.Get.Branches(doc.CenterId);
             doc.VisaTypeLine = DB.Entity.Get.VisaTypes(doc.VisaType);
-
             doc.StatusLine = Constants.DocStatuses(doc.PStatus);
+            doc.Appointment = Appointment.Get(doc.AppId);
 
             doc.DocPackInfo = DB.Entity.Get.DocInfo(docid)
                 .Select(x => DAL.DocPackInfo.Converter(x))
@@ -52,6 +54,12 @@ namespace system4.DAL
                 docPackInfo.DocPackList = DB.Entity.Get.DocList(docPackInfo.Id)
                     .Select(x => DAL.DocPackList.Converter(x))
                     .ToList();
+
+                foreach (var docPackList in docPackInfo.DocPackList)
+                {
+                    docPackList.AppData = doc.Appointment.AppData
+                        .SingleOrDefault(x => x.Id == docPackList.ApplId);
+                }
             }
 
             return doc;

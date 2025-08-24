@@ -23,9 +23,9 @@ namespace system4.DB
 
         public int VisaType { get; set; }
 
-        public int JurID { get; set; }
+        public int JurId { get; set; }
 
-        public int AppID { get; set; }
+        public int AppId { get; set; }
 
         public int Shipping { get; set; }
 
@@ -39,7 +39,7 @@ namespace system4.DB
 
         public string Template { get; set; }
 
-        public int CenterID { get; set; }
+        public int CenterId { get; set; }
 
         public string Mobile { get; set; }
 
