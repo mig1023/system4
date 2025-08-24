@@ -65,6 +65,18 @@ namespace system4.DB.Entity
             }
         }
 
+        public static List<DocPack> DocsByDate(DateTime date)
+        {
+            using (var db = new EntityContext())
+            {
+                var docs = db.DocPack
+                    .Where(x => x.PDate == date.Date)
+                    .ToList();
+
+                return docs;
+            }
+        }
+
         public static DocPack Doc(int docid)
         {
             using (var db = new EntityContext())
@@ -76,23 +88,25 @@ namespace system4.DB.Entity
             }
         }
 
-        public static DocPackInfo DocInfo(int docid)
+        public static List<DocPackInfo> DocInfo(int docid)
         {
             using (var db = new EntityContext())
             {
                 var docinfo = db.DocPackInfo
-                    .SingleOrDefault(x => x.PackId == docid);
+                    .Where(x => x.PackId == docid)
+                    .ToList();
 
                 return docinfo;
             }
         }
 
-        public static DocPackList DocList(int docinfoid)
+        public static List<DocPackList> DocList(int docinfoid)
         {
             using (var db = new EntityContext())
             {
                 var doclist = db.DocPackList
-                    .SingleOrDefault(x => x.PackInfoId == docinfoid);
+                    .Where(x => x.PackInfoId == docinfoid)
+                    .ToList();
 
                 return doclist;
             }
