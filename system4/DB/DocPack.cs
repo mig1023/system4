@@ -5,7 +5,7 @@ namespace system4.DB
     public class DocPack
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         public DateTime PDate { get; set; }
 

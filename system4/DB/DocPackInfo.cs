@@ -5,11 +5,11 @@ namespace system4.DB
     public class DocPackInfo
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        public int PackID { get; set; }
+        public int PackId { get; set; }
 
-        public string BankID { get; set; }
+        public string BankId { get; set; }
 
         public float PSum { get; set; }
 

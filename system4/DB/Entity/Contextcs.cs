@@ -17,6 +17,12 @@ namespace system4.DB.Entity
 
             public DbSet<AppComments> AppComments { get; set; }
 
+            public DbSet<DocPack> DocPack { get; set; }
+
+            public DbSet<DocPackInfo> DocPackInfo { get; set; }
+
+            public DbSet<DocPackList> DocPackList { get; set; }
+
             public DbSet<Branches> Branches { get; set; }
 
             public DbSet<VisaTypes> VisaTypes { get; set; }

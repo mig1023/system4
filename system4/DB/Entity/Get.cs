@@ -65,6 +65,39 @@ namespace system4.DB.Entity
             }
         }
 
+        public static DocPack Doc(int docid)
+        {
+            using (var db = new EntityContext())
+            {
+                var doc = db.DocPack
+                    .SingleOrDefault(x => x.Id == docid);
+
+                return doc;
+            }
+        }
+
+        public static DocPackInfo DocInfo(int docid)
+        {
+            using (var db = new EntityContext())
+            {
+                var docinfo = db.DocPackInfo
+                    .SingleOrDefault(x => x.PackId == docid);
+
+                return docinfo;
+            }
+        }
+
+        public static DocPackList DocList(int docinfoid)
+        {
+            using (var db = new EntityContext())
+            {
+                var doclist = db.DocPackList
+                    .SingleOrDefault(x => x.PackInfoId == docinfoid);
+
+                return doclist;
+            }
+        }
+
         public static Branches Branches(int appid)
         {
             using (var db = new EntityContext())

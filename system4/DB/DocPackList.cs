@@ -5,11 +5,11 @@ namespace system4.DB
     public class DocPackList
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        public int PackInfoID { get; set; }
+        public int PackInfoId { get; set; }
 
-        public string CBankID { get; set; }
+        public string CBankId { get; set; }
 
         public string FName { get; set; }
 
@@ -27,7 +27,7 @@ namespace system4.DB
 
         public string Login { get; set; }
 
-        public int ApplID { get; set; }
+        public int ApplId { get; set; }
 
         public int Reject { get; set; }
 
