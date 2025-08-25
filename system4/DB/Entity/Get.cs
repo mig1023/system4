@@ -112,6 +112,18 @@ namespace system4.DB.Entity
             }
         }
 
+        public static List<DocComments> DocComments(int docid)
+        {
+            using (var db = new EntityContext())
+            {
+                var comments = db.DocComments
+                    .Where(x => x.DocId == docid)
+                    .ToList();
+
+                return comments;
+            }
+        }
+
         public static Branches Branches(int appid)
         {
             using (var db = new EntityContext())

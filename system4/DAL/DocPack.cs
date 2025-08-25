@@ -15,6 +15,8 @@ namespace system4.DAL
 
         public Appointment Appointment { get; set; }
 
+        public List<DocComments> Comments { get; set; }
+
         private static DocPack Converter(DB.DocPack dbDoc)
         {
             var doc = new DocPack();
@@ -44,6 +46,7 @@ namespace system4.DAL
             doc.VisaTypeLine = DB.Entity.Get.VisaTypes(doc.VisaType);
             doc.StatusLine = Constants.DocStatuses(doc.PStatus);
             doc.Appointment = Appointment.Get(doc.AppId);
+            doc.Comments = DB.Entity.Get.DocComments(docid);
 
             doc.DocPackInfo = DB.Entity.Get.DocInfo(docid)
                 .Select(x => DAL.DocPackInfo.Converter(x))

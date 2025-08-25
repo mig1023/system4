@@ -23,6 +23,8 @@ namespace system4.DB.Entity
 
             public DbSet<DocPackList> DocPackList { get; set; }
 
+            public DbSet<DocComments> DocComments { get; set; }
+
             public DbSet<Branches> Branches { get; set; }
 
             public DbSet<VisaTypes> VisaTypes { get; set; }
