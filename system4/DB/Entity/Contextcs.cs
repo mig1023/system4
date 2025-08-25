@@ -25,6 +25,8 @@ namespace system4.DB.Entity
 
             public DbSet<DocComments> DocComments { get; set; }
 
+            public DbSet<DocPackOptional> DocPackOptional { get; set; }
+
             public DbSet<Branches> Branches { get; set; }
 
             public DbSet<VisaTypes> VisaTypes { get; set; }

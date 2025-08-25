@@ -17,6 +17,8 @@ namespace system4.DAL
 
         public List<DocComments> Comments { get; set; }
 
+        public DocPackOptional DocPackOptional { get; set; }
+
         private static DocPack Converter(DB.DocPack dbDoc)
         {
             var doc = new DocPack();
@@ -47,6 +49,7 @@ namespace system4.DAL
             doc.StatusLine = Constants.DocStatuses(doc.PStatus);
             doc.Appointment = Appointment.Get(doc.AppId);
             doc.Comments = DB.Entity.Get.DocComments(docid);
+            doc.DocPackOptional = DB.Entity.Get.DocPackOptional(docid);
 
             doc.DocPackInfo = DB.Entity.Get.DocInfo(docid)
                 .Select(x => DAL.DocPackInfo.Converter(x))

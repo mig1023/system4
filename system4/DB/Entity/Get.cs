@@ -124,6 +124,17 @@ namespace system4.DB.Entity
             }
         }
 
+        public static DocPackOptional DocPackOptional(int docid)
+        {
+            using (var db = new EntityContext())
+            {
+                var options = db.DocPackOptional
+                    .SingleOrDefault(x => x.DocPackId == docid);
+
+                return options;
+            }
+        }
+        
         public static Branches Branches(int appid)
         {
             using (var db = new EntityContext())
