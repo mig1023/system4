@@ -123,33 +123,44 @@
 
 <div class="container p-0">
     <h1 class="display-5 padding_headers">Список заявителей:</h1>
-    <div class="container p-0">
-        @{
-            int i = 1;
-            foreach (DAL.DocPackInfo docinfo in Model.DocPack.DocPackInfo)
-            {
-                foreach (DAL.DocPackList doclist in docinfo.DocPackList)
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ФИО</th>
+                <th scope="col">Загранпаспорт</th>
+                <th scope="col">День рождения</th>
+                <th scope="col">День вылета</th>
+                <th scope="col">BankId</th>
+                <th scope="col">Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                foreach (DAL.DocPackInfo docinfo in Model.DocPack.DocPackInfo)
                 {
-                    <div class="row align-items-start">
-                        <div class="col-1">@(i++).</div>
-                        <div class="col align-items-start">@doclist.FName @doclist.LName (@doclist.AppData.FName @doclist.AppData.LName)</div>
-                        <div class="col">@doclist.PassNum</div>
-                        <div class="col">@doclist.BthDate.ToString("dd.MM.yyyy")</div>
-                        <div class="col">@doclist.FlyDate.ToString("dd.MM.yyyy")</div>
-                        <div class="col">@docinfo.BankId / @doclist.CBankId</div>
-                        <div class="col">@DAL.Constants.DocStatuses(doclist.Status)</div>
-                    </div>
+                    foreach (DAL.DocPackList doclist in docinfo.DocPackList)
+                    {
+                        <tr>
+                            <th scope="row">@(i++)</th>
+                            <td>@doclist.FName @doclist.LName (@doclist.AppData.FName @doclist.AppData.LName)</td>
+                            <td>@doclist.PassNum</td>
+                            <td>@doclist.BthDate.ToString("dd.MM.yyyy")</td>
+                            <td>@doclist.FlyDate.ToString("dd.MM.yyyy")</td>
+                            <td>@docinfo.BankId / @doclist.CBankId</td>
+                            <td>@DAL.Constants.DocStatuses(doclist.Status)</td>
+                        </tr>
+                    }
                 }
             }
-        }
-    </div>
+        </tbody>
+    </table>
 </div>
 
 @if (Model.DocPack.Comments.Count > 0)
 {
-    <p> </p>
-
-    <div class="border border-danger">
+    <div class="border border-danger padding_comments">
         @foreach (DB.DocComments comment in Model.DocPack.Comments)
         {
             <div class="row align-items-start m-3 comment_text">
