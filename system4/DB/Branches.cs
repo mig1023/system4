@@ -4,6 +4,7 @@ namespace system4.DB
 {
     public class Branches
     {
+        [Key]
         public int Id { get; set; }
 
         public string BName { get; set; }
