@@ -25,6 +25,7 @@ html {
 }
 
 .padding_headers {
+    margin-top: 30px;
     padding-bottom: 20px;
     padding-top: 20px;
     padding-left: 0px;
@@ -32,7 +33,7 @@ html {
 }
 
 .padding_comments {
-    margin-top: 20px;
+    margin-top: 50px;
     padding-bottom: 10px;
     padding-top: 10px;
     padding-left: 0px;

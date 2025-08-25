@@ -96,25 +96,34 @@
     </div>
 </div>
 
-<p> </p>
-
 <div class="container p-0">
     <h1 class="display-5 padding_headers">Список заявителей:</h1>
-    <div class="container p-0">
-        @{
-            int i = 1;
-            foreach (DAL.AppData app in Model.Appointment.AppData)
-            {
-                <div class="row align-items-start">
-                    <div class="col-1">@(i++).</div>
-                    <div class="col align-items-start">@app.FName @app.LName</div>
-                    <div class="col">@app.PassNum</div>
-                    <div class="col">@app.BirthDate.ToString("dd.MM.yyyy")</div>
-                    <div class="col">@DAL.Constants.AppStatuses(app.Status)</div>
-                </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ФИО</th>
+                <th scope="col">Загранпаспорт</th>
+                <th scope="col">День рождения</th>
+                <th scope="col">Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                foreach (DAL.AppData app in Model.Appointment.AppData)
+                {
+                    <tr>
+                        <th scope="row">@(i++)</th>
+                        <td>@app.FName @app.LName</td>
+                        <td>@app.PassNum</td>
+                        <td>@app.BirthDate.ToString("dd.MM.yyyy")</td>
+                        <td>@DAL.Constants.AppStatuses(app.Status)</td>
+                    </tr>
+                }
             }
-        }
-    </div>
+        </tbody>
+    </table>
 </div>
 
 @if (Model.Appointment.Comments.Count > 0)
