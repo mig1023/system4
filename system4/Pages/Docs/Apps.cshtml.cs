@@ -9,9 +9,9 @@ namespace system4.Pages.Docs
     {
         public List<DAL.Appointment> Appointments { get; set; }
 
-        public void OnGet()
-        {
-            Appointments = DAL.Appointment.List(DateTime.Now.ToString());
+        public void OnGet(int? pageNum)
+        {       
+            Appointments = DAL.Appointment.List(DateTime.Now.ToString(), pageNum);
         }
     }
 }

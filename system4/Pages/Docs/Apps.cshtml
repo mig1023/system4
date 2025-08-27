@@ -1,4 +1,4 @@
-﻿@page "/apps/"
+﻿@page "/apps/{pageNum?}"
 @model system4.Pages.Docs.AppsModel
 @{
     ViewData["Title"] = "Apps";
@@ -6,13 +6,36 @@
 
 <div class="text-center">
     <h1 class="display-4">Записи на подачу</h1>
-    
-    @foreach (DAL.Appointment app in Model.Appointments)
-    {
-        <a class="normal-link" href="/apps/@app.Id/">@app.AppNum</a>
-        @app.AppDate.Date.ToString("dd.MM.yyyy")
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Дата записи</th>
+                <th scope="col">Время записи</th>
+                <th scope="col">Кол-во</th>
+                <th scope="col">Визовый центр</th>
+                <th scope="col">Тип визы</th>
+                <th scope="col">Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (DAL.Appointment app in Model.Appointments)
+                {
+                    TimeSpan start = TimeSpan.FromSeconds(app.TimeData.TStart);
+                    TimeSpan end = TimeSpan.FromSeconds(app.TimeData.TEnd);
 
-        <br />
-    }
-
+                    <tr>
+                        <td><a class="normal-link" href="/app/@app.Id/">@app.AppNum</a></td>
+                        <td>@app.AppDate.Date.ToString("dd.MM.yyyy")</td>
+                        <td>@start.ToString(@"hh\:mm") - @end.ToString(@"hh\:mm")</td>
+                        <td>@app.NCount</td>
+                        <td>@app.Center.BName</td>
+                        <td>@app.VisaType.VName</td>
+                        <td>@DAL.Constants.AppStatuses(app.Status)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>

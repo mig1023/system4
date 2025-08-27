@@ -53,10 +53,10 @@ namespace system4.DAL
             return app;
         }
 
-        public static List<Appointment> List(string search)
+        public static List<Appointment> List(string search, int? page)
         {
-            var apps = DB.Entity.Get.AppsByDate(DateTime.Parse(search))
-                .Select(x => Converter(x))
+            var apps = DB.Entity.Get.AppsByDate(DateTime.Parse(search), page ?? 1, Constants.PageSize)
+                .Select(x => Get(x))
                 .ToList();
 
             return apps;

@@ -2,6 +2,8 @@
 {
     public class Constants
     {
+        public const int PageSize = 10;
+
         public static string AppStatuses(int status)
         {
             var statuses = new Dictionary<int, string>

@@ -18,12 +18,15 @@ namespace system4.DB.Entity
             }
         }
 
-        public static List<Appointment> AppsByDate(DateTime date)
+        public static List<int> AppsByDate(DateTime date, int page, int size)
         {
             using (var db = new EntityContext())
             {
                 var apps = db.Appointments
                     .Where(x => x.AppDate == date.Date)
+                    .Select(x => x.Id)
+                    .Skip(size * (page - 1))
+                    .Take(size)
                     .ToList();
 
                 return apps;
