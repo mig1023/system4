@@ -151,16 +151,9 @@
                             <td>@doclist.PassNum</td>
                             <td>@doclist.BthDate.ToString("dd.MM.yyyy")</td>
                             <td>@doclist.FlyDate.ToString("dd.MM.yyyy")</td>
-                            @if (@doclist.iNRes > 0)
-                            {
-                                <td>да</td>
-                            }
-                            else
-                            {
-                                <td></td>
-                            }
-                            <td>Х</td>
-                            <td>Х</td>
+                            <td>@(doclist.iNRes > 0 ? "да" : "")</td>
+                            <td>@(doclist.Concil > 0 ? "да" : "")</td>
+                            <td>@(doclist.Reject > 0 ? "да" : "")</td>
                             <td>@doclist.CBankId</td>
                             <td>@DAL.Constants.DocStatuses(doclist.Status)</td>
                         </tr>
