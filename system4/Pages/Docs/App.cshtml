@@ -35,25 +35,11 @@
                 </div> 
                 <div class="row align-items-start">
                     <div class="col-4">Доставка:</div>
-                    @if (Model.Appointment.Shipping > 0)
-                    {
-                        <div class="col-sm-8">@Model.Appointment.ShAddress</div>
-                    }
-                    else
-                    {
-                        <div class="col-sm-8">нет</div>
-                    }
+                    <div class="col-sm-8">@(Model.Appointment.Shipping > 0 ? Model.Appointment.ShAddress : "нет")</div>
                 </div> 
                 <div class="row align-items-start">
                     <div class="col-4">Отправка SMS:</div>
-                    @if (Model.Appointment.SMS > 0)
-                    {
-                        <div class="col-sm-8"><b>@Model.Appointment.Mobile</b></div>
-                    }
-                    else
-                    {
-                        <div class="col-sm-8">нет</div>
-                    }
+                    <div class="col-sm-8">@(Model.Appointment.SMS > 0 ? Model.Appointment.Mobile : "нет")</div>
                 </div> 
                 <div class="row align-items-start">
                     <div class="col-4">Документы подаются:</div>
