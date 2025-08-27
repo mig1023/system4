@@ -90,6 +90,7 @@
                 <th scope="col">#</th>
                 <th scope="col">ФИО</th>
                 <th scope="col">Загранпаспорт</th>
+                <th scope="col">Н/рез</th>
                 <th scope="col">День рождения</th>
                 <th scope="col">Статус</th>
             </tr>
@@ -103,6 +104,7 @@
                         <th scope="row">@(i++)</th>
                         <td>@app.FName @app.LName</td>
                         <td>@app.PassNum</td>
+                        <td>@(app.NRes > 0 ? "да" : "")</td>
                         <td>@app.BirthDate.ToString("dd.MM.yyyy")</td>
                         <td>@DAL.Constants.AppStatuses(app.Status)</td>
                     </tr>
