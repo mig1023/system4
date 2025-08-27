@@ -46,14 +46,8 @@
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Отправка SMS:</div>
-                    @if (Model.DocPack.SMS > 0)
-                    {
-                        <div class="col-sm-8"><b>@Model.DocPack.Mobile</b></div>
-                    }
-                    else
-                    {
-                        <div class="col-sm-8">нет</div>
-                    }
+                    <div class="col-sm-8"><b>@(Model.DocPack.SMS > 0 ? Model.DocPack.Mobile : "нет")</b></div>
+
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Сумма по договору:</div>
