@@ -129,3 +129,20 @@
 
     </div>
 }
+
+<div class="container p-0 comment_text padding_headers">
+    <table>
+        <tr>
+            <td>Дата последнего изменения:</td>
+            <td>@Model.Appointment.RDate.ToString("dd.MM.yyyy HH:mm:SS")</td>
+        </tr>
+        <tr>
+            <td>Создал:</td>
+            <td>@Model.Appointment.Login</td>
+        </tr>
+        <tr>
+            <td>Примечания:</td>
+            <td>@Model.Appointment.Notes</td>
+        </tr>
+    </table>
+</div>
