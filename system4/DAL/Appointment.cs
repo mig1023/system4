@@ -14,6 +14,8 @@ namespace system4.DAL
 
         public List<AppComments> Comments { get; set; }
 
+        public DB.TimeData TimeData { get; set; }
+
         private static Appointment Converter(DB.Appointment dbApp)
         {
             var app = new Appointment();
@@ -40,8 +42,9 @@ namespace system4.DAL
             var app = Converter(DB.Entity.Get.App(appid));
             
             app.Comments = DB.Entity.Get.AppComments(appid);
-            app.Center = DB.Entity.Get.Branches(app.CenterID);
+            app.Center = DB.Entity.Get.Branches(app.CenterId);
             app.VisaType = DB.Entity.Get.VisaTypes(app.VType);
+            app.TimeData = DB.Entity.Get.TimeData(app.TimeslotId);
 
             app.AppData = DB.Entity.Get.AppData(appid)
                 .Select(x => DAL.AppData.Converter(x))

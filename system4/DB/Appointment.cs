@@ -11,11 +11,11 @@ namespace system4.DB
 
         public DateTime AppDate { get; set; }
 
-        public int TimeslotID { get; set; }
+        public int TimeslotId { get; set; }
 
         public DateTime RDate { get; set; }
 
-        public int CenterID { get; set; }
+        public int CenterId { get; set; }
 
         public string Login { get; set; }
 

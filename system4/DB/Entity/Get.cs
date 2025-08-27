@@ -30,35 +30,35 @@ namespace system4.DB.Entity
             }
         }
 
-        public static Appointment App(int appid)
+        public static Appointment App(int appId)
         {
             using (var db = new EntityContext())
             {
                 var app = db.Appointments
-                    .SingleOrDefault(x => x.Id == appid);
+                    .SingleOrDefault(x => x.Id == appId);
 
                 return app;
             }
         }
 
-        public static List<AppData> AppData(int appid)
+        public static List<AppData> AppData(int appId)
         {
             using (var db = new EntityContext())
             {
                 var apps = db.AppData
-                    .Where(x => x.AppID == appid)
+                    .Where(x => x.AppID == appId)
                     .ToList();
 
                 return apps;
             }
         }
 
-        public static List<AppComments> AppComments(int appid)
+        public static List<AppComments> AppComments(int appId)
         {
             using (var db = new EntityContext())
             {
                 var comments = db.AppComments
-                    .Where(x => x.AppID == appid)
+                    .Where(x => x.AppID == appId)
                     .ToList();
 
                 return comments;
@@ -77,83 +77,94 @@ namespace system4.DB.Entity
             }
         }
 
-        public static DocPack Doc(int docid)
+        public static DocPack Doc(int docId)
         {
             using (var db = new EntityContext())
             {
                 var doc = db.DocPack
-                    .SingleOrDefault(x => x.Id == docid);
+                    .SingleOrDefault(x => x.Id == docId);
 
                 return doc;
             }
         }
 
-        public static List<DocPackInfo> DocInfo(int docid)
+        public static List<DocPackInfo> DocInfo(int docId)
         {
             using (var db = new EntityContext())
             {
                 var docinfo = db.DocPackInfo
-                    .Where(x => x.PackId == docid)
+                    .Where(x => x.PackId == docId)
                     .ToList();
 
                 return docinfo;
             }
         }
 
-        public static List<DocPackList> DocList(int docinfoid)
+        public static List<DocPackList> DocList(int docInfoId)
         {
             using (var db = new EntityContext())
             {
                 var doclist = db.DocPackList
-                    .Where(x => x.PackInfoId == docinfoid)
+                    .Where(x => x.PackInfoId == docInfoId)
                     .ToList();
 
                 return doclist;
             }
         }
 
-        public static List<DocComments> DocComments(int docid)
+        public static List<DocComments> DocComments(int docId)
         {
             using (var db = new EntityContext())
             {
                 var comments = db.DocComments
-                    .Where(x => x.DocId == docid)
+                    .Where(x => x.DocId == docId)
                     .ToList();
 
                 return comments;
             }
         }
 
-        public static DocPackOptional DocPackOptional(int docid)
+        public static DocPackOptional DocPackOptional(int docId)
         {
             using (var db = new EntityContext())
             {
                 var options = db.DocPackOptional
-                    .SingleOrDefault(x => x.DocPackId == docid);
+                    .SingleOrDefault(x => x.DocPackId == docId);
 
                 return options;
             }
         }
         
-        public static Branches Branches(int appid)
+        public static Branches Branches(int appId)
         {
             using (var db = new EntityContext())
             {
                 var branch = db.Branches
-                    .SingleOrDefault(x => x.Id == appid);
+                    .SingleOrDefault(x => x.Id == appId);
 
                 return branch;
             }
         }
         
-        public static VisaTypes VisaTypes(int appid)
+        public static VisaTypes VisaTypes(int appId)
         {
             using (var db = new EntityContext())
             {
                 var type = db.VisaTypes
-                    .SingleOrDefault(x => x.Id == appid);
+                    .SingleOrDefault(x => x.Id == appId);
 
                 return type;
+            }
+        }
+
+        public static TimeData TimeData(int slotId)
+        {
+            using (var db = new EntityContext())
+            {
+                var slot = db.TimeData
+                    .SingleOrDefault(x => x.SlotId == slotId);
+
+                return slot;
             }
         }
     }

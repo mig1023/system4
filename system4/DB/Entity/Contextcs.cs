@@ -31,6 +31,8 @@ namespace system4.DB.Entity
 
             public DbSet<VisaTypes> VisaTypes { get; set; }
 
+            public DbSet<TimeData> TimeData { get; set; }
+
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {

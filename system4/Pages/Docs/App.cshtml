@@ -15,11 +15,12 @@
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Дата записи:</div>
-                    <div class="col-sm-8">@Model.Appointment.AppDate.ToString("dd.MM.yyyy")</div>
-                </div>
-                <div class="row align-items-start">
-                    <div class="col-4">Время записи:</div>
-                    <div class="col-sm-8">@Model.Appointment.TimeslotID</div>
+                    @{
+                        TimeSpan start = TimeSpan.FromSeconds(@Model.Appointment.TimeData.TStart);
+                        TimeSpan end = TimeSpan.FromSeconds(@Model.Appointment.TimeData.TEnd);
+                    }
+                    <div class="col-sm-8">@Model.Appointment.AppDate.ToString("dd.MM.yyyy") 
+                        @start.ToString(@"hh\:mm") - @end.ToString(@"hh\:mm")</div>
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Визоый центр:</div>
