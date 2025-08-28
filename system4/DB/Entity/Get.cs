@@ -18,10 +18,16 @@ namespace system4.DB.Entity
             }
         }
 
-        public static List<int> AppsByDate(DateTime date, int page, int size)
+        public static List<int> AppsByDate(DateTime date, int page, int size, out int allListCount)
         {
             using (var db = new EntityContext())
             {
+                var count = db.Appointments
+                    .Where(x => x.AppDate == date.Date)
+                    .Count();
+
+                allListCount = count;
+
                 var apps = db.Appointments
                     .Where(x => x.AppDate == date.Date)
                     .Select(x => x.Id)
@@ -138,12 +144,12 @@ namespace system4.DB.Entity
             }
         }
         
-        public static Branches Branches(int appId)
+        public static Branches Branches(int centerId)
         {
             using (var db = new EntityContext())
             {
                 var branch = db.Branches
-                    .SingleOrDefault(x => x.Id == appId);
+                    .SingleOrDefault(x => x.Id == centerId);
 
                 return branch;
             }

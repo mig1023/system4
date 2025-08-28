@@ -39,3 +39,16 @@
         </tbody>
     </table>
 </div>
+
+<div>
+    @{
+        for (int i = 1; i <= Model.Pages; i++)
+        {
+            <a class="normal-link" href="/apps/@i/">@i</a>
+            if (i < Model.Pages)
+            {
+                <text>--</text>
+            }
+        }
+    }
+</div>
