@@ -61,14 +61,12 @@ namespace system4.DAL
             if (DateTime.TryParse(search, out DateTime date))
             {
                 appIds = DB.Entity.Get
-                    .AppsByDate(date, page ?? 1, Constants.PageSize, out count)
-                    .ToList();
+                    .AppsByDate(date, page ?? 1, Constants.PageSize, out count);
             }
             else if (search.Length == 9)
             {
                 appIds = DB.Entity.Get
-                    .AppsByPassnum(search, page ?? 1, Constants.PageSize, out count)
-                    .ToList();
+                    .AppsByPassnum(search, page ?? 1, Constants.PageSize, out count);
             }
 
             var apps = appIds
