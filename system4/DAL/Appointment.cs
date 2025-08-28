@@ -55,15 +55,29 @@ namespace system4.DAL
 
         public static List<Appointment> List(string search, int? page, out int pageCount)
         {
-            var apps = DB.Entity.Get.AppsByDate(DateTime.Parse(search), page ?? 1, Constants.PageSize, out int count).ToList();
-                
-            var apps2 = apps
+            List<int> appIds = new List<int>();
+            int count = 0;
+
+            if (DateTime.TryParse(search, out DateTime date))
+            {
+                appIds = DB.Entity.Get
+                    .AppsByDate(date, page ?? 1, Constants.PageSize, out count)
+                    .ToList();
+            }
+            else if (search.Length == 9)
+            {
+                appIds = DB.Entity.Get
+                    .AppsByPassnum(search, page ?? 1, Constants.PageSize, out count)
+                    .ToList();
+            }
+
+            var apps = appIds
                 .Select(x => Get(x))
                 .ToList();
 
             pageCount = (int)Math.Ceiling((double)count / Constants.PageSize);
 
-            return apps2;
+            return apps;
         }
     }
 }

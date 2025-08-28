@@ -8,7 +8,7 @@ namespace system4.DB
         [Key]
         public int Id { get; set; }
 
-        public int AppID { get; set; }
+        public int AppId { get; set; }
 
         public string FName { get; set; }
 

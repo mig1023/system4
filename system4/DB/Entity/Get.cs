@@ -39,6 +39,29 @@ namespace system4.DB.Entity
             }
         }
 
+        public static List<int> AppsByPassnum(string pass, int page, int size, out int allListCount)
+        {
+            using (var db = new EntityContext())
+            {
+                var count = db.AppData
+                    .Where(x => x.PassNum == pass)
+                    .Distinct()
+                    .Count();
+
+                allListCount = count;
+
+                var apps = db.AppData
+                    .Where(x => x.PassNum == pass)
+                    .Distinct()
+                    .Select(x => x.AppId)
+                    .Skip(size * (page - 1))
+                    .Take(size)
+                    .ToList();
+
+                return apps;
+            }
+        }
+
         public static Appointment App(int appId)
         {
             using (var db = new EntityContext())
@@ -55,7 +78,7 @@ namespace system4.DB.Entity
             using (var db = new EntityContext())
             {
                 var apps = db.AppData
-                    .Where(x => x.AppID == appId)
+                    .Where(x => x.AppId == appId)
                     .ToList();
 
                 return apps;
