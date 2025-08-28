@@ -87,12 +87,12 @@ namespace system4.DB
 
         public int RegionType { get; set; }
 
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
-        public string SubmissionTime { get; set; }
+        public string? SubmissionTime { get; set; }
 
-        public string CollectionTime { get; set; }
+        public string? CollectionTime { get; set; }
     }
 }
