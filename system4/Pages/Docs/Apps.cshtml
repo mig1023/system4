@@ -6,6 +6,24 @@
 
 <div class="text-center">
     <h1 class="display-4">Записи на подачу</h1>
+
+    <form method="post">
+        <div class="input-group padding_search">
+
+            <input type="search" asp-for="Search" class="form-control rounded" placeholder="01.01.2025"
+                aria-label="Search" aria-describedby="search-addon" value="@Model.Search"/>
+
+            <button type="submit" class="btn btn-outline-primary padding_search_buttons"
+                data-mdb-ripple-init name="doSearch">искать</button>
+
+            @if (!String.IsNullOrEmpty(Model.Search))
+            {
+                <button type="submit" class="btn btn-danger padding_search_buttons"
+                    data-mdb-ripple-init name="doClean">сбросить</button>
+            }
+        </div>
+    </form>
+
     <table class="table">
         <thead>
             <tr>
@@ -50,7 +68,15 @@
 
         for (int i = 1; i <= Model.Pages; i++)
         {
-            <a class="normal-link" href="/apps/@i/">@i</a>
+            if (i == Model.Current)
+            {
+                <b>@i</b>
+            }
+            else
+            {
+                <a class="normal-link" href="/apps/@i/">@i</a>
+            }
+            
             if (i < Model.Pages)
             {
                 <text>-</text>
