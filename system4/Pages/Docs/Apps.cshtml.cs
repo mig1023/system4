@@ -11,10 +11,13 @@ namespace system4.Pages.Docs
 
         public int Pages { get; set; }
 
+        public int Current { get; set; }
+
         public void OnGet(int? pageNum)
         {       
             Appointments = DAL.Appointment.List(DateTime.Now.ToString(), pageNum, out int pages);
             Pages = pages;
+            Current = pageNum ?? 1;
         }
     }
 }

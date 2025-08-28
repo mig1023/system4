@@ -40,15 +40,27 @@
     </table>
 </div>
 
-<div>
+<div class="text-center">
     @{
+        if (Model.Current > 1)
+        {
+            <a class="normal-link" href="/apps/@(Model.Current - 1)/">предыдущая</a>
+            <text> -</text>
+        }
+
         for (int i = 1; i <= Model.Pages; i++)
         {
             <a class="normal-link" href="/apps/@i/">@i</a>
             if (i < Model.Pages)
             {
-                <text>--</text>
+                <text>-</text>
             }
+        }
+
+        if (Model.Current < Model.Pages)
+        {
+            <text>- </text>
+            <a class="normal-link" href="/apps/@(Model.Current + 1)/">следующая</a>
         }
     }
 </div>
