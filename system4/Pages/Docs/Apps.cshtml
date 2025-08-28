@@ -38,21 +38,31 @@
         </thead>
         <tbody>
             @{
-                foreach (DAL.Appointment app in Model.Appointments)
+                if (Model.Appointments.Count > 0)
                 {
-                    TimeSpan start = TimeSpan.FromSeconds(app.TimeData.TStart);
-                    TimeSpan end = TimeSpan.FromSeconds(app.TimeData.TEnd);
+                    foreach (DAL.Appointment app in Model.Appointments)
+                    {
+                        TimeSpan start = TimeSpan.FromSeconds(app.TimeData.TStart);
+                        TimeSpan end = TimeSpan.FromSeconds(app.TimeData.TEnd);
 
+                        <tr>
+                            <td><a class="normal-link" href="/app/@app.Id/">@app.AppNum</a></td>
+                            <td>@app.AppDate.Date.ToString("dd.MM.yyyy")</td>
+                            <td>@start.ToString(@"hh\:mm") - @end.ToString(@"hh\:mm")</td>
+                            <td>@app.NCount</td>
+                            <td>@app.Center.BName</td>
+                            <td>@app.VisaType.VName</td>
+                            <td>@DAL.Constants.AppStatuses(app.Status)</td>
+                        </tr>
+                    }
+                }
+                else
+                {
                     <tr>
-                        <td><a class="normal-link" href="/app/@app.Id/">@app.AppNum</a></td>
-                        <td>@app.AppDate.Date.ToString("dd.MM.yyyy")</td>
-                        <td>@start.ToString(@"hh\:mm") - @end.ToString(@"hh\:mm")</td>
-                        <td>@app.NCount</td>
-                        <td>@app.Center.BName</td>
-                        <td>@app.VisaType.VName</td>
-                        <td>@DAL.Constants.AppStatuses(app.Status)</td>
+                        <td colspan="7"><i>Список пуст, записей не найдено</i></td>
                     </tr>
                 }
+                
             }
         </tbody>
     </table>
