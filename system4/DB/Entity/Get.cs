@@ -95,21 +95,19 @@ namespace system4.DB.Entity
         }
 
         public static List<int> DocsByDate(DateTime date, int page, int size,
-            bool juridical, out int allListCount)
+            bool juridical, out int count)
         {
             using (var db = new EntityContext())
             {
-                var count = db.DocPack
-                    .Where(x => x.PDate == date.Date)
-                    .Where(x => juridical ? x.JurId > 0 : x.JurId == 0)
-                    .Count();
-
-                allListCount = count;
-
-                var docs = db.DocPack
+                var allDocs = db.DocPack
                     .Where(x => x.PDate == date.Date)
                     .Where(x => juridical ? x.JurId > 0 : x.JurId == 0)
                     .Select(x => x.Id)
+                    .ToList();
+
+                count = allDocs.Count;
+
+                var docs = allDocs
                     .Skip(size * (page - 1))
                     .Take(size)
                     .ToList();
