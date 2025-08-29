@@ -79,6 +79,11 @@ namespace system4.DAL
                 docIds = DB.Entity.Get
                     .DocsByDate(date, page ?? 1, Constants.PageSize, juridical, out count);
             }
+            else if (search.Length == 9)
+            {
+                docIds = DB.Entity.Get
+                    .DocsByPassnum(search, page ?? 1, Constants.PageSize, juridical, out count);
+            }
 
             var docs = docIds
                 .Select(x => Get(x))

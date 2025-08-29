@@ -73,7 +73,7 @@ namespace system4.DB
 
         public int PolicyType { get; set; }
 
-        public int PacketID { get; set; }
+        public int PacketId { get; set; }
 
         public int Shipping { get; set; }
 

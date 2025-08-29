@@ -121,6 +121,36 @@ namespace system4.DB.Entity
             }
         }
 
+        public static List<int> DocsByPassnum(string pass, int page, int size,
+            bool juridical, out int allListCount)
+        {
+            using (var db = new EntityContext())
+            {
+                var lists = db.DocPackList
+                    .Where(x => x.PassNum == pass)
+                    .Select(x => x.PackInfoId)
+                    .ToList();
+
+                var infos = db.DocPackInfo
+                    .Where(x => lists.Contains(x.Id))
+                    .Select(x => x.PackId)
+                    .Distinct()
+                    .ToList();
+
+                allListCount = infos.Count;
+
+                var docs = db.DocPack
+                    .Where(x => infos.Contains(x.Id))
+                    .Select(x => x.Id)
+                    .Distinct()
+                    .Skip(size * (page - 1))
+                    .Take(size)
+                    .ToList();
+
+                return docs;
+            }
+        }
+
         public static DocPack Doc(int docId)
         {
             using (var db = new EntityContext())
