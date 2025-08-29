@@ -43,7 +43,14 @@
                             <td>@doc.BankId</td>
                             <td>@doc.HDate.Date.ToString("dd.MM.yyyy HH:mm:SS")</td>
                             <td>@doc.Login</td>
-                            <td>@DAL.Constants.DocStatuses(doc.StatusId)</td>
+                            @if (doc.StatusId == 0)
+                            {
+                                <td class="finger_status">finger status: @DAL.Constants.FingerStatuses(doc.FPStatus)</td>
+                            }
+                            else
+                            {
+                                <td>@DAL.Constants.DocStatuses(doc.StatusId)</td>
+                            }
                         </tr>
                     }
                 }

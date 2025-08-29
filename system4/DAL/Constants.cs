@@ -54,5 +54,17 @@
 
             return statuses[status];
         }
+
+        public static string FingerStatuses(int? status)
+        {
+            var statuses = new Dictionary<int, string>
+            {
+                [1] = "pending",
+                [2] = "complete",
+                [3] = "N/A",
+            };
+
+            return statuses[status ?? 1];
+        }
     }
 }

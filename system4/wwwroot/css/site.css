@@ -51,6 +51,10 @@ html {
     margin-left: 10px !important;
 }
 
+.finger_status {
+    color: royalblue;
+}
+
 html {
   position: relative;
   min-height: 100%;
