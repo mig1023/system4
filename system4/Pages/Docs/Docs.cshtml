@@ -1,4 +1,4 @@
-﻿@page "/docs/"
+﻿@page "/docs/{pageNum?}"
 @model system4.Pages.Docs.DocsModel
 @{
     ViewData["Title"] = "Docs";
@@ -7,12 +7,100 @@
 <div class="text-center">
     <h1 class="display-4">Договоры</h1>
 
-    @foreach (DAL.DocPack doc in Model.DocPack)
-    {
-        <a class="normal-link" href="/docs/@doc.Id/">@doc.AgreementNo</a>
-        @doc.PDate.Date.ToString("dd.MM.yyyy")
+    <form method="post">
+        <div class="input-group padding_search">
 
-        <br />
-    }
+            <input type="search" asp-for="Search" class="form-control rounded" placeholder="01.01.2025 или 123456789"
+                   aria-label="Search" aria-describedby="search-addon" value="@Model.Search" />
 
+            <button type="submit" class="btn btn-outline-primary padding_search_buttons"
+                    data-mdb-ripple-init name="doSearch">
+                искать
+            </button>
+
+            @if (!String.IsNullOrEmpty(Model.Search))
+            {
+                <button type="submit" class="btn btn-danger padding_search_buttons"
+                        data-mdb-ripple-init name="doClean">
+                    сбросить
+                </button>
+            }
+        </div>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Дата договора</th>
+                <th scope="col">Заказчик</th>
+                <th scope="col">Номер паспорта</th>
+                <th scope="col">Тип визы</th>
+                <th scope="col">Визовый центр</th>
+                <th scope="col">Доп.инфо</th>
+                <th scope="col">Кол-во виз</th>
+                <th scope="col">Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.DocPack.Count > 0)
+                {
+                    foreach (DAL.DocPack doc in Model.DocPack)
+                    {
+                        <tr>
+                            <td><a class="normal-link" href="/doc/@doc.Id/">@doc.AgreementNo</a></td>
+                            <td>@doc.PDate.Date.ToString("dd.MM.yyyy")</td>
+                            <td>@doc.LName @doc.FName @doc.MName</td>
+                            <td>@doc.PassNum</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7"><i>Список пуст, договоров не найдено</i></td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
 </div>
+
+<div class="text-center">
+    @{
+        if (Model.Current > 1)
+        {
+            <a class="normal-link" href="/docs/@(Model.Current - 1)/">предыдущая</a>
+            <text> -</text>
+        }
+
+        for (int i = 1; i <= Model.Pages; i++)
+        {
+            if (i == Model.Current)
+            {
+                <b>@i</b>
+            }
+            else
+            {
+                <a class="normal-link" href="/docs/@i/">@i</a>
+            }
+
+            if (i < Model.Pages)
+            {
+                <text>-</text>
+            }
+        }
+
+        if (Model.Current < Model.Pages)
+        {
+            <text>- </text>
+            <a class="normal-link" href="/docs/@(Model.Current + 1)/">следующая</a>
+        }
+    }

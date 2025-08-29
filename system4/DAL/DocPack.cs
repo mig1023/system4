@@ -47,7 +47,7 @@ namespace system4.DAL
             doc.Center = DB.Entity.Get.Branches(doc.CenterId);
             doc.VisaTypeLine = DB.Entity.Get.VisaTypes(doc.VisaType);
             doc.StatusLine = Constants.DocStatuses(doc.PStatus);
-            doc.Appointment = Appointment.Get(doc.AppId);
+            doc.Appointment = Appointment.Get(doc.AppId, doc.Id);
             doc.Comments = DB.Entity.Get.DocComments(docid);
             doc.DocPackOptional = DB.Entity.Get.DocPackOptional(docid);
 
@@ -71,13 +71,24 @@ namespace system4.DAL
             return doc;
         }
 
-        public static List<DocPack> List(string search)
+        public static List<DocPack> List(string search, int? page, out int pageCount)
         {
-            var apps = DB.Entity.Get.DocsByDate(DateTime.Parse(search))
-                .Select(x => Converter(x))
+            List<int> docIds = new List<int>();
+            int count = 0;
+
+            if (DateTime.TryParse(search, out DateTime date))
+            {
+                docIds = DB.Entity.Get
+                    .DocsByDate(date, page ?? 1, Constants.PageSize, out count);
+            }
+
+            var docs = docIds
+                .Select(x => Get(x))
                 .ToList();
 
-            return apps;
+            pageCount = (int)Math.Ceiling((double)count / Constants.PageSize);
+
+            return docs;
         }
     }
 }

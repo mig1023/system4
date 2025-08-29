@@ -62,14 +62,20 @@ namespace system4.DB.Entity
             }
         }
 
-        public static Appointment App(int appId)
+        public static Appointment App(int appId, int docId)
         {
             using (var db = new EntityContext())
             {
-                var app = db.Appointments
-                    .SingleOrDefault(x => x.Id == appId);
-
-                return app;
+                if (docId > 0)
+                {
+                    return db.Appointments
+                        .SingleOrDefault(x => x.PacketId == docId);
+                }
+                else
+                {
+                    return db.Appointments
+                        .SingleOrDefault(x => x.Id == appId);
+                }
             }
         }
 
@@ -97,12 +103,21 @@ namespace system4.DB.Entity
             }
         }
 
-        public static List<DocPack> DocsByDate(DateTime date)
+        public static List<int> DocsByDate(DateTime date, int page, int size, out int allListCount)
         {
             using (var db = new EntityContext())
             {
+                var count = db.DocPack
+                    .Where(x => x.PDate == date.Date)
+                    .Count();
+
+                allListCount = count;
+
                 var docs = db.DocPack
                     .Where(x => x.PDate == date.Date)
+                    .Select(x => x.Id)
+                    .Skip(size * (page - 1))
+                    .Take(size)
                     .ToList();
 
                 return docs;
