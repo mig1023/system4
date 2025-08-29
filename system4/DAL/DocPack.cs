@@ -44,10 +44,15 @@ namespace system4.DAL
         {
             var doc = Converter(DB.Entity.Get.Doc(docid));
 
+            if (doc.JurId > 0)
+            {
+                return doc;
+            }
+
             doc.Center = DB.Entity.Get.Branches(doc.CenterId);
             doc.VisaTypeLine = DB.Entity.Get.VisaTypes(doc.VisaType);
             doc.StatusLine = Constants.DocStatuses(doc.PStatus);
-            doc.Appointment = Appointment.Get(doc.AppId, doc.Id);
+            doc.Appointment = Appointment.Get(doc.AppId);
             doc.Comments = DB.Entity.Get.DocComments(docid);
             doc.DocPackOptional = DB.Entity.Get.DocPackOptional(docid);
 

@@ -62,20 +62,14 @@ namespace system4.DB.Entity
             }
         }
 
-        public static Appointment App(int appId, int docId)
+        public static Appointment App(int appId)
         {
             using (var db = new EntityContext())
             {
-                if (docId > 0)
-                {
-                    return db.Appointments
-                        .SingleOrDefault(x => x.PacketId == docId);
-                }
-                else
-                {
-                    return db.Appointments
-                        .SingleOrDefault(x => x.Id == appId);
-                }
+                var app = db.Appointments
+                    .SingleOrDefault(x => x.Id == appId);
+
+                return app;
             }
         }
 

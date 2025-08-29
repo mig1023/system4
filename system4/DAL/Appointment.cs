@@ -37,9 +37,9 @@ namespace system4.DAL
             return app;
         }
 
-        public static Appointment Get(int appid, int docid = 0)
+        public static Appointment Get(int appid)
         {
-            var dbApp = DB.Entity.Get.App(appid, docid);
+            var dbApp = DB.Entity.Get.App(appid);
             var app = Converter(dbApp);
             
             app.Comments = DB.Entity.Get.AppComments(appid);
