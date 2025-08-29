@@ -33,6 +33,8 @@ namespace system4.DB.Entity
 
             public DbSet<TimeData> TimeData { get; set; }
 
+            public DbSet<DocHistory> DocHistory { get; set; }
+
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {

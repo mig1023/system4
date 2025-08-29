@@ -236,5 +236,17 @@ namespace system4.DB.Entity
                 return slot;
             }
         }
+
+        public static List<DocHistory> DocHistory(int docid)
+        {
+            using (var db = new EntityContext())
+            {
+                var history = db.DocHistory
+                    .Where(x => x.DocId == docid)
+                    .ToList();
+
+                return history;
+            }
+        }
     }
 }
