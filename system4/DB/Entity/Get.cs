@@ -18,19 +18,18 @@ namespace system4.DB.Entity
             }
         }
 
-        public static List<int> AppsByDate(DateTime date, int page, int size, out int allListCount)
+        public static List<int> AppsByDate(DateTime date, int page, int size, out int count)
         {
             using (var db = new EntityContext())
             {
-                var count = db.Appointments
-                    .Where(x => x.AppDate == date.Date)
-                    .Count();
-
-                allListCount = count;
-
-                var apps = db.Appointments
+                var allApp = db.Appointments
                     .Where(x => x.AppDate == date.Date)
                     .Select(x => x.Id)
+                    .ToList();
+
+                count = allApp.Count;
+
+                var apps = allApp
                     .Skip(size * (page - 1))
                     .Take(size)
                     .ToList();
