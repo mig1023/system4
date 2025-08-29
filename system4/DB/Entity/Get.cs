@@ -39,21 +39,19 @@ namespace system4.DB.Entity
             }
         }
 
-        public static List<int> AppsByPassnum(string pass, int page, int size, out int allListCount)
+        public static List<int> AppsByPassnum(string pass, int page, int size, out int count)
         {
             using (var db = new EntityContext())
             {
-                var count = db.AppData
-                    .Where(x => x.PassNum == pass)
-                    .Distinct()
-                    .Count();
-
-                allListCount = count;
-
-                var apps = db.AppData
+                var allApps = db.AppData
                     .Where(x => x.PassNum == pass)
                     .Distinct()
                     .Select(x => x.AppId)
+                    .ToList();
+
+                count = allApps.Count;
+
+                var apps = allApps
                     .Skip(size * (page - 1))
                     .Take(size)
                     .ToList();
@@ -122,7 +120,7 @@ namespace system4.DB.Entity
         }
 
         public static List<int> DocsByPassnum(string pass, int page, int size,
-            bool juridical, out int allListCount)
+            bool juridical, out int count)
         {
             using (var db = new EntityContext())
             {
@@ -137,7 +135,7 @@ namespace system4.DB.Entity
                     .Distinct()
                     .ToList();
 
-                allListCount = infos.Count;
+                count = infos.Count;
 
                 var docs = db.DocPack
                     .Where(x => infos.Contains(x.Id))
