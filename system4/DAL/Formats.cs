@@ -20,7 +20,7 @@ namespace system4.DAL
         public static string Agreement(string agreement)
         {
             var agreementNo = Regex
-                .Match(agreement, @"(\d\d)(\d\d\d\d\d\d)(\d\d\d\d)")
+                .Match(agreement, @"(\d\d)(\d\d\d\d\d\d)(\d\d\d\d\d\d)")
                 .Groups
                 .Cast<Group>()
                 .ToList();
