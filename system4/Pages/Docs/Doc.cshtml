@@ -23,11 +23,11 @@
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Тип визы:</div>
-                    <div class="col-sm-8"><b>@Model.DocPack.VisaTypeLine.VName</b></div>
+                    <div class="col-sm-8"><b>@Model.DocPack.Visa.VName</b></div>
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Статус:</div>
-                    <div class="col-sm-8"><b>@Model.DocPack.StatusLine</b></div>
+                    <div class="col-sm-8"><b>@DAL.Constants.DocStatuses(Model.DocPack.PStatus)</b></div>
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Доставка:</div>

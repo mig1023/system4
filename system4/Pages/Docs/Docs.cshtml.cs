@@ -29,7 +29,7 @@ namespace system4.Pages.Docs
                 Search = search;
             }
 
-            DocPack = DAL.DocPack.List(search, pageNum, out int pages);
+            DocPack = DAL.DocPack.List(search, pageNum, out int pages, juridical: false);
             Pages = pages;
             Current = pageNum ?? 1;
         }

@@ -7,9 +7,7 @@ namespace system4.DAL
     {
         public Branches Center { get; set; }
 
-        public VisaTypes VisaTypeLine { get; set; }
-
-        public string StatusLine { get; set; }
+        public VisaTypes Visa { get; set; }
 
         public List<DocPackInfo> DocPackInfo { get; set; }
 
@@ -44,14 +42,8 @@ namespace system4.DAL
         {
             var doc = Converter(DB.Entity.Get.Doc(docid));
 
-            if (doc.JurId > 0)
-            {
-                return doc;
-            }
-
             doc.Center = DB.Entity.Get.Branches(doc.CenterId);
-            doc.VisaTypeLine = DB.Entity.Get.VisaTypes(doc.VisaType);
-            doc.StatusLine = Constants.DocStatuses(doc.PStatus);
+            doc.Visa = DB.Entity.Get.VisaTypes(doc.VisaType);
             doc.Appointment = Appointment.Get(doc.AppId);
             doc.Comments = DB.Entity.Get.DocComments(docid);
             doc.DocPackOptional = DB.Entity.Get.DocPackOptional(docid);
@@ -76,7 +68,8 @@ namespace system4.DAL
             return doc;
         }
 
-        public static List<DocPack> List(string search, int? page, out int pageCount)
+        public static List<DocPack> List(string search, int? page,
+            out int pageCount, bool juridical = false)
         {
             List<int> docIds = new List<int>();
             int count = 0;
@@ -84,7 +77,7 @@ namespace system4.DAL
             if (DateTime.TryParse(search, out DateTime date))
             {
                 docIds = DB.Entity.Get
-                    .DocsByDate(date, page ?? 1, Constants.PageSize, out count);
+                    .DocsByDate(date, page ?? 1, Constants.PageSize, juridical, out count);
             }
 
             var docs = docIds

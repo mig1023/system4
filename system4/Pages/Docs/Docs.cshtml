@@ -53,18 +53,18 @@
                             <td>@doc.PDate.Date.ToString("dd.MM.yyyy")</td>
                             <td>@doc.LName @doc.FName @doc.MName</td>
                             <td>@doc.PassNum</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>@doc.Visa.VName</td>
+                            <td>@doc.Center.BName</td>
+                            <td>x x x</td>
+                            <td>@doc.DocPackInfo.Sum(x => x.VisaCnt)</td>
+                            <td>@DAL.Constants.DocStatuses(doc.PStatus)</td>
                         </tr>
                     }
                 }
                 else
                 {
                     <tr>
-                        <td colspan="7"><i>Список пуст, договоров не найдено</i></td>
+                        <td colspan="9"><i>Список пуст, договоров не найдено</i></td>
                     </tr>
                 }
 
