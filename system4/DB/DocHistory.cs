@@ -4,7 +4,6 @@ namespace system4.DB
 {
     public class DocHistory
     {
-        [Key]
         public int DocId { get; set; }
 
         public string PassNum { get; set; }

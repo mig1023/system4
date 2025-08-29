@@ -9,6 +9,14 @@ namespace system4.DB.Entity
             public EntityContext() =>
                 Database.EnsureCreated();
 
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                modelBuilder.Entity<DocHistory>((x =>
+                {
+                    x.HasNoKey();
+                }));
+            }
+
             public DbSet<User> Users { get; set; }
 
             public DbSet<Appointment> Appointments { get; set; }
