@@ -38,7 +38,7 @@
                     foreach (DAL.DocHistory doc in Model.History)
                     {
                         <tr>
-                            <td>@doc.AgreementNo</td>
+                            <td>@DAL.Formats.Agreement(doc.AgreementNo)</td>
                             <td>@doc.PassNum</td>
                             <td>@doc.BankId</td>
                             <td>@doc.PassNum</td>

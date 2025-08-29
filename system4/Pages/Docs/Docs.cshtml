@@ -49,7 +49,7 @@
                     foreach (DAL.DocPack doc in Model.DocPack)
                     {
                         <tr>
-                            <td><a class="normal-link" href="/doc/@doc.Id/">@doc.AgreementNo</a></td>
+                            <td><a class="normal-link" href="/doc/@doc.Id/">@DAL.Formats.Agreement(doc.AgreementNo)</a></td>
                             <td>@doc.PDate.Date.ToString("dd.MM.yyyy")</td>
                             <td>@doc.LName @doc.FName @doc.MName</td>
                             <td>@doc.PassNum</td>

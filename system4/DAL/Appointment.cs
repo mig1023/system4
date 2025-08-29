@@ -25,15 +25,6 @@ namespace system4.DAL
                 app.GetType().GetProperty(prop.Name).SetValue(app, prop.GetValue(dbApp, null), null);
             }
 
-            var appNum = Regex
-                .Match(app.AppNum, @"(\d\d\d)(\d\d\d\d)(\d\d)(\d\d)(\d\d\d\d)")
-                .Groups
-                .Cast<Group>()
-                .ToList();
-
-            appNum.RemoveAt(0);
-            app.AppNum = string.Join("/", appNum);
-
             return app;
         }
 

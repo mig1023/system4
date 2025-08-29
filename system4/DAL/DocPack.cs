@@ -26,15 +26,6 @@ namespace system4.DAL
                 doc.GetType().GetProperty(prop.Name).SetValue(doc, prop.GetValue(dbDoc, null), null);
             }
 
-            var agreementNo = Regex
-                .Match(doc.AgreementNo, @"(\d\d)(\d\d\d\d\d\d)(\d\d\d\d)")
-                .Groups
-                .Cast<Group>()
-                .ToList();
-
-            agreementNo.RemoveAt(0);
-            doc.AgreementNo = string.Join(".", agreementNo);
-
             return doc;
         }
 

@@ -46,7 +46,7 @@
                         TimeSpan end = TimeSpan.FromSeconds(app.TimeData.TEnd);
 
                         <tr>
-                            <td><a class="normal-link" href="/app/@app.Id/">@app.AppNum</a></td>
+                            <td><a class="normal-link" href="/app/@app.Id/">@DAL.Formats.Appointment(@app.AppNum)</a></td>
                             <td>@app.AppDate.Date.ToString("dd.MM.yyyy")</td>
                             <td>@start.ToString(@"hh\:mm") - @end.ToString(@"hh\:mm")</td>
                             <td>@app.NCount</td>
