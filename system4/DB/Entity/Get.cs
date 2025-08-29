@@ -146,6 +146,17 @@ namespace system4.DB.Entity
             }
         }
 
+        public static DocPack Doc(string agreementNo)
+        {
+            using (var db = new EntityContext())
+            {
+                var doc = db.DocPack
+                    .SingleOrDefault(x => x.AgreementNo == agreementNo.Replace(".", string.Empty));
+
+                return doc;
+            }
+        }
+
         public static DocPack Doc(int docId)
         {
             using (var db = new EntityContext())

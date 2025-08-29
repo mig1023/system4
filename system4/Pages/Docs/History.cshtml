@@ -1,0 +1,54 @@
+﻿@page "/history/{searchNum?}"
+@model system4.Pages.Docs.HistoryModel
+@{
+    ViewData["Title"] = "History";
+}
+
+<div class="text-center">
+    <h1 class="display-4">История</h1>
+
+    <form method="post">
+        <div class="input-group padding_search">
+
+            <input type="search" asp-for="Search" class="form-control rounded" placeholder="01.000001.010825"
+                   aria-label="Search" aria-describedby="search-addon" value="@Model.Search" />
+
+            <button type="submit" class="btn btn-outline-primary padding_search_buttons"
+                    data-mdb-ripple-init name="doSearch">
+                искать
+            </button>
+        </div>
+    </form>
+
+    @if (Model.History.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Паспорт</th>
+                    <th scope="col">BankID</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Логин</th>
+                    <th scope="col">Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (DAL.DocHistory doc in Model.History)
+                    {
+                        <tr>
+                            <td>@doc.AgreementNo</td>
+                            <td>@doc.PassNum</td>
+                            <td>@doc.BankId</td>
+                            <td>@doc.PassNum</td>
+                            <td>@doc.HDate.Date.ToString("dd.MM.yyyy HH:mm:SS")</td>
+                            <td>@doc.Login</td>
+                            <td>@DAL.Constants.DocStatuses(doc.StatusId)</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+</div>
