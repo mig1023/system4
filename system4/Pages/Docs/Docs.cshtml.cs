@@ -45,7 +45,7 @@ namespace system4.Pages.Docs
                 HttpContext.Session.Remove("docSearch");
             }
 
-            return RedirectToPage();
+            return Redirect("/docs/");
         }
     }
 }
