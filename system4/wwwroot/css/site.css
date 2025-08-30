@@ -55,6 +55,14 @@ html {
     color: royalblue;
 }
 
+.table_vertical_center {
+    vertical-align: middle;
+}
+
+.table_additional_info {
+    padding: 0px !important;
+}
+
 html {
   position: relative;
   min-height: 100%;

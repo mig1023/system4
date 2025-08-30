@@ -28,7 +28,7 @@
         </div>
     </form>
 
-    <table class="table">
+    <table class="table table_vertical_center">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -55,7 +55,20 @@
                             <td>@doc.PassNum</td>
                             <td>@doc.Visa.VName</td>
                             <td>@doc.Center.BName</td>
-                            <td>x x x</td>
+                            <td class="comment_text table_additional_info">
+                                @if (doc.Shipping > 0)
+                                {
+                                    <div><b>доставка</b></div>
+                                }
+                                @if (doc.Urgent > 0)
+                                {
+                                    <div><b>срочная</b></div>
+                                }
+                                @if (doc.SMS > 0)
+                                {
+                                    <div><b>SMS</b></div>
+                                }
+                            </td>
                             <td>@doc.DocPackInfo.Sum(x => x.VisaCnt)</td>
                             <td>@DAL.Constants.DocStatuses(doc.PStatus)</td>
                         </tr>
