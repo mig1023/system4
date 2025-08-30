@@ -59,7 +59,7 @@ namespace system4.DB
 
         public string Address { get; set; }
 
-        public int RateID { get; set; }
+        public int RateId { get; set; }
 
         public string Cur { get; set; }
 

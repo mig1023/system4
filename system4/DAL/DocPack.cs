@@ -17,6 +17,11 @@ namespace system4.DAL
 
         public DocPackOptional DocPackOptional { get; set; }
 
+        public PriceRate PriceRate { get; set; }
+
+        public List<PriceList> PriceList { get; set; }
+
+
         private static DocPack Converter(DB.DocPack dbDoc)
         {
             var doc = new DocPack();
@@ -37,6 +42,9 @@ namespace system4.DAL
             doc.Visa = DB.Entity.Get.VisaTypes(doc.VisaType);
             doc.Appointment = Appointment.Get(doc.AppId);
             doc.Comments = DB.Entity.Get.DocComments(docid);
+            doc.PriceRate = DB.Entity.Get.PriceRate(doc.RateId);
+            doc.PriceList = DB.Entity.Get.PriceList(doc.RateId, doc.VisaType);
+
             doc.DocPackOptional = DB.Entity.Get.DocPackOptional(docid);
 
             doc.DocPackInfo = DB.Entity.Get.DocInfo(docid)

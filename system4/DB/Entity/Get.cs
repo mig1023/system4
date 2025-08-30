@@ -259,5 +259,29 @@ namespace system4.DB.Entity
                 return history;
             }
         }
+
+        public static PriceRate PriceRate(int rateId)
+        {
+            using (var db = new EntityContext())
+            {
+                var price = db.PriceRate
+                    .SingleOrDefault(x => x.Id == rateId);
+
+                return price;
+            }
+        }
+
+        public static List<PriceList> PriceList(int rateId, int visaType)
+        {
+            using (var db = new EntityContext())
+            {
+                var price = db.PriceList
+                    .Where(x => x.RateId == rateId)
+                    .Where(x => x.VisaId == visaType)
+                    .ToList();
+
+                return price;
+            }
+        }
     }
 }
