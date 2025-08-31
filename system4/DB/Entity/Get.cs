@@ -1,4 +1,6 @@
-﻿using system4.DAL;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing;
+using system4.DAL;
 using static system4.DB.Entity.Contextcs;
 
 namespace system4.DB.Entity
@@ -157,6 +159,20 @@ namespace system4.DB.Entity
                 return docs;
             }
         }
+
+        public static int DocByBankId(string bankid)
+        {
+            using (var db = new EntityContext())
+            {
+                var doc = db.DocPackInfo
+                    .SingleOrDefault(x => x.BankId == bankid);
+
+                return doc?.PackId ?? 0;
+            }
+        }
+
+        public static int DocByNum(string agreementNo) =>
+            Doc(agreementNo)?.Id ?? 0;
 
         public static DocPack Doc(string agreementNo)
         {

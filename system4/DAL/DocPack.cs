@@ -80,7 +80,17 @@ namespace system4.DAL
             }
             else if (Formats.OnlyNumeric(search).Length == 14)
             {
-                var id = DB.Entity.Get.Doc(search)?.Id ?? 0;
+                var id = DB.Entity.Get.DocByNum(search);
+
+                if (id > 0)
+                {
+                    docIds.Add(id);
+                    count = 1;
+                }
+            }
+            else if (Formats.OnlyNumeric(search).Length == 12)
+            {
+                var id = DB.Entity.Get.DocByBankId(Formats.OnlyNumeric(search));
 
                 if (id > 0)
                 {

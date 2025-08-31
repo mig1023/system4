@@ -15,12 +15,16 @@
                 aria-label="Search" aria-describedby="search-addon" value="@Model.Search"/>
 
             <button type="submit" class="btn btn-outline-primary padding_search_buttons"
-                data-mdb-ripple-init name="doSearch">искать</button>
+                    data-mdb-ripple-init name="doSearch">
+                искать
+            </button>
 
             @if (!String.IsNullOrEmpty(Model.Search))
             {
                 <button type="submit" class="btn btn-danger padding_search_buttons"
-                    data-mdb-ripple-init name="doClean">сбросить</button>
+                        data-mdb-ripple-init name="doClean">
+                    сбросить
+                </button>
             }
         </div>
     </form>
