@@ -1,4 +1,5 @@
-﻿using static system4.DB.Entity.Contextcs;
+﻿using system4.DAL;
+using static system4.DB.Entity.Contextcs;
 
 namespace system4.DB.Entity
 {
@@ -162,7 +163,7 @@ namespace system4.DB.Entity
             using (var db = new EntityContext())
             {
                 var doc = db.DocPack
-                    .SingleOrDefault(x => x.AgreementNo == agreementNo.Replace(".", string.Empty));
+                    .SingleOrDefault(x => x.AgreementNo == Formats.OnlyNumeric(agreementNo));
 
                 return doc;
             }

@@ -78,6 +78,16 @@ namespace system4.DAL
                 docIds = DB.Entity.Get
                     .DocsByDate(date, page ?? 1, Constants.PageSize, juridical, out count);
             }
+            else if (Formats.OnlyNumeric(search).Length == 14)
+            {
+                var id = DB.Entity.Get.Doc(search)?.Id ?? 0;
+
+                if (id > 0)
+                {
+                    docIds.Add(id);
+                    count = 1;
+                }
+            }
             else if (search.Length == 9)
             {
                 docIds = DB.Entity.Get
