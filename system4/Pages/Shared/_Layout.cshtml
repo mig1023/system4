@@ -19,17 +19,34 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Главная</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Главная</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/Index">На гланую страницу</a></li>
+                                <li><a class="dropdown-item disabled" href="#">Профиль</a></li>
+                                <li><a class="dropdown-item disabled" href="#">Добавить сообщение</a></li>
+                                <li><a class="dropdown-item disabled" href="#">Список сообщений</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Документы</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/apps">Записи на подачу</a></li>
+                                <li><a class="dropdown-item disabled" href="#">Новая запись</a></li>
+                                <li><a class="dropdown-item disabled" href="#">Запись на подачу для группы </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/docs">Физические лица</a></li>
+                                <li><a class="dropdown-item disabled" href="#">Юридические лица</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/history">История</a></li>
+                                <li><a class="dropdown-item disabled" href="#">Статус документов</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/apps">Записи</a>
+                            <a class="nav-link text-dark disabled" href="/docs">Отчёты</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/docs">Договора</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/history">История</a>
+                            <a class="nav-link text-dark disabled" href="#">Настройки</a>
                         </li>
                     </ul>
                     <partial name="_LoginLayout" />
