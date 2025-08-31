@@ -30,6 +30,19 @@ namespace system4.DAL
             return string.Join(".", agreementNo);
         }
 
+        public static string BankId(string bankid)
+        {
+            var agreementNo = Regex
+                .Match(bankid, @"(\d\d\d\d)(\d\d\d\d\d\d\d\d)")
+                .Groups
+                .Cast<Group>()
+                .ToList();
+
+            agreementNo.RemoveAt(0);
+
+            return string.Join("/", agreementNo);
+        }
+
         public static string OnlyNumeric(string line)
         {
             Regex notNumeric = new Regex(@"[^\d]+");

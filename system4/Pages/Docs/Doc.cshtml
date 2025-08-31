@@ -148,7 +148,7 @@
                             <td>@(doclist.iNRes > 0 ? "да" : "")</td>
                             <td>@(doclist.Concil > 0 ? "да" : "")</td>
                             <td>@(doclist.Reject > 0 ? "да" : "")</td>
-                            <td>@doclist.CBankId</td>
+                            <td>@DAL.Formats.BankId(doclist.CBankId)</td>
                             <td>@DAL.Constants.DocStatuses(doclist.Status)</td>
                         </tr>
                     }
