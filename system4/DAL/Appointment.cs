@@ -55,6 +55,16 @@ namespace system4.DAL
                 appIds = DB.Entity.Get
                     .AppsByDate(date, page ?? 1, Constants.PageSize, out count);
             }
+            else if (Formats.OnlyNumeric(search).Length == 15)
+            {
+                var id = DB.Entity.Get.AppByNum(Formats.OnlyNumeric(search));
+                
+                if (id > 0)
+                {
+                    appIds.Add(id);
+                    count = 1;
+                }
+            }
             else if (search.Length == 9)
             {
                 appIds = DB.Entity.Get

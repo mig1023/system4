@@ -29,5 +29,11 @@ namespace system4.DAL
 
             return string.Join(".", agreementNo);
         }
+
+        public static string OnlyNumeric(string line)
+        {
+            Regex notNumeric = new Regex(@"[^\d]+");
+            return notNumeric.Replace(line, string.Empty);
+        }
     }
 }

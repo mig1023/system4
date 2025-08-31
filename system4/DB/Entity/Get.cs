@@ -59,6 +59,17 @@ namespace system4.DB.Entity
             }
         }
 
+        public static int AppByNum(string appNum)
+        {
+            using (var db = new EntityContext())
+            {
+                var app = db.Appointments
+                    .SingleOrDefault(x => x.AppNum == appNum);
+
+                return app?.Id ?? 0;
+            }
+        }
+
         public static Appointment App(int appId)
         {
             using (var db = new EntityContext())
