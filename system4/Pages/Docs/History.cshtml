@@ -43,12 +43,23 @@
             </thead>
             <tbody>
                 @{
+                    var last = Model.History.First().AgreementNo;
+
                     foreach (DAL.DocHistory doc in Model.History)
                     {
+                        if (last != doc.AgreementNo)
+                        {
+                            last = doc.AgreementNo;
+
+                            <tr>
+                                <td colspan="6">&nbsp;</td>
+                            </tr>
+                        }
+
                         <tr>
                             <td>@DAL.Formats.Agreement(doc.AgreementNo)</td>
                             <td>@doc.PassNum</td>
-                            <td>@doc.BankId</td>
+                            <td>@DAL.Formats.BankId(doc.BankId)</td>
                             <td>@doc.HDate.ToString("dd.MM.yyyy HH:mm:ss")</td>
                             <td>@doc.Login</td>
                             @if (doc.StatusId == 0)
