@@ -300,6 +300,18 @@ namespace system4.DB.Entity
             }
         }
 
+        public static List<DocHistory> DocHistoryByBankId(string bankId)
+        {
+            using (var db = new EntityContext())
+            {
+                var history = db.DocHistory
+                    .Where(x => x.BankId == bankId)
+                    .ToList();
+
+                return history;
+            }
+        }
+
         public static PriceRate PriceRate(int rateId)
         {
             using (var db = new EntityContext())

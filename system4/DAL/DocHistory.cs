@@ -31,6 +31,10 @@ namespace system4.DAL
                 DB.DocPack doc = DB.Entity.Get.Doc(search);
                 docIds = DB.Entity.Get.DocHistory(doc.Id);
             }
+            else if (Formats.OnlyNumeric(search).Length == 12)
+            {
+                docIds = DB.Entity.Get.DocHistoryByBankId(Formats.OnlyNumeric(search));
+            }
             else if (search.Length == 9)
             {
                 docIds = DB.Entity.Get.DocHistoryByPassnum(search);
