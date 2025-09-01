@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace system4.Pages.Docs
 {
+    [Authorize]
     public class HistoryModel : PageModel
     {
         [BindProperty]
