@@ -288,6 +288,18 @@ namespace system4.DB.Entity
             }
         }
 
+        public static List<DocHistory> DocHistoryByPassnum(string passnum)
+        {
+            using (var db = new EntityContext())
+            {
+                var history = db.DocHistory
+                    .Where(x => x.PassNum == passnum)
+                    .ToList();
+
+                return history;
+            }
+        }
+
         public static PriceRate PriceRate(int rateId)
         {
             using (var db = new EntityContext())

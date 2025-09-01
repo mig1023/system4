@@ -1,4 +1,5 @@
-﻿using system4.DB;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using system4.DB;
 
 namespace system4.DAL
 {
@@ -23,9 +24,19 @@ namespace system4.DAL
 
         public static List<DocHistory> List(string search)
         {
-            DB.DocPack doc = DB.Entity.Get.Doc(search);
+            List<DB.DocHistory> docIds = new List<DB.DocHistory>();
 
-            List<DocHistory> history = DB.Entity.Get.DocHistory(doc.Id)
+            if (Formats.OnlyNumeric(search).Length == 14)
+            {
+                DB.DocPack doc = DB.Entity.Get.Doc(search);
+                docIds = DB.Entity.Get.DocHistory(doc.Id);
+            }
+            else if (search.Length == 9)
+            {
+                docIds = DB.Entity.Get.DocHistoryByPassnum(search);
+            }
+
+            List<DocHistory> history = docIds
                 .Select(x => Converter(x))
                 .ToList();
 
