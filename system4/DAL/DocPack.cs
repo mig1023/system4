@@ -8,7 +8,9 @@ namespace system4.DAL
 
         public VisaTypes Visa { get; set; }
 
-        public List<DocPackInfo> DocPackInfo { get; set; }
+        public List<DocApplicant> Applicants { get; set; }
+
+        //public List<DocPackInfo> DocPackInfo { get; set; }
 
         public Appointment Appointment { get; set; }
 
@@ -43,23 +45,18 @@ namespace system4.DAL
             doc.Comments = DB.Entity.Get.DocComments(docid);
             doc.PriceRate = DB.Entity.Get.PriceRate(doc.RateId);
             doc.PriceList = DB.Entity.Get.PriceList(doc.RateId, doc.VisaType);
-
             doc.DocPackOptional = DB.Entity.Get.DocPackOptional(docid);
 
-            doc.DocPackInfo = DB.Entity.Get.DocInfo(docid)
-                .Select(x => DAL.DocPackInfo.Converter(x))
-                .ToList();
+            doc.Applicants = new List<DocApplicant>();
 
-            foreach (var docPackInfo in doc.DocPackInfo)
+            foreach (var docPackInfo in DB.Entity.Get.DocInfo(docid))
             {
-                docPackInfo.DocPackList = DB.Entity.Get.DocList(docPackInfo.Id)
-                    .Select(x => DAL.DocPackList.Converter(x))
-                    .ToList();
-
-                foreach (var docPackList in docPackInfo.DocPackList)
+                foreach (var docPackList in DB.Entity.Get.DocList(docPackInfo.Id))
                 {
-                    docPackList.AppData = doc.Appointment.AppData
+                    var appData = doc.Appointment.AppData
                         .SingleOrDefault(x => x.Id == docPackList.ApplId);
+
+                    doc.Applicants.Add(DAL.DocApplicant.Converter(docPackInfo, docPackList, appData));
                 }
             }
 

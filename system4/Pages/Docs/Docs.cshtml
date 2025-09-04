@@ -70,7 +70,7 @@
                                     <div><b>SMS</b></div>
                                 }
                             </td>
-                            <td>@doc.DocPackInfo.Sum(x => x.VisaCnt)</td>
+                            <td>@doc.Applicants.Where(x => x.Status != 7).Count()</td>
                             <td>@DAL.Constants.DocStatuses(doc.PStatus)</td>
                         </tr>
                     }

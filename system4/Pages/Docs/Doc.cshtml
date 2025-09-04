@@ -135,23 +135,21 @@
         <tbody>
             @{
                 int i = 1;
-                foreach (DAL.DocPackInfo docinfo in Model.DocPack.DocPackInfo)
+
+                foreach (DAL.DocApplicant app in Model.DocPack.Applicants)
                 {
-                    foreach (DAL.DocPackList doclist in docinfo.DocPackList)
-                    {
-                        <tr>
-                            <th scope="row">@(i++)</th>
-                            <td>@doclist.FName @doclist.LName (@doclist.AppData.FName @doclist.AppData.LName)</td>
-                            <td>@doclist.PassNum</td>
-                            <td>@doclist.BthDate.ToString("dd.MM.yyyy")</td>
-                            <td>@doclist.FlyDate.ToString("dd.MM.yyyy")</td>
-                            <td>@(doclist.iNRes > 0 ? "да" : "")</td>
-                            <td>@(doclist.Concil > 0 ? "да" : "")</td>
-                            <td>@(doclist.Reject > 0 ? "да" : "")</td>
-                            <td>@DAL.Formats.BankId(doclist.CBankId)</td>
-                            <td>@DAL.Constants.DocStatuses(doclist.Status)</td>
-                        </tr>
-                    }
+                    <tr>
+                        <th scope="row">@(i++)</th>
+                        <td>@app.FName @app.LName (@app.AppData.FName @app.AppData.LName)</td>
+                        <td>@app.PassNum</td>
+                        <td>@app.BthDate.ToString("dd.MM.yyyy")</td>
+                        <td>@app.FlyDate.ToString("dd.MM.yyyy")</td>
+                        <td>@(app.iNRes > 0 ? "да" : "")</td>
+                        <td>@(app.Concil > 0 ? "да" : "")</td>
+                        <td>@(app.Reject > 0 ? "да" : "")</td>
+                        <td>@DAL.Formats.BankId(app.CBankId)</td>
+                        <td>@DAL.Constants.DocStatuses(app.Status)</td>
+                    </tr>
                 }
             }
         </tbody>
