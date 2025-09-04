@@ -8,7 +8,7 @@ namespace system4.DAL
 
         public VisaTypes VisaType { get; set; }
 
-        public List<AppData> AppData { get; set; }
+        public List<DB.AppData> AppData { get; set; }
 
         public List<AppComments> Comments { get; set; }
 
@@ -35,10 +35,7 @@ namespace system4.DAL
             app.Center = DB.Entity.Get.Branches(app.CenterId);
             app.VisaType = DB.Entity.Get.VisaTypes(app.VType);
             app.TimeData = DB.Entity.Get.TimeData(app.TimeslotId);
-
-            app.AppData = DB.Entity.Get.AppData(appid)
-                .Select(x => DAL.AppData.Converter(x))
-                .ToList();
+            app.AppData = DB.Entity.Get.AppData(appid);
 
             return app;
         }
