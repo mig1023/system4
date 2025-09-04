@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using system4.DB;
+﻿using system4.DB;
 
 namespace system4.DAL
 {
@@ -32,7 +30,7 @@ namespace system4.DAL
         {
             var dbApp = DB.Entity.Get.App(appid);
             var app = Converter(dbApp);
-            
+
             app.Comments = DB.Entity.Get.AppComments(appid);
             app.Center = DB.Entity.Get.Branches(app.CenterId);
             app.VisaType = DB.Entity.Get.VisaTypes(app.VType);
@@ -58,7 +56,7 @@ namespace system4.DAL
             else if (Formats.OnlyNumeric(search).Length == 15)
             {
                 var id = DB.Entity.Get.AppByNum(Formats.OnlyNumeric(search));
-                
+
                 if (id > 0)
                 {
                     appIds.Add(id);

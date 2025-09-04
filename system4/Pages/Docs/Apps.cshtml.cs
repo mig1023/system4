@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using system4.DB;
 
 namespace system4.Pages.Docs
 {
@@ -45,7 +44,7 @@ namespace system4.Pages.Docs
             {
                 HttpContext.Session.Remove("appSearch");
             }
-            
+
             return RedirectToPage();
         }
     }

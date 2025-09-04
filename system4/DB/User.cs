@@ -37,7 +37,7 @@ namespace system4.DB
 
         public DateTime? LockDate { get; set; }
 
-        public string? LockedBy{ get; set; }
+        public string? LockedBy { get; set; }
 
         public string? LockReason { get; set; }
 

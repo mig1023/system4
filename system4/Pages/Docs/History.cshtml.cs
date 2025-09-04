@@ -13,7 +13,7 @@ namespace system4.Pages.Docs
         public List<DAL.DocHistory> History { get; set; }
 
         public void OnGet()
-        {   
+        {
             var search = HttpContext.Session.GetString("historySearch");
 
             if (String.IsNullOrEmpty(search))

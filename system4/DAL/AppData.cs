@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace system4.DAL
+﻿namespace system4.DAL
 {
     public class AppData : DB.AppData
     {
