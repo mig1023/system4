@@ -10,8 +10,6 @@ namespace system4.DAL
 
         public List<DocApplicant> Applicants { get; set; }
 
-        //public List<DocPackInfo> DocPackInfo { get; set; }
-
         public Appointment Appointment { get; set; }
 
         public List<DocComments> Comments { get; set; }
