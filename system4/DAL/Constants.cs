@@ -66,5 +66,18 @@
 
             return statuses[status ?? 1];
         }
+
+        public static string PaymentType(int? type)
+        {
+            var statuses = new Dictionary<int, string>
+            {
+                [1] = "наличные",
+                [2] = "безналичный",
+                [3] = "банковская карта",
+                [4] = "банковская карта (сайт)",
+            };
+
+            return statuses[type ?? 1];
+        }
     }
 }
