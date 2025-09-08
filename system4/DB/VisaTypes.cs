@@ -10,14 +10,14 @@
 
         public int VIns { get; set; }
 
-        public int isJur { get; set; }
+        public int IsJur { get; set; }
 
-        public string category { get; set; }
+        public string Category { get; set; }
 
-        public int onSite { get; set; }
+        public int OnSite { get; set; }
 
         public string VCode { get; set; }
 
-        public int isdef { get; set; }
+        public int IsDef { get; set; }
     }
 }

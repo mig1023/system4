@@ -24,5 +24,8 @@
 
             return doc;
         }
+
+        public bool IsDeleted() =>
+            this.Status == 7;
     }
 }
