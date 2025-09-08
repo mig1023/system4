@@ -1,4 +1,4 @@
-﻿using system4.DB.Entity;
+﻿using System;
 
 namespace system4.BLL.Finances
 {
@@ -50,7 +50,7 @@ namespace system4.BLL.Finances
         }
 
 
-        public static double ConcilForApplicant(DAL.DocPack doc, DAL.DocApplicant appl)
+        public static double ConcilPerApplicant(DAL.DocPack doc, DAL.DocApplicant appl)
         {
             if (appl.Status == 7)
             {
@@ -75,7 +75,38 @@ namespace system4.BLL.Finances
 
             foreach (var appl in doc.Applicants)
             {
-                price += ConcilForApplicant(doc, appl);
+                price += ConcilPerApplicant(doc, appl);
+            }
+
+            return price;
+        }
+
+        public static double ServicesPerApplicant(DAL.DocPack doc, DAL.DocApplicant appl)
+        {
+            if (appl.Status == 7)
+            {
+                return 0;
+            }
+
+            var priceList = doc.PriceList.FirstOrDefault();
+
+            if (doc.Urgent > 0)
+            {
+                return doc.JurId > 0 ? priceList.JUPrice : priceList.UPrice;
+            }
+            else
+            {
+                return doc.JurId > 0 ? priceList.JPrice : priceList.Price;
+            }
+        }
+
+        public static double Services(DAL.DocPack doc)
+        {
+            double price = 0;
+
+            foreach (var appl in doc.Applicants)
+            {
+                price += ServicesPerApplicant(doc, appl);
             }
 
             return price;
