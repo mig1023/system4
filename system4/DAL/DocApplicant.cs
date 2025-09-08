@@ -2,11 +2,14 @@
 {
     public class DocApplicant : DB.DocPackList
     {
+        public DocPack DocPack { get; set; }
+
         public DB.DocPackInfo DocPackInfo { get; set; }
 
         public DB.AppData AppData { get; set; }
 
-        public static DocApplicant Converter(DB.DocPackInfo dbInfo, DB.DocPackList dbList, DB.AppData dbAppData)
+        public static DocApplicant Converter(DAL.DocPack docPack,
+            DB.DocPackInfo dbInfo, DB.DocPackList dbList, DB.AppData dbAppData)
         {
             var doc = new DocApplicant();
 
@@ -17,6 +20,7 @@
 
             doc.DocPackInfo = dbInfo;
             doc.AppData = dbAppData;
+            doc.DocPack = docPack;
 
             return doc;
         }

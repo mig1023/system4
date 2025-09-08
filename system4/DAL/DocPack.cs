@@ -47,14 +47,14 @@ namespace system4.DAL
 
             doc.Applicants = new List<DocApplicant>();
 
-            foreach (var docPackInfo in DB.Entity.Get.DocInfo(docid))
+            foreach (var docInfo in DB.Entity.Get.DocInfo(docid))
             {
-                foreach (var docPackList in DB.Entity.Get.DocList(docPackInfo.Id))
+                foreach (var docList in DB.Entity.Get.DocList(docInfo.Id))
                 {
                     var appData = doc.Appointment.AppData
-                        .SingleOrDefault(x => x.Id == docPackList.ApplId);
+                        .SingleOrDefault(x => x.Id == docList.ApplId);
 
-                    doc.Applicants.Add(DAL.DocApplicant.Converter(docPackInfo, docPackList, appData));
+                    doc.Applicants.Add(DAL.DocApplicant.Converter(doc, docInfo, docList, appData));
                 }
             }
 

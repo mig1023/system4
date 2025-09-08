@@ -16,19 +16,19 @@ namespace system4.BLL.Finances
 
             return age;
         }
-        private static DB.PriceList PriceListByAge(DAL.DocPack doc, DAL.DocApplicant appl)
+        private static DB.PriceList PriceListByAge(DAL.DocApplicant appl)
         {
-            if (string.IsNullOrEmpty(doc.PriceRate.Ages))
+            if (string.IsNullOrEmpty(appl.DocPack.PriceRate.Ages))
             {
-                return doc.PriceList.FirstOrDefault();
+                return appl.DocPack.PriceList.FirstOrDefault();
             }
 
-            var ages = doc.PriceRate.Ages
+            var ages = appl.DocPack.PriceRate.Ages
                 .Split('-')
                 .Select(x => int.Parse(x))
                 .ToList();
 
-            var agesFree = doc.PriceRate.AgesFree
+            var agesFree = appl.DocPack.PriceRate.AgesFree
                 .Split("-")
                 .Select(x => int.Parse(x))
                 .ToList();
@@ -38,28 +38,28 @@ namespace system4.BLL.Finances
 
             if (age < agesFree[1])
             {
-                group = doc.PriceRate.AgesFree;
+                group = appl.DocPack.PriceRate.AgesFree;
             }
             else if (age < ages[1])
             {
-                group = doc.PriceRate.Ages;
+                group = appl.DocPack.PriceRate.Ages;
             }
 
-            return doc.PriceList
+            return appl.DocPack.PriceList
                 .FirstOrDefault(x => x.Ages == group);
         }
 
 
-        public static double ConcilPerApplicant(DAL.DocPack doc, DAL.DocApplicant appl)
+        public static double ConcilPerApplicant(DAL.DocApplicant appl)
         {
             if (appl.Status == 7)
             {
                 return 0;
             }
 
-            var priceList = PriceListByAge(doc, appl);
+            var priceList = PriceListByAge(appl);
 
-            if (doc.Urgent > 0)
+            if (appl.DocPack.Urgent > 0)
             {
                 return appl.iNRes == 0 ? priceList.ConcilRU : priceList.ConcilNU;
             }
@@ -75,28 +75,28 @@ namespace system4.BLL.Finances
 
             foreach (var appl in doc.Applicants)
             {
-                price += ConcilPerApplicant(doc, appl);
+                price += ConcilPerApplicant(appl);
             }
 
             return price;
         }
 
-        public static double ServicesPerApplicant(DAL.DocPack doc, DAL.DocApplicant appl)
+        public static double ServicesPerApplicant(DAL.DocApplicant appl)
         {
             if (appl.Status == 7)
             {
                 return 0;
             }
 
-            var priceList = doc.PriceList.FirstOrDefault();
+            var priceList = appl.DocPack.PriceList.FirstOrDefault();
 
-            if (doc.Urgent > 0)
+            if (appl.DocPack.Urgent > 0)
             {
-                return doc.JurId > 0 ? priceList.JUPrice : priceList.UPrice;
+                return appl.DocPack.JurId > 0 ? priceList.JUPrice : priceList.UPrice;
             }
             else
             {
-                return doc.JurId > 0 ? priceList.JPrice : priceList.Price;
+                return appl.DocPack.JurId > 0 ? priceList.JPrice : priceList.Price;
             }
         }
 
@@ -106,7 +106,7 @@ namespace system4.BLL.Finances
 
             foreach (var appl in doc.Applicants)
             {
-                price += ServicesPerApplicant(doc, appl);
+                price += ServicesPerApplicant(appl);
             }
 
             return price;
