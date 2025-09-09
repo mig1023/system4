@@ -6,63 +6,28 @@ namespace system4.BLL.Finances
     {
         public static List<Service> Get(DAL.DocPack doc)
         {
-            var smscnt = 0;
-            var shcnt = 0;
-            double shsum = 0;
+            // var insurance =
+            // var additionalServices =
+
+            var services = new List<Service>
+            {
+                new Service
+                {
+                    Name = "Услуги по оформлению документов",
+                    Quantity = doc.Applicants.Where(x => !x.IsDeleted()).Count(),
+                    Price = Prices.Services(doc),
+                    VAT = true,
+                    Department = 1,
+                }
+            };
 
             if (doc.Shipping > 0)
-            {
-                shsum = doc.TShipSum;
-                shcnt = doc.Shipping;
-            }
-
-            var apcnt = 0;
-            var astr = string.Empty;
-            var bankid = string.Empty;
-            var prevbank = 0;
-
-            foreach (DAL.DocApplicant app in doc.Applicants)
-            {
-                if (app.Status == 7)
-                {
-                    continue;
-                }
-
-                apcnt += 1;
-
-                if ((doc.SMS_status == 2) && (app.MobileNums != string.Empty))
-                {
-                    smscnt += 1;
-                }
-
-                if ((doc.Shipping == 2) && (app.ShipAddress != string.Empty))
-                {
-                    shcnt += 1;
-                    shsum += app.RTShipSum;
-                }
-            }
-
-            // var insurance_rgs =
-            // var insurance_kl =
-
-            var shippingSum = doc.isNewDHL > 0 ? shsum : doc.PriceRate.Shipping * shcnt;
-
-            if (doc.SMS_status > 0)
-            {
-                smscnt = 1;
-            }
-
-            var vprice = doc.Urgent > 0 ? doc.PriceList.First().UPrice : doc.PriceList.First().Price;
-
-            var services = new List<Service>();
-
-            if (shcnt > 0)
             {
                 var service = new Service
                 {
                     Name = "Услуги по доставке документов на дом",
-                    Quantity = shcnt,
-                    Price = shsum,
+                    Quantity = 1,
+                    Price = doc.TShipSum,
                     VAT = true,
                     Department = 1,
                     Shipping = true,
@@ -71,12 +36,12 @@ namespace system4.BLL.Finances
                 services.Add(service);
             }
 
-            if (smscnt > 0)
+            if (doc.SMS > 0)
             {
                 var service = new Service
                 {
                     Name = "Услуги по оповещению (СМС сообщение)",
-                    Quantity = smscnt,
+                    Quantity = 1,
                     Price = doc.PriceRate.SMS,
                     VAT = true,
                     Department = 1,
@@ -106,20 +71,6 @@ namespace system4.BLL.Finances
                     Name = "Услуги по копированию документов",
                     Quantity = doc.XeroxPage,
                     Price = doc.PriceRate.XeroxPrice,
-                    VAT = true,
-                    Department = 1,
-                };
-
-                services.Add(service);
-            }
-
-            if (apcnt > 0)
-            {
-                var service = new Service
-                {
-                    Name = "Услуги по оформлению документов",
-                    Quantity = apcnt,
-                    Price = vprice,
                     VAT = true,
                     Department = 1,
                 };
