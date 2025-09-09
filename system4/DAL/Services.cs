@@ -16,11 +16,19 @@ namespace system4.DAL
 
         public static List<Services> Get(DocPack doc)
         {
-            var pricesDb = DB.Entity.Get.ServicesPriceRates(doc.RateId);
-
-            var prices = pricesDb.ToDictionary(x => x.ServiceId, y => y.Price);
+            var prices = DB.Entity.Get
+                .ServicesPriceRates(doc.RateId)
+                .ToDictionary(x => x.ServiceId, x => x.Price);
 
             var services = DB.Entity.Get.ServicesByDocId(doc.Id);
+            
+            foreach (var service in services)
+            {
+                if (prices.ContainsKey(service.ServiceId))
+                {
+                    service.Price = prices[service.ServiceId];
+                }
+            }
 
             return services;
         }

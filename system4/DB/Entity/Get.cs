@@ -360,7 +360,7 @@ namespace system4.DB.Entity
                     where dps.PackId == docId
                     select new
                     {
-                        serviceId = dps.Id,
+                        serviceId = s.Id,
                         name = s.Name,
                         valueType = sf.ValueType,
                         value = sint.Value
