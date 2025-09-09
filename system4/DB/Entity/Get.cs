@@ -336,6 +336,18 @@ namespace system4.DB.Entity
             }
         }
         
+        public static List<Services> Services(int serviceId)
+        {
+            using (var db = new EntityContext())
+            {
+                var services = db.Services
+                    .Where(x => x.Id == serviceId)
+                    .ToList();
+
+                return services;
+            }
+        }
+        
         public static List<ServiceFields> ServiceFields(int serviceId)
         {
             using (var db = new EntityContext())

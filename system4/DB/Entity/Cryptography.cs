@@ -5,6 +5,18 @@ namespace system4.DB.Entity
 {
     public class Cryptography
     {
+        public static bool VerifyPassword(string login, string password)
+        {
+            User user = Get.User(login);
+
+            if (user == null)
+                return false;
+
+            bool passwordIdValid = ValidatePassword(user.Pass, password);
+
+            return passwordIdValid;
+        }
+
         public static bool ValidatePassword(string passwordHash, string password) =>
             GenerateMySQLHash(password) == passwordHash;
 

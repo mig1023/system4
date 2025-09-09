@@ -39,6 +39,8 @@ namespace system4.DB.Entity
 
             public DbSet<PriceList> PriceList { get; set; }
 
+            public DbSet<Services> Services { get; set; }
+
             public DbSet<ServiceFields> ServiceFields { get; set; }
 
             public DbSet<DocPackService> DocPackService { get; set; }

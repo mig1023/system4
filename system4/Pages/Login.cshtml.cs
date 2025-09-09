@@ -14,7 +14,7 @@ namespace system4.Pages
 
         public IActionResult OnPost()
         {
-            if (DB.Entity.Services.VerifyPassword(Users.Login, Users.Pass))
+            if (DB.Entity.Cryptography.VerifyPassword(Users.Login, Users.Pass))
             {
                 DB.Entity.Session.SetCookies(Users.Login, PageContext.HttpContext);
 
