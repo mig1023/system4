@@ -371,5 +371,17 @@ namespace system4.DB.Entity
                 return services;
             }
         }
+        
+        public static List<ServiceFieldValuesINT> ServiceFieldValuesINT(int serviceId)
+        {
+            using (var db = new EntityContext())
+            {
+                var services = db.ServiceFieldValuesINT
+                    .Where(x => x.DocPackServiceId == serviceId)
+                    .ToList();
+
+                return services;
+            }
+        }
     }
 }
