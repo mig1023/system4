@@ -63,6 +63,14 @@ html {
     padding: 0px !important;
 }
 
+.table_services_info {
+    padding: 10px !important;
+    margin: 0px;
+    font-size: 10px;
+    color: gray;
+    background-color:ghostwhite
+}
+
 html {
   position: relative;
   min-height: 100%;

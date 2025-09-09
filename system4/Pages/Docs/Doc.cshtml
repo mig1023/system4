@@ -47,7 +47,6 @@
                 <div class="row align-items-start">
                     <div class="col-4">Отправка SMS:</div>
                     <div class="col-sm-8"><b>@(Model.DocPack.SMS > 0 ? Model.DocPack.Mobile : "нет")</b></div>
-
                 </div>
                 <div class="row align-items-start">
                     <div class="col-4">Сумма по договору:</div>
@@ -57,6 +56,15 @@
                     <div class="col-4">Сумма КС:</div>
                     <div class="col-sm-8">@BLL.Finances.Prices.Concil(Model.DocPack) @Model.DocPack.Cur</div>
                 </div>
+                <div class="table_services_info">
+                    @foreach (var service in BLL.Finances.Services.Get(Model.DocPack))
+                    {
+                        <div class="row align-items-start">
+                            <div class="col-4">@service.Name:</div>
+                            <div class="col-sm-8">@service.Price @Model.DocPack.Cur x @service.Quantity = @(service.Price * service.Quantity) @Model.DocPack.Cur</div>
+                        </div>
+                    }
+                </div>
                 <div class="row align-items-start">
                     <div class="col-4">Тип оплаты:</div>
                     <div class="col-sm-8">@DAL.Constants.PaymentType(Model.DocPack.PType)</div>
@@ -65,14 +73,6 @@
                     <div class="col-4">Запись на подачу:</div>
                     <div class="col-sm-8"><a class="normal-link" href="/app/@Model.DocPack.Appointment.Id/">
                         @DAL.Formats.Appointment(Model.DocPack.Appointment.AppNum)</a></div>
-                </div>
-                <div class="row align-items-start">
-                    <div class="col-4">Ксерокопия:</div>
-                    <div class="col-sm-8">@Model.DocPack.XeroxPage страниц</div>
-                </div>
-                <div class="row align-items-start">
-                    <div class="col-4">Страховка:</div>
-                    <div class="col-sm-8">@Model.DocPack.InsSum @Model.DocPack.Cur</div>
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@
                     }
                     else
                     {
-                        <div class="col-sm-8">лично</div>
+                        <div class="col-sm-8"><b>лично</b></div>
                     }
                 </div>
                 <div class="row align-items-start">
