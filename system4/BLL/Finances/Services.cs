@@ -9,9 +9,11 @@ namespace system4.BLL.Finances
             // var insurance =
             // var additionalServices =
 
-            var services = new List<Service>
+            var services = new List<Service>();
+
+            if (Prices.Services(doc) > 0)
             {
-                new Service
+                var service = new Service
                 {
                     Name = "Услуги по оформлению документов",
                     Quantity = doc.Applicants.Where(x => !x.IsDeleted()).Count(),
@@ -19,7 +21,9 @@ namespace system4.BLL.Finances
                     VAT = true,
                     Department = 1,
                     Code = Code.Service(doc, "visa"),
-                }
+                };
+
+                services.Add(service);
             };
 
             if (doc.Shipping > 0)
