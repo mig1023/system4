@@ -340,14 +340,24 @@ namespace system4.DB.Entity
         {
             using (var db = new EntityContext())
             {
-                var price = db.ServiceFields
+                var services = db.ServiceFields
                     .Where(x => x.ServiceId == serviceId)
                     .ToList();
 
-                return price;
+                return services;
             }
         }
 
+        public static List<DocPackService> DocPackService(int packId)
+        {
+            using (var db = new EntityContext())
+            {
+                var services = db.DocPackService
+                    .Where(x => x.PackId == packId)
+                    .ToList();
 
+                return services;
+            }
+        }
     }
 }

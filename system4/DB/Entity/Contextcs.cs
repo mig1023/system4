@@ -41,6 +41,8 @@ namespace system4.DB.Entity
 
             public DbSet<ServiceFields> ServiceFields { get; set; }
 
+            public DbSet<DocPackService> DocPackService { get; set; }
+
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 modelBuilder.Entity<DocHistory>(x => x.HasNoKey());
