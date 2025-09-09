@@ -18,6 +18,7 @@ namespace system4.BLL.Finances
                     Price = Prices.Services(doc),
                     VAT = true,
                     Department = 1,
+                    Code = Code.Service(doc, "visa"),
                 }
             };
 
@@ -31,6 +32,7 @@ namespace system4.BLL.Finances
                     VAT = true,
                     Department = 1,
                     Shipping = true,
+                    Code = Code.Service(doc, "shipping"),
                 };
 
                 services.Add(service);
@@ -45,6 +47,7 @@ namespace system4.BLL.Finances
                     Price = doc.PriceRate.SMS,
                     VAT = true,
                     Department = 1,
+                    Code = Code.Service(doc, "sms"),
                 };
 
                 services.Add(service);
@@ -59,6 +62,7 @@ namespace system4.BLL.Finances
                     Price = doc.PriceRate.TranslatePr,
                     VAT = true,
                     Department = 1,
+                    Code = Code.Service(doc, "tran"),
                 };
 
                 services.Add(service);
@@ -73,6 +77,7 @@ namespace system4.BLL.Finances
                     Price = doc.PriceRate.XeroxPrice,
                     VAT = true,
                     Department = 1,
+                    Code = Code.Service(doc, "xerox"),
                 };
 
                 services.Add(service);
@@ -87,6 +92,7 @@ namespace system4.BLL.Finances
                     Price = doc.PriceRate.AnketaPrice,
                     VAT = true,
                     Department = 1,
+                    Code = Code.Service(doc, "ank"),
                 };
 
                 services.Add(service);
@@ -101,6 +107,7 @@ namespace system4.BLL.Finances
                     Price = doc.PriceRate.PrintPrice,
                     VAT = true,
                     Department = 1,
+                    Code = Code.Service(doc, "print"),
                 };
 
                 services.Add(service);
@@ -115,6 +122,7 @@ namespace system4.BLL.Finances
                     Price = doc.PriceRate.PhotoPrice,
                     VAT = true,
                     Department = 1,
+                    Code = Code.Service(doc, "photo"),
                 };
 
                 services.Add(service);
@@ -129,6 +137,7 @@ namespace system4.BLL.Finances
                     Price = doc.PriceRate.VIPPrice,
                     VAT = true,
                     Department = 1,
+                    Code = Code.Service(doc, "vip"),
                 };
 
                 services.Add(service);
@@ -147,6 +156,7 @@ namespace system4.BLL.Finances
                         Price = concil.Value,
                         VAT = false,
                         Department = 2,
+                        Code = string.Empty,
                     };
 
                     services.Add(service);

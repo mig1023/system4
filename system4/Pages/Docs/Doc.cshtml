@@ -60,7 +60,7 @@
                     @foreach (var service in BLL.Finances.Services.Get(Model.DocPack))
                     {
                         <div class="row align-items-start">
-                            <div class="col-8">@service.Name:</div>
+                            <div class="col-8">@service.Code@service.Name:</div>
                             <div class="col-2 text-end">@service.Price @Model.DocPack.Cur x @service.Quantity</div>
                             <div class="col-2 text-end">@(service.Price * service.Quantity) @Model.DocPack.Cur</div>
                         </div>
