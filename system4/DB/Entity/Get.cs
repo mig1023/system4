@@ -335,52 +335,53 @@ namespace system4.DB.Entity
                 return price;
             }
         }
-        
-        public static List<Services> Services(int serviceId)
+
+        public static List<ServicesPriceRates> ServicesPriceRates(int rateId)
         {
             using (var db = new EntityContext())
             {
-                var services = db.Services
-                    .Where(x => x.Id == serviceId)
+                var price = db.ServicesPriceRates
+                    .Where(x => x.PriceRateId == rateId)
                     .ToList();
 
-                return services;
-            }
-        }
-        
-        public static List<ServiceFields> ServiceFields(int serviceId)
-        {
-            using (var db = new EntityContext())
-            {
-                var services = db.ServiceFields
-                    .Where(x => x.ServiceId == serviceId)
-                    .ToList();
-
-                return services;
+                return price;
             }
         }
 
-        public static List<DocPackService> DocPackService(int packId)
+        public static List<DAL.Services> ServicesByDocId(int docId)
         {
             using (var db = new EntityContext())
             {
-                var services = db.DocPackService
-                    .Where(x => x.PackId == packId)
-                    .ToList();
+                var services = 
+                    from dps in db.DocPackService
+                    join s in db.Services on dps.ServiceId equals s.Id
+                    join sf in db.ServiceFields on dps.ServiceId equals sf.ServiceId
+                    join sint in db.ServiceFieldValuesINT on dps.Id equals sint.DocPackServiceId
+                    where dps.PackId == docId
+                    select new
+                    {
+                        serviceId = dps.Id,
+                        name = s.Name,
+                        valueType = sf.ValueType,
+                        value = sint.Value
+                    };
 
-                return services;
-            }
-        }
-        
-        public static List<ServiceFieldValuesINT> ServiceFieldValuesINT(int serviceId)
-        {
-            using (var db = new EntityContext())
-            {
-                var services = db.ServiceFieldValuesINT
-                    .Where(x => x.DocPackServiceId == serviceId)
-                    .ToList();
+                var servicesList = new List<DAL.Services>();
 
-                return services;
+                foreach (var service in services)
+                {
+                    var serviceListElement = new DAL.Services
+                    {
+                        ServiceId = service.serviceId,
+                        Name = service.name,
+                        ValueType = service.valueType,
+                        Value = service.value,
+                    };
+
+                    servicesList.Add(serviceListElement);
+                }
+
+                return servicesList;
             }
         }
     }

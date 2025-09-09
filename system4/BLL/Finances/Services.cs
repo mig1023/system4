@@ -7,7 +7,6 @@ namespace system4.BLL.Finances
         public static List<Service> Get(DAL.DocPack doc)
         {
             // var insurance =
-            // var additionalServices =
 
             var services = new List<Service>();
 
@@ -166,6 +165,8 @@ namespace system4.BLL.Finances
                     services.Add(service);
                 }
             }
+
+            var additionalServices = DAL.Services.Get(doc);
 
             return services;
         }

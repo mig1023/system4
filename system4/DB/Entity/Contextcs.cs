@@ -47,6 +47,8 @@ namespace system4.DB.Entity
 
             public DbSet<ServiceFieldValuesINT> ServiceFieldValuesINT { get; set; }
 
+            public DbSet<ServicesPriceRates> ServicesPriceRates { get; set; }
+
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 modelBuilder.Entity<DocHistory>(x => x.HasNoKey());
