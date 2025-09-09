@@ -10,8 +10,12 @@
 
         public bool VAT { get; set; }
 
-        public int Departament { get; set; }
+        public int Department { get; set; }
 
         public string Code { get; set; }
+
+        public bool Shipping { get; set; }
+
+        public bool Concil { get; set; }
     }
 }
