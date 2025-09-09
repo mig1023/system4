@@ -114,7 +114,15 @@ namespace system4.BLL.Finances
             foreach (var appl in doc.Applicants)
             {
                 var price = ConcilPerApplicant(appl, out string type);
-                concils.Add(type, price);
+
+                if (concils.ContainsKey(type))
+                {
+                    concils[type] += price;
+                }
+                else
+                {
+                    concils.Add(type, price);
+                }
             }
 
             return concils;
