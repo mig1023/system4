@@ -335,5 +335,19 @@ namespace system4.DB.Entity
                 return price;
             }
         }
+        
+        public static List<ServiceFields> ServiceFields(int serviceId)
+        {
+            using (var db = new EntityContext())
+            {
+                var price = db.ServiceFields
+                    .Where(x => x.ServiceId == serviceId)
+                    .ToList();
+
+                return price;
+            }
+        }
+
+
     }
 }

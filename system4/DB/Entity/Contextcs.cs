@@ -39,9 +39,20 @@ namespace system4.DB.Entity
 
             public DbSet<PriceList> PriceList { get; set; }
 
+            public DbSet<ServiceFields> ServiceFields { get; set; }
+
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 modelBuilder.Entity<DocHistory>(x => x.HasNoKey());
+
+                modelBuilder.Entity<ServiceFields>()
+                    .Property(x => x.FType).HasConversion<string>();
+
+                modelBuilder.Entity<ServiceFields>()
+                    .Property(x => x.ValueType).HasConversion<string>();
+
+                modelBuilder.Entity<ServiceFields>()
+                    .Property(x => x.Required).HasConversion<string>();
             }
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
