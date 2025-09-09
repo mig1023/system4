@@ -168,6 +168,38 @@ namespace system4.BLL.Finances
 
             var additionalServices = DAL.Services.Get(doc);
 
+            foreach (var additional in additionalServices)
+            {
+                if (additional.ValueType == "1")
+                {
+                    var service = new Service
+                    {
+                        Name = additional.Name,
+                        Quantity = 1,
+                        Price = additional.Price,
+                        VAT = true,
+                        Department = 1,
+                        Code = Code.Service(doc, $"service{additional.ServiceId}"),
+                    };
+
+                    services.Add(service);
+                }
+                else if (additional.ValueType == "2")
+                {
+                    var service = new Service
+                    {
+                        Name = additional.Name,
+                        Quantity = additional.Value,
+                        Price = additional.Price,
+                        VAT = true,
+                        Department = 1,
+                        Code = Code.Service(doc, $"service{additional.ServiceId}"),
+                    };
+
+                    services.Add(service);
+                }
+            }
+
             return services;
         }
     }
