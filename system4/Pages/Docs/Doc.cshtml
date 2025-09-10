@@ -70,11 +70,28 @@
                     <div class="col-4">Тип оплаты:</div>
                     <div class="col-sm-8">@DAL.Constants.PaymentType(Model.DocPack.PType)</div>
                 </div>
-                <div class="row align-items-start">
-                    <div class="col-4">Запись на подачу:</div>
-                    <div class="col-sm-8"><a class="normal-link" href="/app/@Model.DocPack.Appointment.Id/">
-                        @DAL.Formats.Appointment(Model.DocPack.Appointment.AppNum)</a></div>
-                </div>
+                @if (Model.DocPack.JurId > 0)
+                {
+                    <div class="row align-items-start">
+                        <div class="col-4">Информация о компании:</div>
+                        <div class="col-sm-8">
+                            <a class="normal-link" href="#">
+                                @Model.DocPack.Company.CName
+                            </a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row align-items-start">
+                        <div class="col-4">Запись на подачу:</div>
+                        <div class="col-sm-8">
+                            <a class="normal-link" href="/app/@Model.DocPack.Appointment.Id/">
+                                @DAL.Formats.Appointment(Model.DocPack.Appointment.AppNum)
+                            </a>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
         <div class="col">
@@ -141,7 +158,14 @@
                 {
                     <tr>
                         <th scope="row">@(i++)</th>
-                        <td>@app.FName @app.LName (@app.AppData.FName @app.AppData.LName)</td>
+                        @if (Model.DocPack.JurId > 0)
+                        {
+                            <td>@app.FName @app.LName</td>
+                        }
+                        else
+                        {
+                            <td>@app.FName @app.LName (@app.AppData.FName @app.AppData.LName)</td>
+                        }
                         <td>@app.PassNum</td>
                         <td>@app.BthDate.ToString("dd.MM.yyyy")</td>
                         <td>@app.FlyDate.ToString("dd.MM.yyyy")</td>
