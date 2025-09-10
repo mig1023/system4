@@ -155,8 +155,8 @@ namespace system4.BLL.Finances
                     var service = new Service
                     {
                         Name = $"Консульский сбор {concil.Key}",
-                        Quantity = 1,
-                        Price = concil.Value,
+                        Quantity = (int)concil.Value[1],
+                        Price = concil.Value[0],
                         VAT = false,
                         Department = 2,
                         Code = string.Empty,

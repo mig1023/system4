@@ -107,9 +107,9 @@ namespace system4.BLL.Finances
             return price;
         }
 
-        public static Dictionary<string, double> ConcilByType(DAL.DocPack doc)
+        public static Dictionary<string, List<double>> ConcilByType(DAL.DocPack doc)
         {
-            var concils = new Dictionary<string, double>();
+            var concils = new Dictionary<string, List<double>>();
 
             foreach (var appl in doc.Applicants)
             {
@@ -117,11 +117,11 @@ namespace system4.BLL.Finances
 
                 if (concils.ContainsKey(type))
                 {
-                    concils[type] += price;
+                    concils[type][1] += 1;
                 }
                 else
                 {
-                    concils.Add(type, price);
+                    concils.Add(type, new List<double> { price, 1 });
                 }
             }
 
