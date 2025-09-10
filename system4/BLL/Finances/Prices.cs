@@ -147,6 +147,22 @@ namespace system4.BLL.Finances
             }
         }
 
+        public static double ServiceAverage(DAL.DocPack doc)
+        {
+            var appl = doc.Applicants
+                .Where(x => !x.IsDeleted())
+                .FirstOrDefault();
+
+            if (appl == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return ServicesPerApplicant(appl);
+            }
+        }
+
         public static double Services(DAL.DocPack doc)
         {
             double price = 0;

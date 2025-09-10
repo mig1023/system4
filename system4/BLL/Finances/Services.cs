@@ -16,7 +16,7 @@ namespace system4.BLL.Finances
                 {
                     Name = "Услуги по оформлению документов",
                     Quantity = doc.Applicants.Where(x => !x.IsDeleted()).Count(),
-                    Price = Prices.Services(doc),
+                    Price = Prices.ServiceAverage(doc),
                     VAT = true,
                     Department = 1,
                     Code = Code.Service(doc, "visa"),
