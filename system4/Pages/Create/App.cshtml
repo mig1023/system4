@@ -1,0 +1,19 @@
+﻿@page "/app/create/"
+@model system4.Pages.Create.AppModel
+@{
+    ViewData["Title"] = "App";
+}
+
+<div class="container p-0 text-center">
+    <h1 class="display-4">Создание о записи на подачу:</h1>
+
+    <div class="input-group padding_search">
+
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            @foreach (var center in Model.Centers)
+            {
+                <option value="@center.Key">@center.Value</option>
+            }
+        </select>
+    </div>
+</div>
