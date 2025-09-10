@@ -49,6 +49,8 @@ namespace system4.DB.Entity
 
             public DbSet<ServicesPriceRates> ServicesPriceRates { get; set; }
 
+            public DbSet<Companies> Companies { get; set; }
+
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 modelBuilder.Entity<DocHistory>(x => x.HasNoKey());

@@ -384,5 +384,18 @@ namespace system4.DB.Entity
                 return servicesList;
             }
         }
+
+        public static Companies Companies(int companyId)
+        {
+            using (var db = new EntityContext())
+            {
+                var company = db.Companies
+                    .SingleOrDefault(x => x.Id == companyId);
+
+                return company;
+            }
+        }
+
+        
     }
 }
