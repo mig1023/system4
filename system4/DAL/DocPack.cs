@@ -51,8 +51,8 @@ namespace system4.DAL
             {
                 foreach (var docList in DB.Entity.Get.DocList(docInfo.Id))
                 {
-                    var appData = doc.Appointment.AppData
-                        .SingleOrDefault(x => x.Id == docList.ApplId);
+                    var appData = doc.Appointment?.AppData
+                        .SingleOrDefault(x => x.Id == docList.ApplId) ?? null;
 
                     doc.Applicants.Add(DAL.DocApplicant.Converter(doc, docInfo, docList, appData));
                 }

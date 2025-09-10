@@ -28,6 +28,11 @@ namespace system4.DAL
 
         public static Appointment Get(int appid)
         {
+            if (appid == 0)
+            {
+                return null;
+            }
+
             var dbApp = DB.Entity.Get.App(appid);
             var app = Converter(dbApp);
 

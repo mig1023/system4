@@ -1,4 +1,4 @@
-﻿@page "/docs/{pageNum?}"
+﻿@page "/docs/{type}/{pageNum?}"
 @model system4.Pages.Docs.DocsModel
 @{
     ViewData["Title"] = "Docs";
@@ -34,8 +34,15 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Дата договора</th>
-                <th scope="col">Заказчик</th>
-                <th scope="col">Номер паспорта</th>
+                @if (Model.Companies)
+                {
+                    <th scope="col">Организация</th>
+                }
+                else
+                {
+                    <th scope="col">Заказчик</th>
+                    <th scope="col">Номер паспорта</th>
+                }
                 <th scope="col">Тип визы</th>
                 <th scope="col">Визовый центр</th>
                 <th scope="col">Доп.инфо</th>
@@ -50,10 +57,17 @@
                     foreach (DAL.DocPack doc in Model.DocPack)
                     {
                         <tr>
-                            <td><a class="normal-link" href="/doc/@doc.Id/">@DAL.Formats.Agreement(doc.AgreementNo)</a></td>
+                            <td><a class="normal-link" href="/doc/@Model.LinkType/@doc.Id/">@DAL.Formats.Agreement(doc.AgreementNo)</a></td>
                             <td>@doc.PDate.Date.ToString("dd.MM.yyyy")</td>
-                            <td>@doc.LName @doc.FName @doc.MName</td>
-                            <td>@doc.PassNum</td>
+                            @if (Model.Companies)
+                            {
+                                <td>@doc.PassNum</td>
+                            }
+                            else
+                            {
+                                <td>@doc.LName @doc.FName @doc.MName</td>
+                                <td>@doc.PassNum</td>
+                            }
                             <td>@doc.Visa.VName</td>
                             <td>@doc.Center.BName</td>
                             <td class="comment_text table_additional_info">
@@ -91,7 +105,7 @@
     @{
         if (Model.Current > 1)
         {
-            <a class="normal-link" href="/docs/@(Model.Current - 1)/">предыдущая</a>
+            <a class="normal-link" href="/docs/@Model.LinkType/@(Model.Current - 1)/">предыдущая</a>
             <text> -</text>
         }
 
@@ -103,7 +117,7 @@
             }
             else
             {
-                <a class="normal-link" href="/docs/@i/">@i</a>
+                <a class="normal-link" href="/docs/@Model.LinkType/@i/">@i</a>
             }
 
             if (i < Model.Pages)
@@ -115,6 +129,6 @@
         if (Model.Current < Model.Pages)
         {
             <text>- </text>
-            <a class="normal-link" href="/docs/@(Model.Current + 1)/">следующая</a>
+            <a class="normal-link" href="/docs/@Model.LinkType/@(Model.Current + 1)/">следующая</a>
         }
     }

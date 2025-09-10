@@ -16,9 +16,13 @@ namespace system4.Pages.Docs
 
         public int Current { get; set; }
 
-        public void OnGet(int? pageNum)
+        public bool Companies { get; set; }
+
+        public string LinkType { get; set; }
+
+        public void OnGet(string type, int? pageNum)
         {
-            var search = HttpContext.Session.GetString("docSearch");
+            var search = HttpContext.Session.GetString($"{type}docSearch");
 
             if (String.IsNullOrEmpty(search))
             {
@@ -29,23 +33,25 @@ namespace system4.Pages.Docs
                 Search = search;
             }
 
-            DocPack = DAL.DocPack.List(search, pageNum, out int pages, juridical: false);
+            LinkType = type;
+            Companies = type == "companies";
+            DocPack = DAL.DocPack.List(search, pageNum, out int pages, juridical: Companies);
             Pages = pages;
             Current = pageNum ?? 1;
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string type)
         {
             if (Request.Form.Keys.Contains("doSearch"))
             {
-                HttpContext.Session.SetString("docSearch", Search);
+                HttpContext.Session.SetString($"{type}docSearch", Search);
             }
             else if (Request.Form.Keys.Contains("doClean"))
             {
-                HttpContext.Session.Remove("docSearch");
+                HttpContext.Session.Remove($"{type}docSearch");
             }
 
-            return Redirect("/docs/");
+            return Redirect($"/docs/{type}/");
         }
     }
 }
