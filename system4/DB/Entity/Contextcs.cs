@@ -63,6 +63,9 @@ namespace system4.DB.Entity
 
                 modelBuilder.Entity<ServiceFields>()
                     .Property(x => x.Required).HasConversion<string>();
+               
+                modelBuilder.Entity<Branches>()
+                    .Property(x => x.IsPrepayedAppointment).HasConversion<string>();
             }
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

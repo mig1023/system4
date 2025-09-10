@@ -13,9 +13,9 @@ namespace system4.DB
 
         public int Timezone { get; set; }
 
-        public int isDeleted { get; set; }
+        public int IsDeleted { get; set; }
 
-        public int isDefault { get; set; }
+        public int IsDefault { get; set; }
 
         public int Display { get; set; }
 
@@ -23,7 +23,7 @@ namespace system4.DB
 
         public string BAddr { get; set; }
 
-        public string JAddr { get; set; }
+        public string? JAddr { get; set; }
 
         public int? AddrEqualled { get; set; }
 
@@ -77,7 +77,7 @@ namespace system4.DB
 
         public int isShippingFree { get; set; }
 
-        // public int isPrepayedAppointment { get; set; }
+        public string IsPrepayedAppointment { get; set; }
 
         public int DefaultPaymentMethod { get; set; }
 

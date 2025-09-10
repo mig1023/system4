@@ -242,7 +242,19 @@ namespace system4.DB.Entity
                 return options;
             }
         }
-        
+
+        public static List<Branches> Branches()
+        {
+            using (var db = new EntityContext())
+            {
+                var branches =  db.Branches
+                    .Where(x => x.IsDeleted == 0)
+                    .ToList();
+
+                return branches;
+            }
+        }
+
         public static Branches Branches(int centerId)
         {
             using (var db = new EntityContext())
