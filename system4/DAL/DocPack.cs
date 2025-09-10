@@ -20,6 +20,8 @@ namespace system4.DAL
 
         public List<PriceList> PriceList { get; set; }
 
+        public Companies Company { get; set; }
+
 
         private static DocPack Converter(DB.DocPack dbDoc)
         {
@@ -56,6 +58,11 @@ namespace system4.DAL
 
                     doc.Applicants.Add(DAL.DocApplicant.Converter(doc, docInfo, docList, appData));
                 }
+            }
+
+            if (doc.JurId > 0)
+            {
+                doc.Company = DB.Entity.Get.Companies(doc.JurId);
             }
 
             return doc;
