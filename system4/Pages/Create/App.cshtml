@@ -4,16 +4,82 @@
     ViewData["Title"] = "App";
 }
 
-<div class="container p-0 text-center">
-    <h1 class="display-4">Создание о записи на подачу:</h1>
+<form method="post">
+    <div class="container p-0 text-center">
+        <h1 class="display-4">Создание о записи на подачу:</h1>
 
-    <div class="input-group padding_search">
+        <div class="input-group padding_search">
 
-        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-            @foreach (var center in Model.Centers)
-            {
-                <option value="@center.Key">@center.Value</option>
-            }
-        </select>
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                @foreach (var center in Model.Centers)
+                {
+                    <option value="@center.Key">@center.Value</option>
+                }
+            </select>
+        </div>
     </div>
-</div>
+
+    <div id="applicants"></div>
+    <button id="addApplicant" type="button" class="btn btn-outline-primary padding_search_buttons">добавить заявителя</button>
+    <button type="submit" class="btn btn-primary">сохранить запись</button>
+</form>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+
+            let applicantIndex = 0;
+
+            $("#addApplicant").click(function () {
+
+                applicantIndex++;
+
+                let newApplicant = `
+                    <div class="dynamic-field-row border applicant_form">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col">
+                                <label for="Applicants_${applicantIndex - 1}_LName" class="form-label">Фамилия:</label>
+                                <input type="text" class="form-control" id="Applicants_${applicantIndex - 1}_LName" name="Applicants[${applicantIndex - 1}].LName">
+                                <div class="form-text">Ivanov</div>
+                            </div>
+                            <div class="col">
+                                <label for="Applicants_${applicantIndex - 1}_FName" class="form-label">Имя:</label>
+                                <input type="text" class="form-control" id="Applicants_${applicantIndex - 1}_FName" name="Applicants[${applicantIndex - 1}].FName">
+                                <div class="form-text">Ivan</div>
+                            </div>
+                            <div class="col">
+                                <label for="Applicants_${applicantIndex - 1}_PassNum" class="form-label">Загранпаспорт:</label>
+                                <input type="text" class="form-control" id="Applicants_${applicantIndex - 1}_PassNum" name="Applicants[${applicantIndex - 1}].PassNum">
+                                <div class="form-text">771234567</div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col">
+                                <label for="Applicants_${applicantIndex - 1}_BirthDate" class="form-label">Дата рождения:</label>
+                                <input type="text" class="form-control" id="Applicants_${applicantIndex - 1}_BirthDate" name="Applicants[${applicantIndex - 1}].BirthDate">
+                                <div class="form-text">01.01.1990</div>
+                            </div>
+                            <div class="col">
+                                <input type="checkbox" class="form-check-input" id="Applicants_${applicantIndex - 1}_IsChild" name="Applicants_${applicantIndex - 1}_IsChild">
+                                <label class="form-check-label" for="Applicants_${applicantIndex - 1}_IsChild">Вписан в паспорт</label>
+                            </div>
+                            <div class="col">
+                                <input type="checkbox" class="form-check-input" id="Applicants_${applicantIndex - 1}_NRes" name="Applicants_${applicantIndex - 1}_NRes">
+                                <label class="form-check-label" for="Applicants_${applicantIndex - 1}_NRes">Нерезидент</label>
+                            </div>
+                        </div>
+
+                        <button type="button" class="remove-field btn btn-outline-primary">удалить заявителя</button>
+                    </div>`;
+
+                $("#applicants").append(newApplicant);
+            });
+
+            $(document).on('click', '.remove-field', function () {
+
+                $(this).closest('.dynamic-field-row').remove();
+            });
+        });
+    </script>
+}

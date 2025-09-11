@@ -71,6 +71,10 @@ html {
     background-color:ghostwhite
 }
 
+.applicant_form {
+    padding: 30px;
+}
+
 html {
   position: relative;
   min-height: 100%;
