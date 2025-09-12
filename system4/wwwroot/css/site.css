@@ -85,9 +85,13 @@ html {
     margin-right: 10px;
 }
 
+.application_remove {
+    margin-top: 15px;
+}
+
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
