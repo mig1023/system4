@@ -2,7 +2,11 @@
 {
     public class AppointmentForm
     {
-        public List<ApplicantForm> Applicants { get; set; }// = new List<DynamicItem>();
+        public int Center { get; set; }
+
+        public int VisaType { get; set; } 
+
+        public List<ApplicantForm> Applicants { get; set; }
 
         public AppointmentForm()
         {

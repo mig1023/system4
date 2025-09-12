@@ -265,7 +265,18 @@ namespace system4.DB.Entity
                 return branch;
             }
         }
-        
+
+        public static List<VisaTypes> VisaTypes()
+        {
+            using (var db = new EntityContext())
+            {
+                var type = db.VisaTypes
+                    .ToList();
+
+                return type;
+            }
+        }
+
         public static VisaTypes VisaTypes(int appId)
         {
             using (var db = new EntityContext())

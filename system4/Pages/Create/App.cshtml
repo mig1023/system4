@@ -8,14 +8,26 @@
     <div class="container p-0 text-center">
         <h1 class="display-4">Создание о записи на подачу:</h1>
 
-        <div class="input-group padding_search">
+        <div class="row text-start">
+            <div class="col">
+                <label for="Center" class="form-label">Визовый центр:</label>
+                <select class="form-select form-select-lg mb-3" id="Center" name="Center" aria-label=".form-select-lg example">
+                    @foreach (var center in Model.Centers)
+                    {
+                        <option value="@center.Key">@center.Value</option>
+                    }
+                </select>
+            </div>
 
-            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                @foreach (var center in Model.Centers)
-                {
-                    <option value="@center.Key">@center.Value</option>
-                }
-            </select>
+            <div class="col">
+                <label for="Visa" class="form-label">Тип визы:</label>
+                <select class="form-select form-select-lg mb-3" id="Visa" name="Visa" aria-label=".form-select-lg example">
+                    @foreach (var visa in Model.VisaTypes)
+                    {
+                        <option value="@visa.Key">@visa.Value</option>
+                    }
+                </select>
+            </div>
         </div>
     </div>
 
@@ -62,14 +74,14 @@
                             </div>
                             <div class="col">
                                 <input type="checkbox" class="btn-check" id="Applicants_${applicantIndex - 1}_IsChild" name="Applicants[${applicantIndex - 1}].IsChild" value="true" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="Applicants_${applicantIndex - 1}_IsChild">Вписан в паспорт</label>
+                                <label class="btn btn-outline-primary application_checkbox" for="Applicants_${applicantIndex - 1}_IsChild">вписан в паспорт</label>
                                 <input type="hidden" name="Applicants[${applicantIndex - 1}].IsChild" value="false" />
-                            </div>
-                            <div class="col">
+
                                 <input type="checkbox" class="btn-check" id="Applicants_${applicantIndex - 1}_NRes" name="Applicants[${applicantIndex - 1}].NRes" value="true" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="Applicants_${applicantIndex - 1}_NRes">Нерезидент</label>
+                                <label class="btn btn-outline-primary" for="Applicants_${applicantIndex - 1}_NRes">нерезидент</label>
                                 <input type="hidden" name="Applicants[${applicantIndex - 1}].NRes" value="false" />
                             </div>
+                            <div class="col"></div>
                         </div>
 
                         <button type="button" class="remove-field btn btn-outline-primary">удалить заявителя</button>

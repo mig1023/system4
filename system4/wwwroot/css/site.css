@@ -81,6 +81,10 @@ html {
     margin-bottom: 10px;
 }
 
+.application_checkbox {
+    margin-right: 10px;
+}
+
 html {
   position: relative;
   min-height: 100%;
