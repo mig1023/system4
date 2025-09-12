@@ -61,13 +61,13 @@
                                 <div class="form-text">01.01.1990</div>
                             </div>
                             <div class="col">
-                                <input type="checkbox" class="form-check-input" id="Applicants_${applicantIndex - 1}_IsChild" name="Applicants[${applicantIndex - 1}].IsChild" value="true">
-                                <label class="form-check-label" for="Applicants_${applicantIndex - 1}_IsChild">Вписан в паспорт</label>
+                                <input type="checkbox" class="btn-check" id="Applicants_${applicantIndex - 1}_IsChild" name="Applicants[${applicantIndex - 1}].IsChild" value="true" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="Applicants_${applicantIndex - 1}_IsChild">Вписан в паспорт</label>
                                 <input type="hidden" name="Applicants[${applicantIndex - 1}].IsChild" value="false" />
                             </div>
                             <div class="col">
-                                <input type="checkbox" class="form-check-input" id="Applicants_${applicantIndex - 1}_NRes" name="Applicants[${applicantIndex - 1}].NRes" value="true">
-                                <label class="form-check-label" for="Applicants_${applicantIndex - 1}_NRes">Нерезидент</label>
+                                <input type="checkbox" class="btn-check" id="Applicants_${applicantIndex - 1}_NRes" name="Applicants[${applicantIndex - 1}].NRes" value="true" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="Applicants_${applicantIndex - 1}_NRes">Нерезидент</label>
                                 <input type="hidden" name="Applicants[${applicantIndex - 1}].NRes" value="false" />
                             </div>
                         </div>
