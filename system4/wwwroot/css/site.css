@@ -73,6 +73,12 @@ html {
 
 .applicant_form {
     padding: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.application_row {
+    margin-bottom: 10px;
 }
 
 html {
