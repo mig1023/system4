@@ -11,6 +11,8 @@ namespace system4.Pages.Create
 
         public Dictionary<int, string> VisaTypes { get; set; }
 
+        public Dictionary<int, string> VisaCenters { get; set; }
+
         [BindProperty]
         public BLL.CreateApp.AppointmentForm FormModel { get; set; }
 
@@ -21,6 +23,9 @@ namespace system4.Pages.Create
 
             VisaTypes = DB.Entity.Get.VisaTypes()
                 .ToDictionary(x => x.Id, x => x.VName);
+
+            VisaCenters = DB.Entity.Get.VisaTypes()
+                .ToDictionary(x => x.Id, x => x.Centers);
         }
 
         public void OnPost()

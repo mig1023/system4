@@ -21,23 +21,14 @@
 
             <div class="col">
                 <label for="VisaType" class="form-label">Тип визы:</label>
-                <select class="form-select form-select-lg mb-3" id="VisaType" name="Visa" aria-label=".form-select-lg example">
-                    @foreach (var visa in Model.VisaTypes)
-                    {
-                        <option value="@visa.Key">@visa.Value</option>
-                    }
-                </select>
+                <select class="form-select form-select-lg mb-3" id="VisaType" name="VisaType" aria-label=".form-select-lg example"></select>
             </div>
         </div>
 
         <div id="applicants"></div>
         <button id="addApplicant" type="button" class="btn btn-outline-primary">добавить заявителя</button>
 
-
-
-
         <button type="submit" class="btn btn-primary">сохранить запись</button>
-
 
     </div>
 </form>
@@ -144,6 +135,38 @@
                 let appl = $(this).closest('.dynamic-field-row');
                 appl.hide();
                 appl.find("[id^=Removed_]").val("true");
+            });
+
+            $("#Center").on('change', function () {
+
+                var visasByCenters = {
+                    @foreach (var visa in Model.VisaCenters)
+                    {
+                        <text>"@visa.Key": [@visa.Value],</text>
+                    }
+                };
+
+                var visas = {
+                    @foreach (var visa in Model.VisaTypes)
+                    {
+                        <text>"@visa.Key": "@visa.Value", </text>
+                    }
+                };
+
+                $("#VisaType").find('option').remove();
+
+                var center = Number($("#Center").val());
+
+                for (var [key, value] of Object.entries(visasByCenters)) {
+
+                    if (value.includes(center)) {
+
+                        $("#VisaType").append($('<option>', {
+                            value: key,
+                            text: visas[key]
+                        }));
+                    }
+                }
             });
         });
     </script>
