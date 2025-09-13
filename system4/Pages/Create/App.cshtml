@@ -38,13 +38,13 @@
     <script>
         $(document).ready(function () {
 
-            let applicantIndex = 0;
+            var applicantIndex = 0;
 
             $("#addApplicant").click(function () {
 
                 applicantIndex++;
 
-                let newApplicant = `
+                var newApplicant = `
                     <div class="dynamic-field-row border applicant_form">
 
                         <input type="hidden" id="Removed_${applicantIndex - 1}" name="Applicants[${applicantIndex - 1}].Removed" value="false" />
@@ -129,10 +129,16 @@
 
             $(document).on('click', '.remove-field', function () {
 
-                if (!confirm('Вы уверены, что хотите удалить заявителя?'))
-                    return;
+                var appl = $(this).closest('.dynamic-field-row');
 
-                let appl = $(this).closest('.dynamic-field-row');
+                var lname = appl.find("[id$=LName]").val();
+                var fname = appl.find("[id$=FName]").val();
+                var passnum = appl.find("[id$=PassNum]").val();
+                var applText = lname + fname + passnum;
+
+                if ((applText.replace(/\s/g, '') != "") && !confirm('Вы уверены, что хотите удалить заявителя?'))
+                    return;
+                
                 appl.hide();
                 appl.find("[id^=Removed_]").val("true");
             });
