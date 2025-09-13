@@ -4,7 +4,7 @@
     {
         public int Center { get; set; }
 
-        public int VisaType { get; set; } 
+        public int VisaType { get; set; }
 
         public List<ApplicantForm> Applicants { get; set; }
 

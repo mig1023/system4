@@ -25,14 +25,6 @@ namespace system4.Pages.Create
 
         public void OnPost()
         {
-            var tmp = string.Empty;
-
-            foreach (var item in FormModel.Applicants)
-            {
-                tmp += item.FName + " " + item.LName + "(" + item.PassNum + ")!  ";
-            }
-
-            tmp += "!";
         }
     }
 }

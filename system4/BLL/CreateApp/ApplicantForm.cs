@@ -2,6 +2,8 @@
 {
     public class ApplicantForm
     {
+        public bool Removed { get; set; }
+
         public string LName { get; set; }
 
         public string FName { get; set; }

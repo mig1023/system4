@@ -5,8 +5,8 @@
 }
 
 <form method="post">
-    <div class="container p-0 text-center">
-        <h1 class="display-4">Создание о записи на подачу:</h1>
+    <div class="container p-0">
+        <h1 class="display-4 text-center">Создание о записи на подачу:</h1>
 
         <div class="row text-start">
             <div class="col">
@@ -29,13 +29,17 @@
                 </select>
             </div>
         </div>
+
+        <div id="applicants"></div>
+        <button id="addApplicant" type="button" class="btn btn-outline-primary">добавить заявителя</button>
+
+
+
+
+        <button type="submit" class="btn btn-primary">сохранить запись</button>
+
+
     </div>
-
-    <div id="applicants"></div>
-    <button id="addApplicant" type="button" class="btn btn-outline-primary padding_search_buttons">добавить заявителя</button>
-
-
-    <button type="submit" class="btn btn-primary">сохранить запись</button>
 </form>
 
 @section Scripts {
@@ -51,6 +55,9 @@
 
                 let newApplicant = `
                     <div class="dynamic-field-row border applicant_form">
+
+                        <input type="hidden" id="Removed_${applicantIndex - 1}" name="Applicants[${applicantIndex - 1}].Removed" value="false" />
+
                         <div class="row justify-content-center align-items-center application_row">
                             <div class="col">
                                 <label for="Applicants_${applicantIndex - 1}_LName" class="form-label">Фамилия:</label>
@@ -131,7 +138,12 @@
 
             $(document).on('click', '.remove-field', function () {
 
-                $(this).closest('.dynamic-field-row').remove();
+                if (!confirm('Вы уверены, что хотите удалить заявителя?'))
+                    return;
+
+                let appl = $(this).closest('.dynamic-field-row');
+                appl.hide();
+                appl.find("[id^=Removed_]").val("true");
             });
         });
     </script>
