@@ -39,8 +39,8 @@ namespace system4.DAL
             app.Comments = DB.Entity.Get.AppComments(appid);
             app.Center = DB.Entity.Get.Branches(app.CenterId);
             app.VisaType = DB.Entity.Get.VisaTypes(app.VType);
-            app.TimeData = DB.Entity.Get.TimeData(app.TimeslotId);
             app.AppData = DB.Entity.Get.AppData(appid);
+            app.TimeData = BLL.Timeslots.Time(app);
 
             return app;
         }

@@ -298,7 +298,20 @@ namespace system4.DB.Entity
                 return slot;
             }
         }
-        
+
+        public static TimeData TimeData(int timeslotId, int tStart)
+        {
+            using (var db = new EntityContext())
+            {
+                var slot = db.TimeData
+                    .Where(x => (x.TimeId == timeslotId) && (x.TStart <= tStart))
+                    .OrderBy(x => x.TStart)
+                    .First();
+
+                return slot;
+            }
+        }
+
         public static Timeslots Timeslots(int centerId, DateTime date, bool agency = false)
         {
             using (var db = new EntityContext())

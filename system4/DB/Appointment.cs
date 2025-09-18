@@ -11,6 +11,8 @@ namespace system4.DB
 
         public DateTime AppDate { get; set; }
 
+        public string AppTime { get; set; }
+
         public int TimeslotId { get; set; }
 
         public DateTime RDate { get; set; }
