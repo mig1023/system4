@@ -31,6 +31,8 @@ namespace system4.DB.Entity
 
             public DbSet<VisaTypes> VisaTypes { get; set; }
 
+            public DbSet<Timeslots> Timeslots { get; set; }
+
             public DbSet<TimeData> TimeData { get; set; }
 
             public DbSet<DocHistory> DocHistory { get; set; }

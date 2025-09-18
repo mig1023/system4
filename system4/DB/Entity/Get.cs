@@ -298,6 +298,20 @@ namespace system4.DB.Entity
                 return slot;
             }
         }
+        
+        public static Timeslots Timeslots(int centerId, DateTime date, bool agency = false)
+        {
+            using (var db = new EntityContext())
+            {
+                var slot = db.Timeslots
+                    .Where(x => (x.BranchID == centerId) && (x.IsDeleted == 0))
+                    .Where(x => x.TDate <= date)
+                    .OrderByDescending(x => x.TDate)
+                    .First();
+
+                return slot;
+            }
+        }
 
         public static List<DocHistory> DocHistory(int docid)
         {
