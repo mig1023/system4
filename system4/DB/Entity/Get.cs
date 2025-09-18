@@ -312,7 +312,7 @@ namespace system4.DB.Entity
             }
         }
 
-        public static Timeslots Timeslots(int centerId, DateTime date, bool agency = false)
+        public static Timeslots Timeslot(int centerId, DateTime date, bool agency = false)
         {
             using (var db = new EntityContext())
             {

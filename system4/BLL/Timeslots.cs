@@ -14,7 +14,7 @@ namespace system4.BLL
             {
                 TimeSpan.TryParse(app.AppTime, out TimeSpan start);
 
-                var tDate = DB.Entity.Get.Timeslots(app.CenterId, app.AppDate);
+                var tDate = DB.Entity.Get.Timeslot(app.CenterId, app.AppDate);
                 var tStart = (int)start.TotalSeconds;
                 var tEnd = DB.Entity.Get.TimeData(tDate.Id, tStart);
 
