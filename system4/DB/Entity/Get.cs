@@ -21,6 +21,18 @@ namespace system4.DB.Entity
             }
         }
 
+        public static List<Appointment> AppsByDate(DateTime date)
+        {
+            using (var db = new EntityContext())
+            {
+                var apps = db.Appointments
+                    .Where(x => x.AppDate == date.Date)
+                    .ToList();
+
+                return apps;
+            }
+        }
+
         public static List<int> AppsByDate(DateTime date, int page, int size, out int count)
         {
             using (var db = new EntityContext())
@@ -288,7 +300,7 @@ namespace system4.DB.Entity
             }
         }
 
-        public static TimeData TimeData(int slotId)
+        public static TimeData TimeDataById(int slotId)
         {
             using (var db = new EntityContext())
             {
@@ -299,12 +311,26 @@ namespace system4.DB.Entity
             }
         }
 
-        public static TimeData TimeData(int timeslotId, int tStart)
+        public static List<TimeData> TimeDataByTimeslot(int timeslotId, int dayNum)
         {
             using (var db = new EntityContext())
             {
                 var slot = db.TimeData
-                    .Where(x => (x.TimeId == timeslotId) && (x.TStart <= tStart))
+                    .Where(x => (x.TimeId == timeslotId) && (x.isDeleted == 0))
+                    .Where(x => x.DayNum == dayNum)
+                    .OrderBy(x => x.TStart)
+                    .ToList();
+
+                return slot;
+            }
+        }
+
+        public static TimeData TimeDataByTStart(int timeslotId, int tStart)
+        {
+            using (var db = new EntityContext())
+            {
+                var slot = db.TimeData
+                    .Where(x => (x.TimeId == timeslotId) && (x.isDeleted == 0) && (x.TStart <= tStart))
                     .OrderBy(x => x.TStart)
                     .First();
 
@@ -312,12 +338,14 @@ namespace system4.DB.Entity
             }
         }
 
-        public static Timeslots Timeslot(int centerId, DateTime date, bool agency = false)
+        public static Timeslots Timeslots(int centerId, DateTime date, bool agency = false)
         {
+            var isAgency = agency ? 1 : 0;
+
             using (var db = new EntityContext())
             {
                 var slot = db.Timeslots
-                    .Where(x => (x.BranchID == centerId) && (x.IsDeleted == 0))
+                    .Where(x => (x.BranchID == centerId) && (x.IsDeleted == 0) && (x.Agency == isAgency))
                     .Where(x => x.TDate <= date)
                     .OrderByDescending(x => x.TDate)
                     .First();

@@ -6,24 +6,23 @@ namespace system4.BLL
     {
         public static TimeData Time(Appointment app)
         {
+            TimeSpan start;
+
             if (string.IsNullOrEmpty(app.AppTime))
             {
-                return DB.Entity.Get.TimeData(app.TimeslotId);
+                var oldTimedata = DB.Entity.Get.TimeDataById(app.TimeslotId);
+                start = TimeSpan.FromSeconds(oldTimedata.TStart);
             }
             else
             {
-                TimeSpan.TryParse(app.AppTime, out TimeSpan start);
-
-                var tDate = DB.Entity.Get.Timeslot(app.CenterId, app.AppDate);
-                var tStart = (int)start.TotalSeconds;
-                var tEnd = DB.Entity.Get.TimeData(tDate.Id, tStart);
-
-                return new TimeData
-                {
-                    TStart = tStart,
-                    TEnd = tEnd.TEnd,
-                };
+                TimeSpan.TryParse(app.AppTime, out start);
             }
+
+            var tDate = DB.Entity.Get.Timeslots(app.CenterId, app.AppDate);
+            var tStart = (int)start.TotalSeconds;
+            var timedata = DB.Entity.Get.TimeDataByTStart(tDate.Id, tStart);
+
+            return timedata;
         }
     }
 }
