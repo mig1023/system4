@@ -40,7 +40,7 @@ namespace system4.DAL
             app.Center = DB.Entity.Get.Branches(app.CenterId);
             app.VisaType = DB.Entity.Get.VisaTypes(app.VType);
             app.AppData = DB.Entity.Get.AppData(appid);
-            app.TimeData = BLL.Timeslots.Time(app);
+            app.TimeData = BLL.Timeslots.Get.Time(app);
 
             return app;
         }

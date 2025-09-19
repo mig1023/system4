@@ -21,12 +21,12 @@ namespace system4.DB.Entity
             }
         }
 
-        public static List<Appointment> AppsByDate(DateTime date)
+        public static List<Appointment> AppsByDate(DateTime date, int centerId)
         {
             using (var db = new EntityContext())
             {
                 var apps = db.Appointments
-                    .Where(x => x.AppDate == date.Date)
+                    .Where(x => (x.AppDate == date.Date) && (x.CenterId == centerId))
                     .ToList();
 
                 return apps;
@@ -325,12 +325,12 @@ namespace system4.DB.Entity
             }
         }
 
-        public static TimeData TimeDataByTStart(int timeslotId, int tStart)
+        public static TimeData TimeDataByTStart(int timeslotId, int tStart, int dayNum)
         {
             using (var db = new EntityContext())
             {
                 var slot = db.TimeData
-                    .Where(x => (x.TimeId == timeslotId) && (x.isDeleted == 0) && (x.TStart <= tStart))
+                    .Where(x => (x.TimeId == timeslotId) && (x.isDeleted == 0) && (x.TStart <= tStart) && (x.DayNum == dayNum))
                     .OrderBy(x => x.TStart)
                     .First();
 
