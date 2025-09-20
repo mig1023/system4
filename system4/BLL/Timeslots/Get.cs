@@ -30,7 +30,7 @@ namespace system4.BLL.Timeslots
 
         public static List<Timeslot> Day(int centerId, DateTime date)
         {
-            var dayNum = DayOfWeek(DateTime.Now);
+            var dayNum = DayOfWeek(date);
             var tDate = DB.Entity.Get.Timeslots(centerId, date);
             var appointments = DB.Entity.Get.AppsByDate(date, centerId);
 
@@ -47,16 +47,24 @@ namespace system4.BLL.Timeslots
                 var time = Time(appointment);
 
                 var timeslot = timeslots
-                    .Where(x => x.Id == time.SlotId)
-                    .FirstOrDefault();
+                    .FirstOrDefault(x => x.Id == time.SlotId);
 
                 if (timeslot != null)
-                {
                     timeslot.Applicants += appointment.NCount;
-                }
+            }
+
+            foreach (var timeslot in timeslots)
+            {
+                var percent = timeslot.Applicants / timeslot.Visas * 100;
+                timeslot.Percentage = 100 - percent;
             }
 
             return timeslots;
+        }
+
+        public static List<string> AllDates(int centerId)
+        {
+            return null;
         }
     }
 }

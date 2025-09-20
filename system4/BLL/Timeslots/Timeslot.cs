@@ -14,6 +14,8 @@ namespace system4.BLL.Timeslots
 
         public int Applicants {  get; set; }
 
+        public int Percentage { get; set; }
+
         public Timeslot(TimeData timedata)
         {
             Id = timedata.SlotId;
