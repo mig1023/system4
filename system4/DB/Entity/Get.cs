@@ -331,7 +331,7 @@ namespace system4.DB.Entity
             {
                 var slot = db.TimeData
                     .Where(x => (x.TimeId == timeslotId) && (x.isDeleted == 0) && (x.TStart <= tStart) && (x.DayNum == dayNum))
-                    .OrderBy(x => x.TStart)
+                    .OrderByDescending(x => x.TStart)
                     .First();
 
                 return slot;
