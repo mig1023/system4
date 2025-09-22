@@ -28,6 +28,8 @@
         <div id="applicants"></div>
         <button id="addApplicant" type="button" class="btn btn-outline-primary">добавить заявителя</button>
 
+        <input id="dates" />
+
         <button type="submit" class="btn btn-primary">сохранить запись</button>
 
     </div>
@@ -37,6 +39,44 @@
 
     <script>
         $(document).ready(function () {
+
+            //////////////////////////////////////
+
+            var busyDates = {
+                "2025-09-25": "Занято 100 из 100 слотов",
+                "2025-09-26": "Занято 100 из 100 слотов",
+                "2025-09-27": "Занято 100 из 100 слотов",
+            };
+
+            var freeDates = {
+                "2025-09-29": "Свободно 30 из 100 слотов",
+                "2025-09-30": "Свободно 90 из 100 слотов",
+                "2025-10-01": "Свободно 10 из 100 слотов",
+                "2025-10-02": "Свободно 1 из 100 слотов",
+            };
+
+            $("#dates").datepicker({
+                format: 'yyyy-mm-dd',
+                minDate: 0,
+                weekStart: 1,
+                todayHighlight: true,
+                beforeShowDay: function (date) {
+
+                    var isoDate = date.toISOString().split('T')[0];
+
+                    if (busyDates[isoDate] !== undefined) {
+                        return { enabled: false, classes: 'busyDate', tooltip: busyDates[isoDate] }
+                    }
+                    else if (freeDates[isoDate] !== undefined) {
+                        return { enabled: true, classes: 'freeDate', tooltip: freeDates[isoDate] }
+                    }
+                    else {
+                        return { enabled: false };
+                    }
+                }
+            })
+
+            //////////////////////////////////////
 
             var applicantIndex = 0;
 

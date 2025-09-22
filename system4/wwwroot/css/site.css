@@ -89,6 +89,15 @@ html {
     margin-top: 15px;
 }
 
+.freeDate {
+    background: #0d6efd !important;
+    color: #ffffff !important;
+}
+.busyDate {
+    background: #fcc7c3 !important;
+    color: #ffffff !important;
+}
+
 html {
     position: relative;
     min-height: 100%;
