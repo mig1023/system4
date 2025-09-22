@@ -28,7 +28,8 @@
         <div id="applicants"></div>
         <button id="addApplicant" type="button" class="btn btn-outline-primary">добавить заявителя</button>
 
-        <input id="dates" />
+        <div id="dates"></div>
+        <input type="hidden" id="dates_value" value="">
 
         <button type="submit" class="btn btn-primary">сохранить запись</button>
 
@@ -55,10 +56,12 @@
                 "2025-10-02": "Свободно 1 из 100 слотов",
             };
 
+            $.fn.datepicker.noConflict();
+
             $("#dates").datepicker({
                 format: 'yyyy-mm-dd',
-                minDate: 0,
                 weekStart: 1,
+                numberOfMonths: 3,
                 todayHighlight: true,
                 beforeShowDay: function (date) {
 
@@ -73,6 +76,9 @@
                     else {
                         return { enabled: false };
                     }
+                },
+                onSelect: function (date) {
+                    $('#dates_value').val(date)
                 }
             })
 
