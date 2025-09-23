@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Drawing;
+using System.Linq;
 using system4.DAL;
 using static system4.DB.Entity.Contextcs;
 
@@ -82,6 +83,27 @@ namespace system4.DB.Entity
                     .SingleOrDefault(x => x.AppNum == appNum);
 
                 return app?.Id ?? 0;
+            }
+        }
+
+        public static Dictionary<DateTime, int> AppsCountByPeriod(DateTime start, DateTime end,
+            int centerId, bool agency = false)
+        {
+            var isAgency = agency ? 1 : 0;
+
+            using (var db = new EntityContext())
+            {
+                var apps = db.Appointments
+                    .Where(x => (x.AppDate >= start) && (x.AppDate <= end) && (x.CenterId == centerId) && (x.Status != 2))
+                    .GroupBy(x => x.AppDate)
+                    .Select(x => new { Date = x.Key, Apps = x.Sum(y => y.NCount) });
+
+                var data = new Dictionary<DateTime, int>();
+
+                foreach (var app in apps)
+                    data.Add(app.Date, app.Apps);
+
+                return data;
             }
         }
 
@@ -351,6 +373,37 @@ namespace system4.DB.Entity
                     .First();
 
                 return slot;
+            }
+        }
+
+        public static Dictionary<DateTime, Dictionary<int, int>> Timeslots(int centerId, bool agency = false)
+        {
+            var isAgency = agency ? 1 : 0;
+
+            using (var db = new EntityContext())
+            {
+                var slots = from tms in db.Timeslots
+                            join tmd in db.TimeData on tms.Id equals tmd.TimeId
+                            where tms.BranchID == centerId && tms.IsDeleted == 0 && tmd.isDeleted == 0 && tms.Agency == isAgency
+                            group tmd by new { tms.Id, tmd.DayNum, tms.TDate } into timeslots
+                            select new
+                            {
+                                Date = timeslots.Key.TDate,
+                                Visas = timeslots.Sum(x => x.Visas),
+                                Day = timeslots.Key.DayNum,
+                            };
+
+                var data = new Dictionary<DateTime, Dictionary<int, int>>();
+
+                foreach (var slot in slots)
+                {
+                    if (!data.ContainsKey(slot.Date))
+                        data.Add(slot.Date, new Dictionary<int, int>());
+
+                    data[slot.Date].Add(slot.Day, slot.Visas);
+                }
+
+                return data;
             }
         }
 
