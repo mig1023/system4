@@ -94,5 +94,7 @@ namespace system4.DB
         public string? SubmissionTime { get; set; }
 
         public string? CollectionTime { get; set; }
+
+        public DateTime? AppointmentsOpenUntil { get; set; }
     }
 }
