@@ -93,9 +93,21 @@ html {
     background: #0d6efd !important;
     color: #ffffff !important;
 }
+
 .busyDate {
     background: #fcc7c3 !important;
     color: #ffffff !important;
+}
+
+.dateContainer {
+    border: 1px solid #ced4da;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 25px;
+}
+
+.dateBlock {
+    display: inline-block;
 }
 
 html {
