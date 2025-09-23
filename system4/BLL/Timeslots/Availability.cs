@@ -6,6 +6,6 @@
 
         public DateTime End { get; set; }
 
-        public Dictionary<string, string> Dates { get; set; }
+        public Dictionary<DateTime, string> Dates { get; set; }
     }
 }

@@ -28,8 +28,20 @@
         <div id="applicants"></div>
         <button id="addApplicant" type="button" class="btn btn-outline-primary">добавить заявителя</button>
 
-        <div id="dates"></div>
-        <input type="hidden" id="dates_value" value="">
+        <div class="container dateContainer">
+
+            @{
+                int datepickerDiv = 0;
+                foreach (var availability in Model.AvailabilityDates)
+                {
+                    <div class="dateBlock" id="dates_@datepickerDiv"></div>
+
+                    datepickerDiv += 1;
+                }
+            }
+
+            <input type="hidden" id="dates_value" value="">
+        </div>
 
         <button type="submit" class="btn btn-primary">сохранить запись</button>
 
@@ -43,42 +55,65 @@
 
             //////////////////////////////////////
 
-            var busyDates = {
-                "2025-09-25": "Занято 100 из 100 слотов",
-                "2025-09-26": "Занято 100 из 100 слотов",
-                "2025-09-27": "Занято 100 из 100 слотов",
-            };
+            @{
+                int datepicker = 0;
 
-            var freeDates = {
-                "2025-09-29": "Свободно 30 из 100 слотов",
-                "2025-09-30": "Свободно 90 из 100 слотов",
-                "2025-10-01": "Свободно 10 из 100 слотов",
-                "2025-10-02": "Свободно 1 из 100 слотов",
-            };
+                foreach (var availability in Model.AvailabilityDates)
+                {
+                    <text>var datesData_@datepicker = {</text>
+                        
+                        foreach(var dates in availability.Dates)
+                        {
+                            <text>"@dates.Key.ToString("yyyy-MM-dd")": "@dates.Value",</text>
+                        }
+                            
+                        
+                    <text>};
+                    
+                    $("#dates_@datepicker").datepicker({
+                        format: 'yyyy-mm-dd',
+                        weekStart: 1,
+                        numberOfMonths: 3,
+                        startDate: new Date("@availability.Start.ToString("yyyy-MM-dd")"),
+                        endDate: new Date("@availability.End.ToString("yyyy-MM-dd")"),
+                        beforeShowDay: function (date) {
 
-            $("#dates").datepicker({
-                format: 'yyyy-mm-dd',
-                weekStart: 1,
-                numberOfMonths: 3,
-                todayHighlight: true,
-                beforeShowDay: function (date) {
+                            var isoArray = new Date(date).toLocaleString('ru').substring(0, 10).split('.');
+                            var isoDate = isoArray[2] + "-" + isoArray[1] + "-" + isoArray[0];
 
-                    var isoDate = date.toISOString().split('T')[0];
+                            if (datesData_@datepicker [isoDate] === undefined) {
+                                return { enabled: false };
+                            }
+                            else {
+                                var appData = datesData_@datepicker [isoDate].split('-');
 
-                    if (busyDates[isoDate] !== undefined) {
-                        return { enabled: false, classes: 'busyDate', tooltip: busyDates[isoDate] }
-                    }
-                    else if (freeDates[isoDate] !== undefined) {
-                        return { enabled: true, classes: 'freeDate', tooltip: freeDates[isoDate] }
-                    }
-                    else {
-                        return { enabled: false };
-                    }
-                },
-                onSelect: function (date) {
-                    $('#dates_value').val(date)
+                                if (appData[0] >= appData[1]){
+                                    return {
+                                        enabled: false,
+                                        classes: 'busyDate',
+                                        tooltip: "Все слоты заняты (" + appData[0] + " из " + appData[1] + ")"
+                                    }
+                                }
+                                else {
+                                    return {
+                                        enabled: true,
+                                        classes: 'freeDate',
+                                        tooltip: "Свободно " + appData[0] + " из " + appData[1]
+                                    }
+                                }  
+                            }
+                        },
+                        onSelect: function (date) {
+                            $('#dates_value').val(date)
+                        }
+                    });
+                    
+                    </text>
+
+                    datepicker += 1;
                 }
-            })
+            }
+            
 
             //////////////////////////////////////
 

@@ -62,9 +62,66 @@ namespace system4.BLL.Timeslots
             return timeslots;
         }
 
-        public static List<string> AllDates(int centerId)
+        private static void SetCurrentAvailability(ref Availability currentAvailability, DateTime? pastDay)
         {
-            return null;
+            if (currentAvailability == null)
+                return;
+
+            currentAvailability.End = pastDay ?? DateTime.Now;
+        }
+
+        public static List<Availability> Period(int centerId)
+        {
+            var center = DB.Entity.Get.Branches(centerId);
+            var startDate = DateTime.Now.Date;
+            // var endDate = center.AppointmentsOpenUntil;
+            // !!
+            var endDate = new DateTime(2025, 12, 31);
+
+            var timeslots = DB.Entity.Get.Timeslots(centerId);
+            var apps = DB.Entity.Get.AppsCountByPeriod(startDate, endDate, centerId);
+
+            var availabilities = new List<Availability>();
+            var currentMonth = 0;
+            DateTime? pastDay = null;
+            Availability currentAvailability = null;
+
+            for (var currentDay = startDate; currentDay <= endDate; currentDay = currentDay.AddDays(1))
+            {
+                if (currentDay.Month != currentMonth)
+                {
+                    SetCurrentAvailability(ref currentAvailability, pastDay);
+
+                    currentMonth = currentDay.Month;
+                    currentAvailability = new Availability
+                    {
+                        Start = currentDay,
+                        Dates = new Dictionary<DateTime, string>()
+                    };
+
+                    availabilities.Add(currentAvailability);
+                }
+
+                pastDay = currentDay;
+
+                var timeslot = timeslots
+                    .Where(x => x.Key <= currentDay)
+                    .OrderByDescending(x => x.Key)
+                    .First();
+
+                var appCount = apps.ContainsKey(currentDay.Date) ? apps[currentDay.Date] : 0;
+                var dayOfWeek = (int)currentDay.DayOfWeek + 1;
+
+                if (!timeslot.Value.ContainsKey(dayOfWeek))
+                    continue;
+
+                var timeslotCount = timeslot.Value[dayOfWeek];
+                currentAvailability.Dates.Add(currentDay, $"{appCount}-{timeslotCount}");
+            }
+
+            SetCurrentAvailability(ref currentAvailability, pastDay);
+
+            return availabilities;
         }
     }
 }

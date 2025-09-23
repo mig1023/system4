@@ -13,6 +13,8 @@ namespace system4.Pages.Create
 
         public Dictionary<int, string> VisaCenters { get; set; }
 
+        public List<BLL.Timeslots.Availability> AvailabilityDates { get; set; }
+
         [BindProperty]
         public BLL.CreateApp.AppointmentForm FormModel { get; set; }
 
@@ -26,6 +28,8 @@ namespace system4.Pages.Create
 
             VisaCenters = DB.Entity.Get.VisaTypes()
                 .ToDictionary(x => x.Id, x => x.Centers);
+
+            AvailabilityDates = BLL.Timeslots.Get.Period(11);
         }
 
         public void OnPost()
