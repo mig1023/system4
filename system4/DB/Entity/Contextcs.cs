@@ -55,6 +55,8 @@ namespace system4.DB.Entity
 
             public DbSet<Holidays> Holidays { get; set; }
 
+            public DbSet<Exclusions> Exclusions { get; set; }
+
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {

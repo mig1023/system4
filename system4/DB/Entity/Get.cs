@@ -553,5 +553,32 @@ namespace system4.DB.Entity
                 return holidays;
             }
         }
+        
+        public static List<Exclusions> Exclusions(int centerId)
+        {
+            using (var db = new EntityContext())
+            {
+                var allExclusions = db.Exclusions
+                    .Where(x => x.EDate.Date >= DateTime.Now)
+                    .ToList();
+
+                var exclusions = new List<Exclusions>();
+
+                foreach (var exclusion in allExclusions)
+                {
+                    var centers = exclusion.Centers
+                        .Split(',')
+                        .Select(x => int.Parse(x))
+                        .ToList();
+
+                    if (centers.Contains(centerId))
+                    {
+                        exclusions.Add(exclusion);
+                    }
+                }
+
+                return exclusions;
+            }
+        }
     }
 }
