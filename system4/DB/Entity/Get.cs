@@ -527,6 +527,31 @@ namespace system4.DB.Entity
             }
         }
 
-        
+        public static List<Holidays> Holidays(int centerId)
+        {
+            using (var db = new EntityContext())
+            {
+                var allHolidays = db.Holidays
+                    .Where(x => x.HDate.Date >= DateTime.Now)
+                    .ToList();
+
+                var holidays = new List<Holidays>();
+
+                foreach (var holiday in allHolidays)
+                {
+                    var centers = holiday.Centers
+                        .Split(',')
+                        .Select(x => int.Parse(x))
+                        .ToList();
+
+                    if (centers.Contains(centerId))
+                    {
+                        holidays.Add(holiday);
+                    }
+                }
+
+                return holidays;
+            }
+        }
     }
 }

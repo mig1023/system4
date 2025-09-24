@@ -53,6 +53,9 @@ namespace system4.DB.Entity
 
             public DbSet<Companies> Companies { get; set; }
 
+            public DbSet<Holidays> Holidays { get; set; }
+
+
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 modelBuilder.Entity<DocHistory>(x => x.HasNoKey());
