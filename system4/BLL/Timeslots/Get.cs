@@ -84,6 +84,7 @@ namespace system4.BLL.Timeslots
                 .Select(x => (int)Char.GetNumericValue(x));
 
             var holidays = DB.Entity.Get.Holidays(centerId);
+            var exclusions = DB.Entity.Get.Exclusions(centerId);
             var timeslots = DB.Entity.Get.Timeslots(centerId);
             var apps = DB.Entity.Get.AppsCountByPeriod(startDate, endDate, centerId);
 
@@ -123,7 +124,14 @@ namespace system4.BLL.Timeslots
                 var dayOfWeek = (int)currentDay.DayOfWeek;
 
                 if (weekends.Contains(dayOfWeek))
-                    continue;
+                {
+                    var exclusion = exclusions
+                       .Where(x => x.EDate.Date == currentDay.Date)
+                       .SingleOrDefault();
+
+                    if (exclusion == null)
+                        continue;
+                }
 
                 var timeslot = timeslots
                     .Where(x => x.Key <= currentDay)
