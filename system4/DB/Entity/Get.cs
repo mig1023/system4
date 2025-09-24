@@ -311,14 +311,37 @@ namespace system4.DB.Entity
             }
         }
 
-        public static VisaTypes VisaTypes(int appId)
+        public static VisaTypes VisaTypes(int visaId)
         {
             using (var db = new EntityContext())
             {
-                var type = db.VisaTypes
-                    .SingleOrDefault(x => x.Id == appId);
+                var visa = db.VisaTypes
+                    .SingleOrDefault(x => x.Id == visaId);
 
-                return type;
+                return visa;
+            }
+        }
+
+        public static List<VisaTypes> VisaTypesByCenter(int centerId)
+        {
+            using (var db = new EntityContext())
+            {
+                var visas = new List<VisaTypes>();
+
+                foreach (var visa in db.VisaTypes)
+                {
+                    var centers = visa.Centers
+                        .Split(',')
+                        .Select(x => int.Parse(x))
+                        .ToList();
+
+                    if (centers.Contains(centerId))
+                    {
+                        visas.Add(visa);
+                    }
+                }
+
+                return visas;
             }
         }
 
