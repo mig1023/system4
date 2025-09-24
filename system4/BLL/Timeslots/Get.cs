@@ -83,6 +83,7 @@ namespace system4.BLL.Timeslots
                 .ToCharArray()
                 .Select(x => (int)Char.GetNumericValue(x));
 
+            var holidays = DB.Entity.Get.Holidays(centerId);
             var timeslots = DB.Entity.Get.Timeslots(centerId);
             var apps = DB.Entity.Get.AppsCountByPeriod(startDate, endDate, centerId);
 
@@ -108,6 +109,16 @@ namespace system4.BLL.Timeslots
                 }
 
                 pastDay = currentDay;
+
+                var holiDay = holidays
+                    .Where(x => x.HDate.Date == currentDay.Date)
+                    .SingleOrDefault();
+
+                if (holiDay != null)
+                {
+                    currentAvailability.Dates.Add(currentDay, $"{holiDay.HName}");
+                    continue;
+                }
 
                 var dayOfWeek = (int)currentDay.DayOfWeek;
 
