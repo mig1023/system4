@@ -78,6 +78,11 @@ namespace system4.BLL.Timeslots
             // !!
             var endDate = new DateTime(2025, 12, 31);
 
+            var weekends = center.Weekend
+                .ToString()
+                .ToCharArray()
+                .Select(x => (int)Char.GetNumericValue(x));
+
             var timeslots = DB.Entity.Get.Timeslots(centerId);
             var apps = DB.Entity.Get.AppsCountByPeriod(startDate, endDate, centerId);
 
@@ -104,13 +109,18 @@ namespace system4.BLL.Timeslots
 
                 pastDay = currentDay;
 
+                var dayOfWeek = (int)currentDay.DayOfWeek;
+
+                if (weekends.Contains(dayOfWeek))
+                    continue;
+
                 var timeslot = timeslots
                     .Where(x => x.Key <= currentDay)
                     .OrderByDescending(x => x.Key)
                     .First();
 
                 var appCount = apps.ContainsKey(currentDay.Date) ? apps[currentDay.Date] : 0;
-                var dayOfWeek = (int)currentDay.DayOfWeek + 1;
+                
 
                 if (!timeslot.Value.ContainsKey(dayOfWeek))
                     continue;
