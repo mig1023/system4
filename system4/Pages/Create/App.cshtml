@@ -85,20 +85,54 @@
                                 return { enabled: false };
                             }
                             else {
-                                var appData = datesData_@datepicker [isoDate].split('-');
-
-                                if (appData[0] >= appData[1]){
+                                if (!datesData_@datepicker [isoDate].includes('-')) {
+                                    
                                     return {
                                         enabled: false,
-                                        classes: 'busyDate',
-                                        tooltip: "Все слоты заняты (" + appData[0] + " из " + appData[1] + ")"
+                                        classes: 'holiDay',
+                                        tooltip: datesData_@datepicker [isoDate]
+                                    }
+                                }
+
+                                var appData = datesData_@datepicker [isoDate].split('-');
+                                var appCount = appData[0];
+                                var timesCount = appData[1];
+                                var appPercent = procent(timesCount, appCount);
+                                var percentLine = appCount + " заявителей на " + timesCount + " слотов";
+
+                                if (appPercent >= 100) {
+                                    return {
+                                        enabled: false,
+                                        classes: 'busy100Date',
+                                        tooltip: "Все слоты заняты\n" + percentLine
+                                    }         
+                                }
+                                else if (appPercent >= 75) {
+                                    return {
+                                        enabled: true,
+                                        classes: 'busy75Date',
+                                        tooltip: "Занято больше 75%\n" + percentLine
+                                    }
+                                }
+                                else if (appPercent >= 50) {
+                                    return {
+                                        enabled: true,
+                                        classes: 'busy50Date',
+                                        tooltip: "Занято больше 50%\n" + percentLine
+                                    }
+                                }
+                                else if (appPercent >= 25) {
+                                    return {
+                                        enabled: true,
+                                        classes: 'busy25Date',
+                                        tooltip: "Занято больше 25%\n" + percentLine
                                     }
                                 }
                                 else {
                                     return {
                                         enabled: true,
                                         classes: 'freeDate',
-                                        tooltip: "Свободно " + appData[0] + " из " + appData[1]
+                                        tooltip: "Свободно или почти свободно\n" + appCount + " из " + timesCount + ")"
                                     }
                                 }  
                             }
@@ -253,6 +287,14 @@
                     }
                 }
             });
+
+            function procent(all, count) {
+
+                if (all === 0)
+                    return (100).toFixed(2);
+
+                return (count * 100 / all).toFixed(2);       
+            }
         });
     </script>
 }

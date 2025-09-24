@@ -94,7 +94,27 @@ html {
     color: #ffffff !important;
 }
 
-.busyDate {
+.busy25Date {
+    background: #3d8bfd !important;
+    color: #ffffff !important;
+}
+
+.busy50Date {
+    background: #6da8fd !important;
+    color: #ffffff !important;
+}
+
+.busy75Date {
+    background: #9ec5fe !important;
+    color: #ffffff !important;
+}
+
+.busy100Date {
+    background: #cee2fe !important;
+    color: #ffffff !important;
+}
+
+.holiDay {
     background: #fcc7c3 !important;
     color: #ffffff !important;
 }
