@@ -258,34 +258,20 @@
 
             $("#Center").on('change', function () {
 
-                var visasByCenters = {
-                    @foreach (var visa in Model.VisaCenters)
-                    {
-                        <text>"@visa.Key": [@visa.Value],</text>
-                    }
-                };
-
-                var visas = {
-                    @foreach (var visa in Model.VisaTypes)
-                    {
-                        <text>"@visa.Key": "@visa.Value", </text>
-                    }
-                };
-
                 $("#VisaType").find('option').remove();
 
                 var center = Number($("#Center").val());
 
-                for (var [key, value] of Object.entries(visasByCenters)) {
-
-                    if (value.includes(center)) {
-
-                        $("#VisaType").append($('<option>', {
-                            value: key,
-                            text: visas[key]
-                        }));
+                $.get("/api/visatypes/" + center,
+                    function(visatypes) {
+                        visatypes.forEach(function(x) {
+                            $("#VisaType").append($('<option>', {
+                                value: x.id,
+                                text: x.vName
+                            }));
+                        });
                     }
-                }
+                );
             });
 
             function procent(all, count) {

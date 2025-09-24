@@ -9,10 +9,6 @@ namespace system4.Pages.Create
     {
         public Dictionary<int, string> Centers { get; set; }
 
-        public Dictionary<int, string> VisaTypes { get; set; }
-
-        public Dictionary<int, string> VisaCenters { get; set; }
-
         public List<BLL.Timeslots.Availability> AvailabilityDates { get; set; }
 
         [BindProperty]
@@ -23,13 +19,7 @@ namespace system4.Pages.Create
             Centers = DB.Entity.Get.Branches()
                 .ToDictionary(x => x.Id, x => x.BName);
 
-            VisaTypes = DB.Entity.Get.VisaTypes()
-                .ToDictionary(x => x.Id, x => x.VName);
-
-            VisaCenters = DB.Entity.Get.VisaTypes()
-                .ToDictionary(x => x.Id, x => x.Centers);
-
-            AvailabilityDates = BLL.Timeslots.Get.Period(11);
+            AvailabilityDates = BLL.Timeslots.Get.Period(1);
         }
 
         public void OnPost()
