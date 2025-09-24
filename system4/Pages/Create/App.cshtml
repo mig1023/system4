@@ -98,41 +98,41 @@
                                 var appCount = appData[0];
                                 var timesCount = appData[1];
                                 var appPercent = procent(timesCount, appCount);
-                                var percentLine = appCount + " заявителей на " + timesCount + " слотов";
+                                var percentLine = "\n" + appCount + " заявителей на " + timesCount + " слотов";
 
                                 if (appPercent >= 100) {
                                     return {
                                         enabled: false,
                                         classes: 'busy100Date',
-                                        tooltip: "Все слоты заняты\n" + percentLine
+                                        tooltip: "Все слоты заняты" + percentLine
                                     }         
                                 }
                                 else if (appPercent >= 75) {
                                     return {
                                         enabled: true,
                                         classes: 'busy75Date',
-                                        tooltip: "Занято больше 75%\n" + percentLine
+                                        tooltip: "Занято больше 75%" + percentLine
                                     }
                                 }
                                 else if (appPercent >= 50) {
                                     return {
                                         enabled: true,
                                         classes: 'busy50Date',
-                                        tooltip: "Занято больше 50%\n" + percentLine
+                                        tooltip: "Занято больше 50%" + percentLine
                                     }
                                 }
                                 else if (appPercent >= 25) {
                                     return {
                                         enabled: true,
                                         classes: 'busy25Date',
-                                        tooltip: "Занято больше 25%\n" + percentLine
+                                        tooltip: "Занято больше 25%" + percentLine
                                     }
                                 }
                                 else {
                                     return {
                                         enabled: true,
                                         classes: 'freeDate',
-                                        tooltip: "Свободно или почти свободно\n" + appCount + " из " + timesCount + ")"
+                                        tooltip: "Свободно или почти свободно" + percentLine
                                     }
                                 }  
                             }
