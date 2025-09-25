@@ -2,10 +2,10 @@
 {
     public class Availability
     {
-        public DateTime Start { get; set; }
+        public string Start { get; set; }
 
-        public DateTime End { get; set; }
+        public string End { get; set; }
 
-        public Dictionary<DateTime, string> Dates { get; set; }
+        public Dictionary<string, string> Dates { get; set; }
     }
 }
