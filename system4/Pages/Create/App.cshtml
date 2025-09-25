@@ -31,8 +31,17 @@
         <div class="container dateContainer" id="datepickersContainer"></div>
         <input type="hidden" id="dates_value" value="">
 
-        <input type="text" id="app_date" class="form-control rounded mb-3" readonly="readonly" value=""/>
-        <select class="form-select form-select-lg mb-3" id="timeslots" name="timeslots" aria-label=".form-select-lg example"></select>
+        <div class="row text-start">
+            <div class="col">
+                <label for="Center" class="form-label">Дата записи:</label>
+                <input type="text" id="app_date" class="form-control mb-3 form-control-lg" readonly="readonly" value=""/>
+            </div>
+
+            <div class="col">
+                <label for="Center" class="form-label">Время записи:</label>
+                <select class="form-select form-select-lg mb-3" id="timeslots" name="timeslots" aria-label=".form-select-lg example"></select>
+            </div>
+        </div>
 
         <button type="submit" class="btn btn-primary">сохранить запись</button>
 
