@@ -30,7 +30,9 @@
 
         <div class="container dateContainer" id="datepickersContainer"></div>
         <input type="hidden" id="dates_value" value="">
+
         <input type="text" id="app_date" class="form-control rounded mb-3" readonly="readonly" value=""/>
+        <select class="form-select form-select-lg mb-3" id="timeslots" name="timeslots" aria-label=".form-select-lg example"></select>
 
         <button type="submit" class="btn btn-primary">сохранить запись</button>
 
@@ -261,12 +263,58 @@
                             });
 
                             $("#dates_" + datepickersIndex).datepicker().on('changeDate', function(date) {
-                                $('#dates_value').val(date.format(0,"yyyy-mm-dd"));
+                                
+                                var center = Number($("#Center").val());
+                                var appDate = date.format(0,"yyyy-mm-dd");
+
+                                $('#dates_value').val(appDate);
                                 $('#app_date').val(date.format(0,"dd.mm.yyyy"));
+
+                                $("#timeslots").find('option').remove();
+                 
+                                $.get("/api/timeslots/" + center + "/" + appDate,
+                                    function(timeslots) {
+
+                                        timeslots.forEach(function(timeslot) {
+
+                                            $("#timeslots").append($('<option>', {
+                                                value: timeslot.id,
+                                                text: timeslotFormat(timeslot)
+                                            }));
+                                        });
+                                    }
+                                );
                             });
                         });
                     }
                 );
+            }
+
+            function timeslotFormat(timeslot) {
+
+                var start = secToTime(timeslot.tStart);
+                var end = secToTime(timeslot.tEnd);
+                var visas = timeslot.visas;
+                var apps = timeslot.applicants;
+                var percent = timeslot.percentage;
+
+                return start + " — " + end + " (" + percent + "% свободно, " + apps + " занято из " + visas + ")";
+            }
+
+            function secToTime(sec) {
+
+                var sec_num = parseInt(sec, 10);
+                var hours = Math.floor(sec_num / 3600);
+
+                if (hours < 10)
+                    hours = "0" + hours;
+
+                var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+
+                if (minutes < 10)
+                    minutes = "0" + minutes;
+
+                return hours + ':' + minutes;
             }
 
             function procent(all, count) {
