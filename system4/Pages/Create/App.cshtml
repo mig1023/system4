@@ -30,6 +30,7 @@
 
         <div class="container dateContainer" id="datepickersContainer"></div>
         <input type="hidden" id="dates_value" value="">
+        <input type="text" id="app_date" class="form-control rounded mb-3" readonly="readonly" value=""/>
 
         <button type="submit" class="btn btn-primary">сохранить запись</button>
 
@@ -196,7 +197,7 @@
                                 weekStart: 1,
                                 startDate: availability.start,
                                 endDate: availability.end,
-                                beforeShowDay: function (date) {
+                                beforeShowDay: function(date) {
 
                                     var isoArray = new Date(date).toLocaleString('ru').substring(0, 10).split('.');
                                     var isoDate = isoArray[2] + "-" + isoArray[1] + "-" + isoArray[0];
@@ -257,10 +258,11 @@
                                         }  
                                     }
                                 },
-                                onSelect: function (date) {
-                                    $('#dates_value').val(date);
-                                    alert(date);
-                                }
+                            });
+
+                            $("#dates_" + datepickersIndex).datepicker().on('changeDate', function(date) {
+                                $('#dates_value').val(date.format(0,"yyyy-mm-dd"));
+                                $('#app_date').val(date.format(0,"dd.mm.yyyy"));
                             });
                         });
                     }
