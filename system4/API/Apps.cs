@@ -12,5 +12,11 @@ namespace system4.API
         {
             return DB.Entity.Get.VisaTypesByCenter(centerId);
         }
+
+        [HttpGet("api/availability/{centerId}")]
+        public ActionResult<List<BLL.Timeslots.Availability>> Availability(int centerId)
+        {
+            return BLL.Timeslots.Get.Period(centerId);
+        }
     }
 }
