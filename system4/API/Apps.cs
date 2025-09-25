@@ -18,5 +18,11 @@ namespace system4.API
         {
             return BLL.Timeslots.Get.Period(centerId);
         }
+
+        [HttpGet("api/timeslots/{centerId}/{date}")]
+        public ActionResult<List<BLL.Timeslots.Timeslot>> Timeslots(int centerId, string date)
+        {
+            return BLL.Timeslots.Get.Day(centerId, DateTime.Parse(date));
+        }
     }
 }
