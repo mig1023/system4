@@ -67,7 +67,7 @@ namespace system4.BLL.Timeslots
             if (currentAvailability == null)
                 return;
 
-            currentAvailability.End = pastDay ?? DateTime.Now;
+            currentAvailability.End = pastDay?.ToString("yyyy-MM-dd") ?? string.Empty;
         }
 
         public static List<Availability> Period(int centerId)
@@ -102,8 +102,8 @@ namespace system4.BLL.Timeslots
                     currentMonth = currentDay.Month;
                     currentAvailability = new Availability
                     {
-                        Start = currentDay,
-                        Dates = new Dictionary<DateTime, string>()
+                        Start = currentDay.ToString("yyyy-MM-dd"),
+                        Dates = new Dictionary<string, string>()
                     };
 
                     availabilities.Add(currentAvailability);
@@ -117,7 +117,8 @@ namespace system4.BLL.Timeslots
 
                 if (holiDay != null)
                 {
-                    currentAvailability.Dates.Add(currentDay, $"{holiDay.HName}");
+                    var holiDayDate = currentDay.ToString("yyyy-MM-dd");
+                    currentAvailability.Dates.Add(holiDayDate, $"{holiDay.HName}");
                     continue;
                 }
 
@@ -139,13 +140,13 @@ namespace system4.BLL.Timeslots
                     .First();
 
                 var appCount = apps.ContainsKey(currentDay.Date) ? apps[currentDay.Date] : 0;
-                
 
                 if (!timeslot.Value.ContainsKey(dayOfWeek))
                     continue;
 
                 var timeslotCount = timeslot.Value[dayOfWeek];
-                currentAvailability.Dates.Add(currentDay, $"{appCount}-{timeslotCount}");
+                var newDay = currentDay.ToString("yyyy-MM-dd");
+                currentAvailability.Dates.Add(newDay, $"{appCount}-{timeslotCount}");
             }
 
             SetCurrentAvailability(ref currentAvailability, pastDay);
