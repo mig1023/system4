@@ -28,20 +28,8 @@
         <div id="applicants"></div>
         <button id="addApplicant" type="button" class="btn btn-outline-primary">добавить заявителя</button>
 
-        <div class="container dateContainer">
-
-            @{
-                int datepickerDiv = 0;
-                foreach (var availability in Model.AvailabilityDates)
-                {
-                    <div class="dateBlock" id="dates_@datepickerDiv"></div>
-
-                    datepickerDiv += 1;
-                }
-            }
-
-            <input type="hidden" id="dates_value" value="">
-        </div>
+        <div class="container dateContainer" id="datepickersContainer"></div>
+        <input type="hidden" id="dates_value" value="">
 
         <button type="submit" class="btn btn-primary">сохранить запись</button>
 
@@ -52,104 +40,6 @@
 
     <script>
         $(document).ready(function () {
-
-            //////////////////////////////////////
-
-            @{
-                int datepicker = 0;
-
-                foreach (var availability in Model.AvailabilityDates)
-                {
-                    <text>var datesData_@datepicker = {</text>
-                        
-                        foreach(var dates in availability.Dates)
-                        {
-                            <text>"@dates.Key.ToString("yyyy-MM-dd")": "@dates.Value",</text>
-                        }
-                            
-                        
-                    <text>};
-                    
-                    $("#dates_@datepicker").datepicker({
-                        format: 'yyyy-mm-dd',
-                        weekStart: 1,
-                        numberOfMonths: 3,
-                        startDate: new Date("@availability.Start.ToString("yyyy-MM-dd")"),
-                        endDate: new Date("@availability.End.ToString("yyyy-MM-dd")"),
-                        beforeShowDay: function (date) {
-
-                            var isoArray = new Date(date).toLocaleString('ru').substring(0, 10).split('.');
-                            var isoDate = isoArray[2] + "-" + isoArray[1] + "-" + isoArray[0];
-
-                            if (datesData_@datepicker [isoDate] === undefined) {
-                                return { enabled: false };
-                            }
-                            else {
-                                if (!datesData_@datepicker [isoDate].includes('-')) {
-                                    
-                                    return {
-                                        enabled: false,
-                                        classes: 'holiDay',
-                                        tooltip: datesData_@datepicker [isoDate]
-                                    }
-                                }
-
-                                var appData = datesData_@datepicker [isoDate].split('-');
-                                var appCount = appData[0];
-                                var timesCount = appData[1];
-                                var appPercent = procent(timesCount, appCount);
-                                var percentLine = "\n" + appCount + " заявителей на " + timesCount + " слотов";
-
-                                if (appPercent >= 100) {
-                                    return {
-                                        enabled: false,
-                                        classes: 'busy100Date',
-                                        tooltip: "Все слоты заняты" + percentLine
-                                    }         
-                                }
-                                else if (appPercent >= 75) {
-                                    return {
-                                        enabled: true,
-                                        classes: 'busy75Date',
-                                        tooltip: "Занято больше 75%" + percentLine
-                                    }
-                                }
-                                else if (appPercent >= 50) {
-                                    return {
-                                        enabled: true,
-                                        classes: 'busy50Date',
-                                        tooltip: "Занято больше 50%" + percentLine
-                                    }
-                                }
-                                else if (appPercent >= 25) {
-                                    return {
-                                        enabled: true,
-                                        classes: 'busy25Date',
-                                        tooltip: "Занято больше 25%" + percentLine
-                                    }
-                                }
-                                else {
-                                    return {
-                                        enabled: true,
-                                        classes: 'freeDate',
-                                        tooltip: "Свободно или почти свободно" + percentLine
-                                    }
-                                }  
-                            }
-                        },
-                        onSelect: function (date) {
-                            $('#dates_value').val(date)
-                        }
-                    });
-                    
-                    </text>
-
-                    datepicker += 1;
-                }
-            }
-            
-
-            //////////////////////////////////////
 
             var applicantIndex = 0;
 
@@ -256,7 +146,14 @@
                 appl.find("[id^=Removed_]").val("true");
             });
 
-            $("#Center").on('change', function () {
+            $("#Center").on('change', function() {
+                visaTypeChange();
+                datepickersChange();
+            });
+
+            visaTypeChange();
+
+            function visaTypeChange() {
 
                 $("#VisaType").find('option').remove();
 
@@ -264,15 +161,111 @@
 
                 $.get("/api/visatypes/" + center,
                     function(visatypes) {
-                        visatypes.forEach(function(x) {
+                        visatypes.forEach(function(visa) {
                             $("#VisaType").append($('<option>', {
-                                value: x.id,
-                                text: x.vName
+                                value: visa.id,
+                                text: visa.vName
                             }));
                         });
                     }
                 );
-            });
+            }
+
+            datepickersChange();
+
+            function datepickersChange() {
+
+                $("#datepickersContainer").find('div').remove();
+
+                var center = Number($("#Center").val());
+                var datepickersIndex = 0;
+
+                $.get("/api/availability/" + center,
+                    function(availabilities) {
+                        availabilities.forEach(function(availability) {
+
+                            datepickersIndex += 1;
+
+                            $("#datepickersContainer").append($('<div>', {
+                                class: "dateBlock",
+                                id: "dates_" + datepickersIndex
+                            }));
+
+                            $("#dates_" + datepickersIndex).datepicker({
+                                format: 'yyyy-mm-dd',
+                                weekStart: 1,
+                                startDate: availability.start,
+                                endDate: availability.end,
+                                beforeShowDay: function (date) {
+
+                                    var isoArray = new Date(date).toLocaleString('ru').substring(0, 10).split('.');
+                                    var isoDate = isoArray[2] + "-" + isoArray[1] + "-" + isoArray[0];
+
+                                    if (availability.dates[isoDate] === undefined) {
+                                        return { enabled: false };
+                                    }
+                                    else {
+                                        if (!availability.dates[isoDate].includes('-')) {
+                                    
+                                            return {
+                                                enabled: false,
+                                                classes: 'holiDay',
+                                                tooltip: availability.dates[isoDate]
+                                            }
+                                        }
+
+                                        var appData = availability.dates[isoDate].split('-');
+                                        var appCount = appData[0];
+                                        var timesCount = appData[1];
+                                        var appPercent = procent(timesCount, appCount);
+                                        var percentLine = "\n" + appCount + " заявителей на " + timesCount + " слотов";
+
+                                        if (appPercent >= 100) {
+                                            return {
+                                                enabled: false,
+                                                classes: 'busy100Date',
+                                                tooltip: "Все слоты заняты" + percentLine
+                                            }         
+                                        }
+                                        else if (appPercent >= 75) {
+                                            return {
+                                                enabled: true,
+                                                classes: 'busy75Date',
+                                                tooltip: "Занято больше 75%" + percentLine
+                                            }
+                                        }
+                                        else if (appPercent >= 50) {
+                                            return {
+                                                enabled: true,
+                                                classes: 'busy50Date',
+                                                tooltip: "Занято больше 50%" + percentLine
+                                            }
+                                        }
+                                        else if (appPercent >= 25) {
+                                            return {
+                                                enabled: true,
+                                                classes: 'busy25Date',
+                                                tooltip: "Занято больше 25%" + percentLine
+                                            }
+                                        }
+                                        else {
+                                            return {
+                                                enabled: true,
+                                                classes: 'freeDate',
+                                                tooltip: "Свободно или почти свободно" + percentLine
+                                            }
+                                        }  
+                                    }
+                                },
+                                onSelect: function (date) {
+                                    $('#dates_value').val(date);
+                                    alert(date);
+                                }
+                            });
+                        });
+                    }
+                );
+            }
 
             function procent(all, count) {
 
