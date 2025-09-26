@@ -26,7 +26,22 @@
         </div>
 
         <div id="applicants"></div>
-        <button id="addApplicant" type="button" class="btn btn-outline-primary">добавить заявителя</button>
+        <button id="addApplicant" type="button" class="btn btn-outline-primary application_row">добавить заявителя</button>
+
+        <div class="row text-start">
+            <div class="col">
+                <label>Документы подаются:</label>
+
+                <input class="btn-check" type="radio" name="Whom" id="inPerson" value="inPerson" checked>
+                <label class="btn btn-outline-primary application_checkbox" for="inPerson">лично</label>
+
+                <input class="btn-check" type="radio" name="Whom" id="byProxy" value="byProxy">
+                <label class="btn btn-outline-primary application_checkbox" for="byProxy">по доверенности</label>
+
+                <input class="btn-check" type="radio" name="Whom" id="byRelatives" value="byRelatives">
+                <label class="btn btn-outline-primary application_checkbox" for="byRelatives">за родственников</label>
+            </div>
+        </div>
 
         <div class="container dateContainer" id="datepickersContainer"></div>
         <input type="hidden" id="AppDate" name="AppDate" value="">

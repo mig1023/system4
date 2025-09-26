@@ -8,7 +8,9 @@
 
         public DateTime AppDate { get; set; }
 
-        public TimeSpan AppTime { get; set; }
+        public int AppTime { get; set; }
+
+        public string Whom { get; set; }
 
         public List<ApplicantForm> Applicants { get; set; }
 
