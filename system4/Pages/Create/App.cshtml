@@ -277,7 +277,7 @@
                                 var appDate = date.format(0,"yyyy-mm-dd");
 
                                 $('#dates_value').val(appDate);
-                                $('#app_date').val(date.format(0,"dd.mm.yyyy"));
+                                $('#app_date').val(extendedDate(date));
 
                                 $("#timeslots").find('option').remove();
                  
@@ -297,6 +297,31 @@
                         });
                     }
                 );
+            }
+
+            function extendedDate(datepickerDate) {
+
+                var monthNames = [
+                    "января",
+                    "февраля",
+                    "марта",
+                    "апреля",
+                    "мая",
+                    "июня",
+                    "июля",
+                    "августа",
+                    "сентября",
+                    "октября",
+                    "ноября",
+                    "декабря"
+                ];
+
+                var date = datepickerDate.date;
+                var day = date.getDay();
+                var month = monthNames[date.getMonth()];
+                var year = date.getFullYear();
+
+                return day + " " + month + " " + year;
             }
 
             function timeslotFormat(timeslot) {
