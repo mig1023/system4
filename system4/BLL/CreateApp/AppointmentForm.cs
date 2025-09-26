@@ -6,6 +6,10 @@
 
         public int VisaType { get; set; }
 
+        public DateTime AppDate { get; set; }
+
+        public TimeSpan AppTime { get; set; }
+
         public List<ApplicantForm> Applicants { get; set; }
 
         public AppointmentForm()

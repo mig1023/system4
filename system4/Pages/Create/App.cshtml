@@ -29,17 +29,17 @@
         <button id="addApplicant" type="button" class="btn btn-outline-primary">добавить заявителя</button>
 
         <div class="container dateContainer" id="datepickersContainer"></div>
-        <input type="hidden" id="dates_value" value="">
+        <input type="hidden" id="AppDate" name="AppDate" value="">
 
         <div class="row text-start">
             <div class="col">
-                <label for="Center" class="form-label">Дата записи:</label>
-                <input type="text" id="app_date" class="form-control mb-3 form-control-lg" readonly="readonly" value=""/>
+                <label for="AppDateLine" class="form-label">Дата записи:</label>
+                <input type="text" id="AppDateLine" name="AppDateLine" class="form-control mb-3 form-control-lg" readonly="readonly" value=""/>
             </div>
 
             <div class="col">
-                <label for="Center" class="form-label">Время записи:</label>
-                <select class="form-select form-select-lg mb-3" id="timeslots" name="timeslots" aria-label=".form-select-lg example"></select>
+                <label for="AppTime" class="form-label">Время записи:</label>
+                <select class="form-select form-select-lg mb-3" id="AppTime" name="AppTime" aria-label=".form-select-lg example"></select>
             </div>
         </div>
 
@@ -276,17 +276,17 @@
                                 var center = Number($("#Center").val());
                                 var appDate = date.format(0,"yyyy-mm-dd");
 
-                                $('#dates_value').val(appDate);
-                                $('#app_date').val(extendedDate(date));
+                                $('#AppDate').val(appDate);
+                                $('#AppDateLine').val(extendedDate(date));
 
-                                $("#timeslots").find('option').remove();
+                                $("#AppTime").find('option').remove();
                  
                                 $.get("/api/timeslots/" + center + "/" + appDate,
                                     function(timeslots) {
 
                                         timeslots.forEach(function(timeslot) {
 
-                                            $("#timeslots").append($('<option>', {
+                                            $("#AppTime").append($('<option>', {
                                                 value: timeslot.id,
                                                 text: timeslotFormat(timeslot)
                                             }));
