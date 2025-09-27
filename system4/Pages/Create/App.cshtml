@@ -28,9 +28,9 @@
         <div id="applicants"></div>
         <button id="addApplicant" type="button" class="btn btn-outline-primary application_row">добавить заявителя</button>
 
-        <div class="row text-start">
+        <div class="row text-start application_space">
             <div class="col">
-                <label>Документы подаются:</label>
+                <label>Документы подаются: </label>
 
                 <input class="btn-check" type="radio" name="Whom" id="inPerson" value="inPerson" checked>
                 <label class="btn btn-outline-primary application_checkbox" for="inPerson">лично</label>
@@ -40,6 +40,42 @@
 
                 <input class="btn-check" type="radio" name="Whom" id="byRelatives" value="byRelatives">
                 <label class="btn btn-outline-primary application_checkbox" for="byRelatives">за родственников</label>
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center application_row">
+            <div class="col">
+                <label for="LName" class="form-label">Фамилия:</label>
+                <input type="text" class="form-control" id="LName" name="LName" disabled="disabled">
+                <div class="form-text">Иванов</div>
+            </div>
+            <div class="col">
+                <label for="FName" class="form-label">Имя:</label>
+                <input type="text" class="form-control" id="FName" name="FName" disabled="disabled">
+                <div class="form-text">Иван</div>
+            </div>
+            <div class="col">
+                <label for="MName" class="form-label">Отчество:</label>
+                <input type="text" class="form-control" id="MName" name="MName" disabled="disabled">
+                <div class="form-text">Иванович</div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center application_row">
+            <div class="col">
+                <label for="PassNum" class="form-label">Паспорт:</label>
+                <input type="text" class="form-control" id="PassNum" name="PassNum" disabled="disabled">
+                <div class="form-text">4108012345</div>
+            </div>
+            <div class="col">
+                <label for="PassDate" class="form-label">Дата выдачи:</label>
+                <input type="text" class="form-control" id="PassDate" name="PassDate" disabled="disabled">
+                <div class="form-text">01.01.2020</div>
+            </div>
+            <div class="col">
+                <label for="PassWhom" class="form-label">Кем выдан:</label>
+                <input type="text" class="form-control" id="PassWhom" name="PassWhom" disabled="disabled">
+                <div class="form-text">ОВД района Беговая</div>
             </div>
         </div>
 
@@ -176,6 +212,27 @@
             $("#Center").on('change', function() {
                 visaTypeChange();
                 datepickersChange();
+            });
+
+            $('input[type=radio][name=Whom]').change(function () {
+
+                var optionalFields = [
+                    "LName",
+                    "FName",
+                    "MName",
+                    "PassNum",
+                    "PassDate",
+                    "PassWhom"
+                ];
+
+                var fileldsStatus = (this.value == 'inPerson');
+
+                //alert("status: " + fileldsStatus);
+
+                optionalFields.forEach(function(field) {
+                    $("#" + field).prop('disabled', fileldsStatus);
+                    $("#" + field).val("");
+                });
             });
 
             visaTypeChange();

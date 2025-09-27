@@ -12,6 +12,18 @@
 
         public string Whom { get; set; }
 
+        public string FName { get; set; }
+
+        public string LName { get; set; }
+
+        public string MName { get; set; }
+
+        public string PassNum { get; set; }
+
+        public DateTime PassDate { get; set; }
+
+        public string PassWhom { get; set; }
+
         public List<ApplicantForm> Applicants { get; set; }
 
         public AppointmentForm()
