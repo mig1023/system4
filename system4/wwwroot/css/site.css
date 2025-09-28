@@ -81,6 +81,10 @@ html {
     margin-bottom: 10px;
 }
 
+.application_service_button {
+    text-align: right;
+}
+
 .application_space {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -133,6 +137,10 @@ html {
 
 .dateBlock {
     display: inline-block;
+}
+
+.left_space {
+    margin-left: 10px;
 }
 
 html {
