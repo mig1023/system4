@@ -24,6 +24,24 @@
 
         public string PassWhom { get; set; }
 
+        public DateTime SDate { get; set; }
+
+        public DateTime FDate { get; set; }
+
+        public string EMail { get; set; }
+
+        public string Address { get; set; }
+
+        public string Comment { get; set; }
+
+        public bool Urgent { get; set; }
+
+        public bool SMS { get; set; }
+
+        public string Mobile { get; set; }
+
+        public string Phone { get; set; }
+
         public List<ApplicantForm> Applicants { get; set; }
 
         public AppointmentForm()

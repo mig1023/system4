@@ -79,6 +79,60 @@
             </div>
         </div>
 
+        <div class="row justify-content-center align-items-center application_row">
+            <div class="col">
+                <label for="SDate" class="form-label">Дата въезда:</label>
+                <input type="text" class="form-control" id="SDate" name="SDate">
+                <div class="form-text">01.01.2020<</div>
+            </div>
+            <div class="col">
+                <label for="FDate" class="form-label">Дата выезда:</label>
+                <input type="text" class="form-control" id="FDate" name="FDate">
+                <div class="form-text">01.01.2020</div>
+            </div>
+            <div class="col">
+                <input type="checkbox" class="btn-check" id="Urgent" name="Urgent" value="true" autocomplete="off">
+                <label class="btn btn-outline-primary application_checkbox" for="Urgent">срочная виза</label>
+                <input type="hidden" name="Urgent" value="false" />
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center application_row">
+            <div class="col">
+                <label for="Email" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="Email" name="Email">
+                <div class="form-text">info@@italyvms.com<</div>
+            </div>
+            <div class="col">
+                <label for="Address" class="form-label">Адрес:</label>
+                <input type="text" class="form-control" id="Address" name="Address">
+                <div class="form-text">Малый Толмачёвский пер. 6с1</div>
+            </div>
+            <div class="col">
+                <label for="Comment" class="form-label">Комментарий к записи:</label>
+                <input type="text" class="form-control" id="Comment" name="Comment">
+                <div class="form-text">Если необходимы пояснения</div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center application_row">
+            <div class="col">
+                <label for="Phone" class="form-label">Телефон:</label>
+                <input type="text" class="form-control" id="Phone" name="Phone">
+                <div class="form-text">79031234567<</div>
+            </div>
+            <div class="col">
+                <input type="checkbox" class="btn-check" id="SMS" name="SMS" value="true" autocomplete="off">
+                <label class="btn btn-outline-primary application_checkbox" for="SMS">SMS уведомление</label>
+                <input type="hidden" name="SMS" value="false" />
+            </div>
+            <div class="col">
+                <label for="Mobile" class="form-label">Мобильный для SMS уведомления:</label>
+                <input type="text" class="form-control" id="Mobile" name="Mobile" disabled="disabled">
+                <div class="form-text">79031234567</div>
+            </div>
+        </div>
+
         <div class="container dateContainer" id="datepickersContainer"></div>
         <input type="hidden" id="AppDate" name="AppDate" value="">
 
@@ -214,6 +268,11 @@
                 datepickersChange();
             });
 
+            $('input[name=SMS]').change(function () {
+
+                $("#Mobile").prop('disabled', !this.checked);
+            });
+
             $('input[type=radio][name=Whom]').change(function () {
 
                 var optionalFields = [
@@ -227,9 +286,7 @@
 
                 var fileldsStatus = (this.value == 'inPerson');
 
-                //alert("status: " + fileldsStatus);
-
-                optionalFields.forEach(function(field) {
+                optionalFields.forEach(function (field) {
                     $("#" + field).prop('disabled', fileldsStatus);
                     $("#" + field).val("");
                 });
