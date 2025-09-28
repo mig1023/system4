@@ -12,18 +12,18 @@ namespace system4.Pages.Create
         public List<BLL.Timeslots.Availability> AvailabilityDates { get; set; }
 
         [BindProperty]
-        public BLL.CreateApp.AppointmentForm FormModel { get; set; }
+        public BLL.CreateApp.AppointmentForm Appointment { get; set; }
 
         public void OnGet()
         {
             Centers = DB.Entity.Get.Branches()
                 .ToDictionary(x => x.Id, x => x.BName);
-
-            AvailabilityDates = BLL.Timeslots.Get.Period(1);
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
+            var id = BLL.CreateApp.Creation.Save(Appointment, User.Identity.Name);
+            return Redirect($"/app/{id}/");
         }
     }
 }

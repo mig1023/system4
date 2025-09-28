@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Drawing;
-using System.Linq;
+﻿using System.Linq;
 using system4.DAL;
 using static system4.DB.Entity.Contextcs;
 
