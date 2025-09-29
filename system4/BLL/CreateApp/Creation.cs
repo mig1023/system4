@@ -38,12 +38,15 @@
                 ["byRelatives"] = 2,
             };
 
+            var appTimeslot = DB.Entity.Get.TimeDataById(appointment.AppTime);
+            var appTime = TimeSpan.FromSeconds(appTimeslot.TStart);
+
             var newAppointment = new DB.Appointment
             {
-                NCount = 0,
+                NCount = appointment.Applicants.Count,
                 Status = 1,
                 AppDate = appointment.AppDate,
-                AppTime = "10:00",
+                AppTime = appTime.ToString(@"hh\:mm"),
                 TimeslotId = 0,
                 RDate = DateTime.Now,
                 CenterId = appointment.Center,
@@ -51,7 +54,6 @@
                 EMail = appointment.EMail,
                 Phone = appointment.Phone,
                 Mobile = appointment.Mobile ?? string.Empty,
-                Notes = string.Empty,
                 Address = appointment.Address ?? string.Empty,
                 SMS = appointment.SMS ? 1 : 0,
                 FName = appointment.FName ?? string.Empty,
@@ -64,12 +66,8 @@
                 FDate = appointment.FDate,
                 Urgent = appointment.Urgent ? 1 : 0,
                 VType = appointment.VisaType,
-                TFName = string.Empty,
-                TLName = string.Empty,
                 Shipping = 0,
-                ShAddress = string.Empty,
                 Dwhom = dwhom[appointment.Whom],
-                SessionID = string.Empty,
             };
 
             var newApplicants = new List<DB.AppData>();
@@ -91,8 +89,6 @@
                     RPWhere = applicant.RPWhere,
                     Status = 1,
                     NRes = applicant.NRes ? 1 : 0,
-                    AMobile = string.Empty,
-                    ASAddr = string.Empty
                 };
 
                 FillAllNullableProperties(newApplicant);
