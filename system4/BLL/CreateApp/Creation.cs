@@ -2,6 +2,33 @@
 {
     public class Creation
     {
+        private static void FillAllNullableProperties(object app)
+        {
+            foreach (var property in app.GetType().GetProperties())
+            {
+                if (property.GetValue(app) != null)
+                {
+                    continue;
+                }
+                else if (Nullable.GetUnderlyingType(property.PropertyType) != null)
+                {
+                    continue;
+                }
+                else if (property.PropertyType == typeof(string))
+                {
+                    property.SetValue(app, string.Empty);
+                }
+                else if (property.PropertyType == typeof(DateTime))
+                {
+                    property.SetValue(app, DateTime.MinValue);
+                }
+                else
+                {
+                    property.SetValue(app, 0);
+                }
+            }
+        }
+
         public static int Save(AppointmentForm appointment, string user)
         {
             var dwhom = new Dictionary<string, int>
@@ -67,6 +94,9 @@
                     AMobile = string.Empty,
                     ASAddr = string.Empty
                 };
+
+                FillAllNullableProperties(newApplicant);
+                newApplicants.Add(newApplicant);
             }
 
             return DB.Entity.Save.Appointment(newAppointment, newApplicants);
