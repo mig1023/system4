@@ -446,7 +446,7 @@
                 ];
 
                 var date = datepickerDate.date;
-                var day = date.getDay();
+                var day = date.getDate();
                 var month = monthNames[date.getMonth()];
                 var year = date.getFullYear();
 
@@ -461,7 +461,7 @@
                 var apps = timeslot.applicants;
                 var percent = timeslot.percentage;
 
-                return start + " — " + end + " (" + percent + "% свободно, " + apps + " занято из " + visas + ")";
+                return start + " — " + end + "    [ " + percent + "% свободно, " + apps + " занято из " + visas + " ]";
             }
 
             function secToTime(sec) {
