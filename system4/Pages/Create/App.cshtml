@@ -296,6 +296,9 @@
 
             function visaTypeChange() {
 
+                $('#AppDate').val("");
+                $('#AppDateLine').val("");
+                $("#AppTime").find('option').remove();
                 $("#VisaType").find('option').remove();
 
                 var center = Number($("#Center").val());
