@@ -62,6 +62,13 @@
         </div>
         <div class="col">
             <div class="container">
+                <div class="input-group align-items-start application_row">
+                    <button id="printApp" type="button"
+                        class="btn btn-outline-primary" disabled="disabled">печать записи</button>
+                    <button id="createDoc" type="button"
+                        class="btn btn-outline-primary padding_search_buttons">создать договор</button>
+                </div>
+
                 <div class="row align-items-start">
                     <div class="col-4">EMail:</div>
                     <div class="col-sm-8">@Model.Appointment.EMail</div>
@@ -149,3 +156,11 @@
         </tr>
     </table>
 </div>
+
+@section Scripts {
+    <script>
+        $("#createDoc").click(function () {
+            window.location.href = "/app/@Model.Appointment.Id/create";
+        });
+    </script>
+}
