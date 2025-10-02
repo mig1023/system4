@@ -74,9 +74,7 @@ namespace system4.BLL.Timeslots
         {
             var center = DB.Entity.Get.Branches(centerId);
             var startDate = DateTime.Now.Date;
-            // var endDate = center.AppointmentsOpenUntil;
-            // !!
-            var endDate = new DateTime(2025, 12, 31);
+            var endDate = center.AppointmentsOpenUntil ?? DateTime.Now.Date;
 
             var weekends = center.Weekend
                 .ToString()
