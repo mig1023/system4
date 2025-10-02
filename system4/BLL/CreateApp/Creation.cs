@@ -47,7 +47,7 @@
                 Status = 1,
                 AppDate = appointment.AppDate,
                 AppTime = appTime.ToString(@"hh\:mm"),
-                TimeslotId = 0,
+                TimeslotId = appointment.AppTime,
                 RDate = DateTime.Now,
                 CenterId = appointment.Center,
                 Login = user,
