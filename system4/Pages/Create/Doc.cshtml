@@ -23,59 +23,65 @@
                 </select>
             </div>
 
-            <div class="col align-self-end">
+            <div class="col align-self-end application_service_button">
                 <input type="checkbox" class="btn-check" id="Urgent" name="Urgent" value="true" autocomplete="off">
-                <label class="btn btn-outline-primary btn-lg application_checkbox margin_doc_add_button" for="Urgent">срочная виза</label>
+                <label class="btn btn-outline-primary btn-lg margin_doc_add_button" for="Urgent">срочная виза</label>
                 <input type="hidden" name="Urgent" value="false" />
             </div>
         </div>
 
-        <div class="dynamic-field-row border doc_applicant_form">
-            <div class="row justify-content-center align-items-center application_row">
-                <div class="col">
-                    <input type="checkbox" class="btn-check" id="DocPerson" name="DocPerson" value="true" autocomplete="off">
-                    <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="DocPerson">Оформление договора</label>
-                    <input type="hidden" name="DocPerson" value="false" />
+        @{
+            foreach (DB.AppData app in Model.Appointment.AppData)
+            {
+                <div class="dynamic-field-row border doc_applicant_form">
+                    <div class="row justify-content-center align-items-center application_row">
+                        <div class="col">
+                            <input type="checkbox" class="btn-check" id="DocPerson" name="DocPerson" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="DocPerson">Оформление договора</label>
+                            <input type="hidden" name="DocPerson" value="false" />
 
-                    <div class="fs-4">Ivanov</div>
-                    <div class="fs-4">Ivan</div>
-                </div>
-                <div class="col">
-                    <div class="fs-4">Иванов</div>
-                    <div class="fs-4">Иван</div>
-                    <div class="fs-4">Иванович</div>
-                </div>
-                <div class="col">
-                    <div class="fs-6">Дата рождения:</div>
-                    <div class="fs-4">01.01.1900</div>
-                    <div class="fs-6">Дата вылета:</div>
-                    <div class="fs-4">01.01.2018</div>
-                </div>
-                <div class="col">
-                    <div class="fs-6">BankID:</div>
-                    <div class="fs-4">2025/12345678</div>
-                    <div class="fs-6">запрос:</div>
-                    <div class="fs-4">добавить</div>
-                </div>
-                <div class="col">
-                    <input type="checkbox" class="btn-check" id="Concil" name="Concil" value="true" autocomplete="off">
-                    <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="Concil">не платит консульский сбор</label>
-                    <input type="hidden" name="Concil" value="false" />
+                            <div class="fs-6">@app.LName</div>
+                            <div class="fs-6">@app.FName</div>
+                            <div class="fs-6">@app.PassNum</div>
+                        </div>
+                        <div class="col">
+                            <div class="fs-4">@app.RLName</div>
+                            <div class="fs-4">@app.RFName</div>
+                            <div class="fs-4">@app.RMName</div>
+                        </div>
+                        <div class="col">
+                            <div class="fs-6">Дата рождения:</div>
+                            <div class="fs-4">@app.BirthDate.ToString("dd.MM.yyyy")</div>
+                            <div class="fs-6">Дата вылета:</div>
+                            <div class="fs-4">@app.AppSDate.ToString("dd.MM.yyyy")</div>
+                        </div>
+                        <div class="col">
+                            <div class="fs-6">BankID:</div>
+                            <div class="fs-4">2025/12345678</div>
+                            <div class="fs-6">запрос:</div>
+                            <div class="fs-4">добавить</div>
+                        </div>
+                        <div class="col">
+                            <input type="checkbox" class="btn-check" id="Concil" name="Concil" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="Concil">не платит консульский сбор</label>
+                            <input type="hidden" name="Concil" value="false" />
 
-                    <br />
+                            <br />
 
-                    <input type="checkbox" class="btn-check" id="iRes" name="iRes" value="true" autocomplete="off">
-                    <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="iRes">не резидент</label>
-                    <input type="hidden" name="iRes" value="false" />
+                            <input type="checkbox" class="btn-check" id="iRes" name="iRes" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="iRes">не резидент</label>
+                            <input type="hidden" name="iRes" value="false" />
 
-                    <br />
+                            <br />
 
-                    <input type="checkbox" class="btn-check" id="Remove" name="Remove" value="true" autocomplete="off">
-                    <label class="btn btn-outline-danger btn-sm doc_applicant_checkbox" for="Remove">не включать в договор</label>
-                    <input type="hidden" name="Remove" value="false" />
+                            <input type="checkbox" class="btn-check" id="Remove" name="Remove" value="true" autocomplete="off">
+                            <label class="btn btn-outline-danger btn-sm doc_applicant_checkbox" for="Remove">не включать в договор</label>
+                            <input type="hidden" name="Remove" value="false" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            }
+        }
 
         <button type="submit" class="btn btn-primary">создать договор</button>
 
