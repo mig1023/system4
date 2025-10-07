@@ -55,6 +55,18 @@ html {
     margin-bottom: 1rem !important;
 }
 
+.doc_applicant_form {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.doc_applicant_checkbox {
+    margin-top: 5px;
+}
+
 .finger_status {
     color: royalblue;
 }
