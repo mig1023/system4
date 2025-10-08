@@ -67,6 +67,18 @@ html {
     margin-top: 5px;
 }
 
+.doc_applicant_data {
+    margin-bottom: 10px;
+}
+
+.doc_applicant_field {
+    margin-bottom: 5px;
+}
+
+.doc_applicant_select {
+    height: 38px;
+}
+
 .finger_status {
     color: royalblue;
 }

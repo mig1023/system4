@@ -15,7 +15,7 @@
             </div>
             <div class="col">
                 <label for="VisaType" class="form-label">Тип визы:</label>
-                <select class="form-select form-select-lg mb-3" id="VisaType" name="VisaType" aria-label=".form-select-lg example">
+                <select class="form-select form-select-lg mb-3" id="VisaType" name="VisaType" aria-label="form-select-lg example">
                     @foreach (var visa in Model.VisaTypes)
                     {
                         <option value="@visa.Key">@visa.Value</option>
@@ -37,7 +37,7 @@
                     <div class="row justify-content-center align-items-center application_row">
                         <div class="col">
                             <input type="checkbox" class="btn-check" id="DocPerson" name="DocPerson" value="true" autocomplete="off">
-                            <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="DocPerson">Оформление договора</label>
+                            <label class="btn btn-outline-primary btn-sm doc_applicant_data" for="DocPerson">Оформление договора</label>
                             <input type="hidden" name="DocPerson" value="false" />
 
                             <div class="fs-6">@app.LName</div>
@@ -45,21 +45,27 @@
                             <div class="fs-6">@app.PassNum</div>
                         </div>
                         <div class="col">
-                            <div class="fs-4">@app.RLName</div>
-                            <div class="fs-4">@app.RFName</div>
-                            <div class="fs-4">@app.RMName</div>
+                            <div class="fs-6">ФИО для договора:</div>
+                            <input type="text" class="form-control form-control-sm doc_applicant_field" id="RLName" name="RLName" value="@app.RLName">
+                            <input type="text" class="form-control form-control-sm doc_applicant_field" id="RFName" name="RFName" value="@app.RFName">
+                            <input type="text" class="form-control form-control-sm" id="RMName" name="RMName" value="@app.RMName">
                         </div>
                         <div class="col">
                             <div class="fs-6">Дата рождения:</div>
-                            <div class="fs-4">@app.BirthDate.ToString("dd.MM.yyyy")</div>
+                            <input type="text" class="form-control" id="BirthDate" name="BirthDate" value="@app.BirthDate.ToString("dd.MM.yyyy")">
                             <div class="fs-6">Дата вылета:</div>
-                            <div class="fs-4">@app.AppSDate.ToString("dd.MM.yyyy")</div>
+                            <input type="text" class="form-control" id="FlyDate" name="FlyDate" value="@app.AppSDate.ToString("dd.MM.yyyy")">
                         </div>
                         <div class="col">
                             <div class="fs-6">BankID:</div>
-                            <div class="fs-4">2025/12345678</div>
-                            <div class="fs-6">запрос:</div>
-                            <div class="fs-4">добавить</div>
+                            <input type="text" class="form-control" id="BankID" name="BankID" value="2025/12345678">
+                            <div class="fs-6">Запрос:</div>
+                            <div class="input-group">
+                                <select class="form-select form-select-sm doc_applicant_select" id="Request" name="Request" aria-label="form-select-sm example"></select>
+                                <span class="input-group-btn">
+                                    <button id="addRequest" type="button" class="btn btn-outline-primary padding_search_buttons">+</button>
+                                </span>
+                            </div>
                         </div>
                         <div class="col">
                             <input type="checkbox" class="btn-check" id="Concil" name="Concil" value="true" autocomplete="off">
