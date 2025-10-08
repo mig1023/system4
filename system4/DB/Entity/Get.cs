@@ -547,6 +547,40 @@ namespace system4.DB.Entity
                 return company;
             }
         }
+        
+        public static List<DAL.Services> ServicesByCenter(int centerId)
+        {
+            using (var db = new EntityContext())
+            {
+                var services =
+                    from s in db.Services
+                    join sb in db.ServicesBranches on s.Id equals sb.ServiceId
+                    join sf in db.ServiceFields on s.Id equals sf.ServiceId
+                    where sb.BranchId == centerId
+                    select new
+                    {
+                        serviceId = s.Id,
+                        name = s.Name,
+                        valueType = sf.ValueType
+                    };
+
+                var servicesList = new List<DAL.Services>();
+
+                foreach (var service in services)
+                {
+                    var serviceListElement = new DAL.Services
+                    {
+                        ServiceId = service.serviceId,
+                        Name = service.name,
+                        ValueType = service.valueType,
+                    };
+
+                    servicesList.Add(serviceListElement);
+                }
+
+                return servicesList;
+            }
+        }
 
         public static List<Holidays> Holidays(int centerId)
         {
