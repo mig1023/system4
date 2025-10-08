@@ -11,6 +11,8 @@ namespace system4.Pages.Create
 
         public Dictionary<int, string> VisaTypes { get; set; }
 
+        public List<DAL.Services> Services { get; set; }
+
         [BindProperty]
         public BLL.CreateDoc.DocForm DocPack { get; set; }
 
@@ -20,6 +22,8 @@ namespace system4.Pages.Create
 
             VisaTypes = DB.Entity.Get.VisaTypesByCenter(Appointment.CenterId)
                 .ToDictionary(x => x.Id, x => x.VName);
+
+            Services = DB.Entity.Get.ServicesByCenter(Appointment.CenterId);
         }
 
         public IActionResult OnPost()

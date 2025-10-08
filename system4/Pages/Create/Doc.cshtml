@@ -45,7 +45,7 @@
                             <input type="hidden" name="DocPerson" value="false" />
 
                             <div class="fs-6">@app.LName</div>
-                            <div class="fs-6">@app.FName</div>
+                            <div class="fs-6"><b>@app.FName</b></div>
                             <div class="fs-6">@app.PassNum</div>
                         </div>
                         <div class="col">
@@ -92,6 +92,24 @@
                 </div>
             }
         }
+
+        <div class="container">
+            @{
+                foreach (DAL.Services service in Model.Services)
+                {
+                    <div class="row doc_applicant_data align-items-center">
+                        <div class="col col-5 justify-content-end d-flex">
+                            <input type="checkbox" class="btn-check" id="Service_@service.ServiceId" name="Service_@service.ServiceId" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Service_@service.ServiceId">@service.Name</label>
+                            <input type="hidden" name="Service_@service.ServiceId" value="false" />
+                        </div>
+                        <div class="col col-2"><input type="text" class="form-control" id="Service_@(service.ServiceId)_Value" name="Service_@(service.ServiceId)_Value" value=""></div>
+                        <div class="col col-5 fs-6">@(service.ValueType == "1" ? "руб" : "штук")</div>
+                    </div>
+                }
+            }
+
+        </div>
 
         <button type="submit" class="btn btn-primary">создать договор</button>
 
