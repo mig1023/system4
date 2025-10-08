@@ -51,6 +51,8 @@ namespace system4.DB.Entity
 
             public DbSet<ServicesPriceRates> ServicesPriceRates { get; set; }
 
+            public DbSet<ServicesBranches> ServicesBranches { get; set; }
+
             public DbSet<Companies> Companies { get; set; }
 
             public DbSet<Holidays> Holidays { get; set; }
