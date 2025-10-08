@@ -31,13 +31,17 @@
         </div>
 
         @{
+            var applicantIndex = 0;
+
             foreach (DB.AppData app in Model.Appointment.AppData)
             {
+                applicantIndex += 1;
+
                 <div class="dynamic-field-row border doc_applicant_form">
                     <div class="row justify-content-center align-items-center application_row">
                         <div class="col">
-                            <input type="checkbox" class="btn-check" id="DocPerson" name="DocPerson" value="true" autocomplete="off">
-                            <label class="btn btn-outline-primary btn-sm doc_applicant_data" for="DocPerson">Оформление договора</label>
+                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_DocPerson" name="Applicants[@(applicantIndex - 1)].DocPerson" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary btn-sm doc_applicant_data" for="Applicants_@(applicantIndex - 1)_DocPerson">Оформление договора</label>
                             <input type="hidden" name="DocPerson" value="false" />
 
                             <div class="fs-6">@app.LName</div>
@@ -46,42 +50,42 @@
                         </div>
                         <div class="col">
                             <div class="fs-6">ФИО для договора:</div>
-                            <input type="text" class="form-control form-control-sm doc_applicant_field" id="RLName" name="RLName" value="@app.RLName">
-                            <input type="text" class="form-control form-control-sm doc_applicant_field" id="RFName" name="RFName" value="@app.RFName">
-                            <input type="text" class="form-control form-control-sm" id="RMName" name="RMName" value="@app.RMName">
+                            <input type="text" class="form-control form-control-sm doc_applicant_field" id="Applicants_@(applicantIndex - 1)_RLName" name="Applicants[@(applicantIndex - 1)].RLName" value="@app.RLName">
+                            <input type="text" class="form-control form-control-sm doc_applicant_field" id="Applicants_@(applicantIndex - 1)_RFName" name="Applicants[@(applicantIndex - 1)].RFName" value="@app.RFName">
+                            <input type="text" class="form-control form-control-sm" id="Applicants_@(applicantIndex - 1)_RMName" name="Applicants[@(applicantIndex - 1)].RMName" value="@app.RMName">
                         </div>
                         <div class="col">
                             <div class="fs-6">Дата рождения:</div>
-                            <input type="text" class="form-control" id="BirthDate" name="BirthDate" value="@app.BirthDate.ToString("dd.MM.yyyy")">
+                            <input type="text" class="form-control" id="Applicants_@(applicantIndex - 1)_BirthDate" name="Applicants[@(applicantIndex - 1)].BirthDate" value="@app.BirthDate.ToString("dd.MM.yyyy")">
                             <div class="fs-6">Дата вылета:</div>
-                            <input type="text" class="form-control" id="FlyDate" name="FlyDate" value="@app.AppSDate.ToString("dd.MM.yyyy")">
+                            <input type="text" class="form-control" id="Applicants_@(applicantIndex - 1)_FlyDate" name="Applicants[@(applicantIndex - 1)].FlyDate" value="@app.AppSDate.ToString("dd.MM.yyyy")">
                         </div>
                         <div class="col">
                             <div class="fs-6">BankID:</div>
-                            <input type="text" class="form-control" id="BankId" name="BankId" value="2025/12345678">
+                            <input type="text" class="form-control" id="Applicants_@(applicantIndex - 1)_BankId" name="Applicants[@(applicantIndex - 1)].BankId" value="2025/12345678">
                             <div class="fs-6">Запрос:</div>
                             <div class="input-group">
-                                <select class="form-select form-select-sm doc_applicant_select" id="Request" name="Request" aria-label="form-select-sm example"></select>
+                                <select class="form-select form-select-sm doc_applicant_select" id="Applicants_@(applicantIndex - 1)_Request" name="Applicants[@(applicantIndex - 1)].Request" aria-label="form-select-sm example"></select>
                                 <span class="input-group-btn">
                                     <button id="addRequest" type="button" class="btn btn-outline-primary padding_search_buttons">+</button>
                                 </span>
                             </div>
                         </div>
                         <div class="col">
-                            <input type="checkbox" class="btn-check" id="Concil" name="Concil" value="true" autocomplete="off">
-                            <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="Concil">не платит консульский сбор</label>
+                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_Concil" name="Applicants[@(applicantIndex - 1)].Concil" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="Applicants_@(applicantIndex - 1)_Concil">не платит консульский сбор</label>
                             <input type="hidden" name="Concil" value="false" />
 
                             <br />
 
-                            <input type="checkbox" class="btn-check" id="NRes" name="NRes" value="true" autocomplete="off">
-                            <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="NRes">не резидент</label>
+                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_NRes" name="Applicants[@(applicantIndex - 1)].NRes" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="Applicants_@(applicantIndex - 1)_NRes">не резидент</label>
                             <input type="hidden" name="NRes" value="false" />
 
                             <br />
 
-                            <input type="checkbox" class="btn-check" id="Removed" name="Removed" value="true" autocomplete="off">
-                            <label class="btn btn-outline-danger btn-sm doc_applicant_checkbox" for="Removed">не включать в договор</label>
+                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_Removed" name="Applicants[@(applicantIndex - 1)].Removed" value="true" autocomplete="off">
+                            <label class="btn btn-outline-danger btn-sm doc_applicant_checkbox" for="Applicants_@(applicantIndex - 1)_Removed">не включать в договор</label>
                             <input type="hidden" name="Removed" value="false" />
                         </div>
                     </div>
