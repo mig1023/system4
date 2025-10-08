@@ -4,6 +4,8 @@
     {
         public bool Removed { get; set; }
 
+        public bool DocPerson { get; set; }
+
         public string RLName { get; set; }
 
         public string RFName { get; set; }
