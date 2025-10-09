@@ -94,6 +94,29 @@
         }
 
         <div class="container">
+
+            <div class="row doc_applicant_data align-items-center">
+                <div class="col col-5 justify-content-end d-flex">
+                    <input type="checkbox" class="btn-check" id="Service_Shipping" name="Service_Shipping" value="true" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="Service_Shipping">Доставка</label>
+                    <input type="hidden" name="Service_Shipping" value="false" />
+                </div>
+                <div class="col col-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control doc_service_field fw-lighter doc_service_field_big" id="Service_Shipping_Address"
+                               name="Service_Shipping_Address" placeholder="адрес доставки" value="">
+                        <input type="text" class="form-control doc_service_field fw-lighter doc_service_field_ltl" id="Service_Shipping_Phone"
+                               name="Service_Shipping_Phone" placeholder="телефон" value="">
+                        <input type="text" class="form-control doc_service_field fw-lighter doc_service_field_ltl" id="Service_Shipping_Comment"
+                               name="Service_Shipping_Comment" placeholder="информация" value="">
+                        
+                        <input type="checkbox" class="btn-check" id="Service_Shipping_Overload" name="Service_Shipping_Overload" value="true" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="Service_Shipping_Overload">вес сверх лимита</label>
+                        <input type="hidden" name="Service_Shipping_Overload" value="false" />
+                    </div>
+                </div>
+            </div>
+
             @{
                 foreach (DAL.Services service in Model.Services)
                 {
@@ -103,8 +126,13 @@
                             <label class="btn btn-outline-primary" for="Service_@service.ServiceId">@service.Name</label>
                             <input type="hidden" name="Service_@service.ServiceId" value="false" />
                         </div>
-                        <div class="col col-2"><input type="text" class="form-control" id="Service_@(service.ServiceId)_Value" name="Service_@(service.ServiceId)_Value" value=""></div>
-                        <div class="col col-5 fs-6">@(service.ValueType == "1" ? "руб" : "штук")</div>
+                        <div class="col col-2">
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="Service_@(service.ServiceId)_Value" name="Service_@(service.ServiceId)_Value" value="">
+                                <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
+                            </div>
+                        </div>
                     </div>
                 }
             }

@@ -79,6 +79,19 @@ html {
     height: 38px;
 }
 
+.doc_service_field {
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.doc_service_field_ltl {
+    flex: 1 1 20px !important;
+}
+
+.doc_service_field_big {
+    flex: 1 1 180px !important;
+}
+
 .finger_status {
     color: royalblue;
 }
