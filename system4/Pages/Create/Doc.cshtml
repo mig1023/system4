@@ -134,7 +134,8 @@
                         <div class="col col-2">
 
                             <div class="input-group">
-                                <input type="text" class="form-control" id="Service_@(service.ServiceId)_Value" name="Service_@(service.ServiceId)_Value" value="">
+                                <input type="text" class="form-control" id="Service_@(service.ServiceId)_Value"
+                                        name="Service_@(service.ServiceId)_Value" value="" disabled="disables">
                                 <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
                             </div>
                         </div>
@@ -158,9 +159,9 @@
 
                 var shipping = $(this).is(":checked");
 
-                ["Address", "Phone", "Comment", "Overload"].forEach((e) => {
+                ["Address", "Phone", "Comment", "Overload"].forEach((x) => {
 
-                    var element = $("#Service_Shipping_" + e);          
+                    var element = $("#Service_Shipping_" + x);          
                     element.prop('disabled', !shipping);
 
                     if (element.prop('type') == "checkbox") {
@@ -170,6 +171,13 @@
                         element.val("");
                     }
                 });
+            });
+
+            $(':checkbox[id^="Service_"]').change(function () {
+
+                var element = $("#" + $(this).prop("name") + "_Value");
+                element.val("");
+                element.prop('disabled', !$(this).is(":checked"));
             });
         });
     </script>
