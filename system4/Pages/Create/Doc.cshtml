@@ -42,7 +42,7 @@
                         <div class="col">
                             <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_DocPerson" name="Applicants[@(applicantIndex - 1)].DocPerson" value="true" autocomplete="off">
                             <label class="btn btn-outline-primary btn-sm doc_applicant_data" for="Applicants_@(applicantIndex - 1)_DocPerson">Оформление договора</label>
-                            <input type="hidden" name="DocPerson" value="false" />
+                            <input type="hidden" name="Applicants[@(applicantIndex - 1)].DocPerson" value="false" />
 
                             <div class="fs-6">@app.LName</div>
                             <div class="fs-6"><b>@app.FName</b></div>
@@ -74,19 +74,19 @@
                         <div class="col">
                             <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_Concil" name="Applicants[@(applicantIndex - 1)].Concil" value="true" autocomplete="off">
                             <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="Applicants_@(applicantIndex - 1)_Concil">не платит консульский сбор</label>
-                            <input type="hidden" name="Concil" value="false" />
+                            <input type="hidden" name="Applicants[@(applicantIndex - 1)].Concil" value="false" />
 
                             <br />
 
                             <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_NRes" name="Applicants[@(applicantIndex - 1)].NRes" value="true" autocomplete="off">
                             <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="Applicants_@(applicantIndex - 1)_NRes">не резидент</label>
-                            <input type="hidden" name="NRes" value="false" />
+                            <input type="hidden" name="Applicants[@(applicantIndex - 1)].NRes" value="false" />
 
                             <br />
 
                             <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_Removed" name="Applicants[@(applicantIndex - 1)].Removed" value="true" autocomplete="off">
                             <label class="btn btn-outline-danger btn-sm doc_applicant_checkbox" for="Applicants_@(applicantIndex - 1)_Removed">не включать в договор</label>
-                            <input type="hidden" name="Removed" value="false" />
+                            <input type="hidden" name="Applicants[@(applicantIndex - 1)].Removed" value="false" />
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
 
                             <div class="input-group">
                                 <input type="text" class="form-control" id="Service_@(service.ServiceId)_Value"
-                                        name="Service_@(service.ServiceId)_Value" value="" disabled="disables">
+                                       name="Service_@(service.ServiceId)_Value" value="" disabled="disabled">
                                 <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
                             </div>
                         </div>
@@ -178,6 +178,14 @@
                 var element = $("#" + $(this).prop("name") + "_Value");
                 element.val("");
                 element.prop('disabled', !$(this).is(":checked"));
+            });
+
+
+            $(':checkbox[id^="Applicants_"][id$="_Removed"]').change(function () {
+
+                var div = $(this).parent().parent().parent();
+                $(div).find(':input').prop('disabled', $(this).is(":checked"));
+                $(this).prop('disabled', false);
             });
         });
     </script>
