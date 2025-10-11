@@ -178,7 +178,16 @@
                     </div>
                 }
             }
+        </div>
 
+        <div class="row text-start">
+            <div class="col">
+                <label class="fs-3">Данные для договора:</label><br />
+
+                <input type="text" class="form-control doc_applicant_field" id="LName" name="LName" value="" disabled="disabled">
+                <input type="text" class="form-control doc_applicant_field" id="FName" name="FName" value="" disabled="disabled">
+                <input type="text" class="form-control doc_applicant_field" id="MName" name="MName" value="" disabled="disabled">
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary">создать договор</button>
@@ -221,6 +230,35 @@
                 var div = $(this).parent().parent().parent();
                 $(div).find(':input').prop('disabled', $(this).is(":checked"));
                 $(this).prop('disabled', false);
+            });
+
+            $(':checkbox[id$="_DocPerson"]').change(function () {
+
+                if (!$(this).is(":checked"))
+                {
+                    $("#LName").val("");
+                    $("#FName").val("");
+                    $("#MName").val("");
+                }
+                else {
+                    $(':checkbox[id$="_DocPerson"]').prop('checked', false);
+                    $(this).prop('checked', true);
+
+                    if ($(this).prop("id") == "ApplicantDwhom_DocPerson") {
+
+                        $("#LName").val($("#ApplicantDwhom_RLName").val());
+                        $("#FName").val($("#ApplicantDwhom_RFName").val());
+                        $("#MName").val($("#ApplicantDwhom_RMName").val());
+                    }
+                    else {
+                        var parts = $(this).prop("id").split('_');
+                        var id = parts[0] + "_" + parts[1];
+
+                        $("#LName").val($("#" + id + "_RLName").val());
+                        $("#FName").val($("#" + id + "_RFName").val());
+                        $("#MName").val($("#" + id + "_RMName").val());
+                    }
+                }
             });
         });
     </script>
