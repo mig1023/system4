@@ -98,23 +98,30 @@
             <div class="row doc_applicant_data align-items-center">
                 <div class="col col-5 justify-content-end d-flex">
                     <input type="checkbox" class="btn-check" id="Service_Shipping" name="Service_Shipping" value="true" autocomplete="off"
-                        @(Model.Appointment.Shipping > 0 ? "checked='true'" : "")>
+                           @(Model.Appointment.Shipping > 0 ? "checked='true'" : "")>
                     <label class="btn btn-outline-primary" for="Service_Shipping">Доставка</label>
                     <input type="hidden" name="Service_Shipping" value="false" />
                 </div>
                 <div class="col col-6">
                     <div class="input-group">
-                        <input type="text" class="form-control doc_service_field fw-lighter doc_service_field_big" id="Service_Shipping_Address"
+                        <input type="text" class="form-control fw-lighter doc_service_field_big" id="Service_Shipping_Address"
                                name="Service_Shipping_Address" placeholder="адрес доставки" value="@Model.Appointment.ShAddress"
                                @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
+                    </div>
+                </div>
+            </div>
+            <div class="row doc_applicant_data align-items-center">
+                <div class="col col-5 justify-content-end d-flex">&nbsp;</div>
+                <div class="col col-6">
+                    <div class="input-group">
                         <input type="text" class="form-control doc_service_field fw-lighter doc_service_field_ltl" id="Service_Shipping_Phone"
                                name="Service_Shipping_Phone" placeholder="телефон" value=""
                                @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
                         <input type="text" class="form-control doc_service_field fw-lighter doc_service_field_ltl" id="Service_Shipping_Comment"
                                name="Service_Shipping_Comment" placeholder="информация" value=""
                                @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
-                        
-                        <input type="checkbox" class="btn-check" id="Service_Shipping_Overload" name="Service_Shipping_Overload" value="true" 
+
+                        <input type="checkbox" class="btn-check" id="Service_Shipping_Overload" name="Service_Shipping_Overload" value="true"
                                autocomplete="off" @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
                         <label class="btn btn-outline-primary" for="Service_Shipping_Overload">вес сверх лимита</label>
                         <input type="hidden" name="Service_Shipping_Overload" value="false" />
@@ -179,7 +186,6 @@
                 element.val("");
                 element.prop('disabled', !$(this).is(":checked"));
             });
-
 
             $(':checkbox[id^="Applicants_"][id$="_Removed"]').change(function () {
 
