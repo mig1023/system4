@@ -23,7 +23,7 @@ namespace system4.Pages.Create
             VisaTypes = DB.Entity.Get.VisaTypesByCenter(Appointment.CenterId)
                 .ToDictionary(x => x.Id, x => x.VName);
 
-            Services = DB.Entity.Get.ServicesByCenter(Appointment.CenterId);
+            Services = DAL.Services.ServicesByCenter(Appointment.CenterId, Appointment.Center);
         }
 
         public IActionResult OnPost()

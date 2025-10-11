@@ -6,6 +6,8 @@ namespace system4.DAL
     {
         public int ServiceId { get; set; }
 
+        public string ServiceName { get; set; }
+
         public string Name { get; set; }
 
         public string ValueType { get; set; }
@@ -29,6 +31,27 @@ namespace system4.DAL
                     service.Price = prices[service.ServiceId];
                 }
             }
+
+            return services;
+        }
+
+        public static List<Services> ServicesByCenter(int centerId, DB.Branches center)
+        {
+            var services = DB.Entity.Get.ServicesByCenter(centerId);
+
+            if (center.isTranslate > 0)
+                services.Insert(0, Constants.BanalServices("Translate"));
+
+            if (center.isAnketa > 0)
+                services.Insert(0, Constants.BanalServices("Anketa"));
+
+            if (center.isPrinting > 0)
+                services.Insert(0, Constants.BanalServices("Printing"));
+
+            if (center.isPhoto > 0)
+                services.Insert(0, Constants.BanalServices("Photo"));
+
+            services.Insert(0, Constants.BanalServices("Xerox"));
 
             return services;
         }

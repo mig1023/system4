@@ -84,6 +84,10 @@ html {
     font-size: 12px;
 }
 
+.doc_service_field_right {
+    margin-right: 5px;
+}
+
 .doc_service_field_ltl {
     flex: 1 1 20px !important;
 }

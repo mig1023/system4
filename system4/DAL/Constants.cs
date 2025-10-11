@@ -1,4 +1,6 @@
-﻿namespace system4.DAL
+﻿using System.Xml.Linq;
+
+namespace system4.DAL
 {
     public class Constants
     {
@@ -78,6 +80,28 @@
             };
 
             return statuses[type ?? 1];
+        }
+
+        public static Services BanalServices(string name)
+        {
+            var services = new Dictionary<string, Services>
+            {
+                ["Xerox"] = new Services { Name = "Ксерокопия" },
+                ["Translate"] = new Services { Name = "Перевод" },
+                ["Anketa"] = new Services { Name = "Заполнение анкеты" },
+                ["Printing"] = new Services { Name = "Распечатка" },
+                ["Photo"] = new Services { Name = "Фото" },
+            };
+
+            var service = services[name];
+            service.ServiceName = name;
+
+            if (string.IsNullOrEmpty(service.ValueType))
+            {
+                service.ValueType = "2";
+            }
+
+            return service;
         }
     }
 }

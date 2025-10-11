@@ -24,7 +24,8 @@
             </div>
 
             <div class="col align-self-end application_service_button">
-                <input type="checkbox" class="btn-check" id="Urgent" name="Urgent" value="true" autocomplete="off">
+                <input type="checkbox" class="btn-check" id="Urgent" name="Urgent" value="true"
+                       autocomplete="off" @(Model.Appointment.Center.isUrgent > 0 ? "" : "disabled='disabled'")>
                 <label class="btn btn-outline-primary btn-lg margin_doc_add_button" for="Urgent">срочная виза</label>
                 <input type="hidden" name="Urgent" value="false" />
             </div>
@@ -114,10 +115,10 @@
                 <div class="col col-5 justify-content-end d-flex">&nbsp;</div>
                 <div class="col col-6">
                     <div class="input-group">
-                        <input type="text" class="form-control doc_service_field fw-lighter doc_service_field_ltl" id="Service_Shipping_Phone"
+                        <input type="text" class="form-control doc_service_field_right fw-lighter" id="Service_Shipping_Phone"
                                name="Service_Shipping_Phone" placeholder="телефон" value=""
                                @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
-                        <input type="text" class="form-control doc_service_field fw-lighter doc_service_field_ltl" id="Service_Shipping_Comment"
+                        <input type="text" class="form-control doc_service_field_right fw-lighter" id="Service_Shipping_Comment"
                                name="Service_Shipping_Comment" placeholder="информация" value=""
                                @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
 
@@ -132,17 +133,19 @@
             @{
                 foreach (DAL.Services service in Model.Services)
                 {
+                    var serviceId = service.ServiceId > 0 ? service.ServiceId.ToString() : service.ServiceName;
+
                     <div class="row doc_applicant_data align-items-center">
                         <div class="col col-5 justify-content-end d-flex">
-                            <input type="checkbox" class="btn-check" id="Service_@service.ServiceId" name="Service_@service.ServiceId" value="true" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="Service_@service.ServiceId">@service.Name</label>
-                            <input type="hidden" name="Service_@service.ServiceId" value="false" />
+                            <input type="checkbox" class="btn-check" id="Service_@serviceId" name="Service_@serviceId" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Service_@serviceId">@service.Name</label>
+                            <input type="hidden" name="Service_@serviceId" value="false" />
                         </div>
                         <div class="col col-2">
 
                             <div class="input-group">
-                                <input type="text" class="form-control" id="Service_@(service.ServiceId)_Value"
-                                       name="Service_@(service.ServiceId)_Value" value="" disabled="disabled">
+                                <input type="text" class="form-control" id="Service_@(serviceId)_Value"
+                                       name="Service_@(serviceId)_Value" value="" disabled="disabled">
                                 <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
                             </div>
                         </div>
