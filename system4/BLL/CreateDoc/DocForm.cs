@@ -8,6 +8,8 @@
 
         public List<ApplicantForm> Applicants { get; set; }
 
+        public ApplicantForm ApplicantDwhom { get; set; }
+
         public DocForm()
         {
             Applicants = new List<ApplicantForm>();
