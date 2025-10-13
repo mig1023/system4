@@ -119,6 +119,11 @@ namespace system4.DAL
                     ["C5"] = "C5 - FIVE YEARS STAY VISA TYPE",
                     ["D"] = "D - NATIONAL VISA TYPE",
                 },
+                ["TravelPurp"] = new Dictionary<string, string>
+                {
+                    ["AF"] = "COMMERCIAL AFFAIRS",
+                    ["TU"] = "TOURISM",
+                },
             };
 
             return requests;
