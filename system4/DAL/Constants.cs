@@ -104,5 +104,24 @@ namespace system4.DAL
 
             return service;
         }
+
+        public static Dictionary<string, Dictionary<string, string>> Requests()
+        {
+            var requests = new Dictionary<string, Dictionary<string, string>>
+            {
+                ["VisaType"] = new Dictionary<string, string>
+                {
+                    ["A"] = "A - AIRPORT TRANSIT VISA TYPE",
+                    ["C"] = "C - SHORT STAY VISA TYPE",
+                    ["C1"] = "C1 - ONE YEAR STAY VISA TYPE",
+                    ["C2"] = "C2 - TWO YEARS STAY VISA TYPE",
+                    ["C3"] = "C3 - THREE YEARS STAY VISA TYPE",
+                    ["C5"] = "C5 - FIVE YEARS STAY VISA TYPE",
+                    ["D"] = "D - NATIONAL VISA TYPE",
+                },
+            };
+
+            return requests;
+        }
     }
 }

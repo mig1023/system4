@@ -9,7 +9,12 @@
         <div class="row text-start">
             <div class="col">
                 <div class="fs-6">VisaType</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                    @foreach (var visa in Model.RequestData["VisaType"])
+                    {
+                        <option value="@visa.Key">@visa.Value</option>
+                    }
+                </select>
             </div>
             <div class="col">
                 <div class="fs-6">Purpose of Travel</div>
