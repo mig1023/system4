@@ -54,7 +54,12 @@
         <div class="row text-start">
             <div class="col">
                 <div class="fs-6">Border of First Entry (Country)</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                    @foreach (var first in Model.RequestData["FirstEntry"])
+                    {
+                        <option value="@first.Key">@first.Value</option>
+                    }
+                </select>
             </div>
             <div class="col">
                 <div class="fs-6">Italian Border of Entry</div>
