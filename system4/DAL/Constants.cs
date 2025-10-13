@@ -91,6 +91,7 @@ namespace system4.DAL
                 ["Anketa"] = new Services { Name = "Заполнение анкеты" },
                 ["Printing"] = new Services { Name = "Распечатка" },
                 ["Photo"] = new Services { Name = "Фото" },
+                ["Shipping"] = new Services { Name = "Доставка" },
             };
 
             var service = services[name];
