@@ -635,5 +635,14 @@ namespace system4.DB.Entity
                 return exclusions;
             }
         }
+
+        public static List<SchengenItalianBrd> SchengenItalianBrd()
+        {
+            using (var db = new EntityContext())
+            {
+                var brd = db.SchengenItalianBrd.ToList();
+                return brd;
+            }
+        }
     }
 }

@@ -59,6 +59,8 @@ namespace system4.DB.Entity
 
             public DbSet<Exclusions> Exclusions { get; set; }
 
+            public DbSet<SchengenItalianBrd> SchengenItalianBrd { get; set; }
+
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
