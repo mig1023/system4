@@ -124,6 +124,12 @@ namespace system4.DAL
                     ["AF"] = "COMMERCIAL AFFAIRS",
                     ["TU"] = "TOURISM",
                 },
+                ["NumEntries"] = new Dictionary<string, string>
+                {
+                    ["M"] = "MULT",
+                    ["1"] = "01",
+                    ["2"] = "02",
+                },
             };
 
             return requests;

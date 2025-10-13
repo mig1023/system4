@@ -29,7 +29,12 @@
         <div class="row text-start">
             <div class="col">
                 <div class="fs-6">Number of Entries</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                    @foreach (var entries in Model.RequestData["NumEntries"])
+                    {
+                        <option value="@entries.Key">@entries.Value</option>
+                    }
+                </select>
             </div>
             <div class="col">
                 <div class="fs-6">Duration of Stay</div>
