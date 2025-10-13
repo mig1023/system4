@@ -4,6 +4,70 @@
     ViewData["Title"] = "Doc";
 }
 
+<div class="doc_request" id="DocRequest">
+    <div class="container p-0">
+        <div class="row text-start">
+            <div class="col">
+                <div class="fs-6">VisaType</div>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+            </div>
+            <div class="col">
+                <div class="fs-6">Purpose of Travel</div>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+            </div>
+        </div>
+        <div class="row text-start">
+            <div class="col">
+                <div class="fs-6">Number of Entries</div>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+            </div>
+            <div class="col">
+                <div class="fs-6">Duration of Stay</div>
+                <input type="text" class="form-control form-control-sm doc_applicant_field">
+            </div>
+        </div>
+        <div class="row text-start">
+            <div class="col">
+                <div class="fs-6">Beginning of travel (date)</div>
+                <input type="text" class="form-control form-control-sm doc_applicant_field">
+            </div>
+            <div class="col">
+                <div class="fs-6">End of travel (date)</div>
+                <input type="text" class="form-control form-control-sm doc_applicant_field">
+            </div>
+        </div>
+        <div class="row text-start">
+            <div class="col">
+                <div class="fs-6">Border of First Entry (Country)</div>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+            </div>
+            <div class="col">
+                <div class="fs-6">Italian Border of Entry</div>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+            </div>
+        </div>
+        <div class="row text-start">
+            <div class="col">
+                <div class="fs-6">Border of Entry (City)</div>
+                <input type="text" class="form-control form-control-sm doc_applicant_field">
+            </div>
+            <div class="col">
+                <div class="fs-6">Main Destination</div>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+            </div>
+        </div>
+        <div class="row text-start">
+            <div class="col">
+                <div class="fs-6">City of Destination</div>
+                <input type="text" class="form-control form-control-sm doc_applicant_field">
+            </div>
+            <div class="col">&nbsp;</div>
+        </div>
+        <button class="btn btn-success" id="AddNewRequest">добавить запрос</button>
+        <button class="btn btn-danger" id="CloseNewRequest">закрыть</button>
+    </div>
+</div>
+
 <form method="post">
     <div class="container p-0">
         <h1 class="display-4 text-center">Создание договора:</h1>
@@ -92,7 +156,8 @@
                             <input type="text" class="form-control" id="Applicants_@(applicantIndex - 1)_BankId" name="Applicants[@(applicantIndex - 1)].BankId" value="2025/12345678">
                             <div class="fs-6">Запрос:</div>
                             <div class="input-group">
-                                <select class="form-select form-select-sm doc_applicant_select" id="Applicants_@(applicantIndex - 1)_Request" name="Applicants[@(applicantIndex - 1)].Request" aria-label="form-select-sm example"></select>
+                                <select class="form-select form-select-sm doc_applicant_select" id="Applicants_@(applicantIndex - 1)_Request"
+                                        name="Applicants[@(applicantIndex - 1)].Request" aria-label="form-select-sm example"></select>
                                 <span class="input-group-btn">
                                     <button id="Applicants_@(applicantIndex - 1)_AddRequest" type="button" class="btn btn-outline-primary padding_search_buttons">+</button>
                                 </span>
@@ -265,6 +330,39 @@
                         $("#MName").val($("#" + id + "_RMName").val());
                     }
                 }
+            });
+
+            $(':input[id$="_AddRequest"]').click(function () {
+
+                $("#DocRequest").show();
+                $(this).addClass('btn-primary');
+                $(this).removeClass('btn-outline-primary');
+            });
+
+            $('#CloseNewRequest').click(function () {
+
+                $("#DocRequest").hide();
+
+                $(':input[id$="_AddRequest"]').each(function () {
+                    $(this).addClass('btn-outline-primary');
+                    $(this).removeClass('btn-primary');
+                });
+            });
+
+            var requestsIndex = 0;
+
+            $('#AddNewRequest').click(function () {
+
+                requestsIndex += 1;
+
+                $(':input[id$="_Request"]').each(function () {
+                    $(this).append($('<option>', {
+                        value: requestsIndex,
+                        text: 'request ' + requestsIndex
+                    }));
+                });
+
+                $('#CloseNewRequest').click();
             });
         });
     </script>

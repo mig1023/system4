@@ -96,6 +96,19 @@ html {
     flex: 1 1 180px !important;
 }
 
+.doc_request {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: white;
+    z-index: 1050;
+    display: none;
+}
+
 .finger_status {
     color: royalblue;
 }
