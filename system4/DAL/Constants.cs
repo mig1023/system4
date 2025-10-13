@@ -161,7 +161,13 @@ namespace system4.DAL
                     ["CH"] = "SVIZZERA",
                     ["HU"] = "UNGHERIA",
                 },
+                ["SchengenItalianBrd"] = new Dictionary<string, string>(),
             };
+
+            foreach (var schengen in DB.Entity.Get.SchengenItalianBrd())
+            {
+                requests["SchengenItalianBrd"].Add(schengen.SCHID.ToString(), schengen.Name);
+            }
 
             return requests;
         }
