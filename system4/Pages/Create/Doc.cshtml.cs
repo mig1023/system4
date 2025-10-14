@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using system4.API;
-using system4.BLL.Finances;
 
 namespace system4.Pages.Create
 {
@@ -15,6 +13,8 @@ namespace system4.Pages.Create
 
         public List<DAL.Services> Services { get; set; }
 
+        public Dictionary<string, Dictionary<string, string>> RequestData { get; set; }
+
         [BindProperty]
         public BLL.CreateDoc.DocForm DocPack { get; set; }
 
@@ -26,6 +26,8 @@ namespace system4.Pages.Create
                 .ToDictionary(x => x.Id, x => x.VName);
 
             Services = DAL.Services.ServicesByCenter(Appointment.CenterId, Appointment.Center);
+
+            RequestData = DAL.Constants.Requests();
         }
 
         public IActionResult OnPost(int appid)
@@ -38,13 +40,14 @@ namespace system4.Pages.Create
             if (form.ContainsKey($"Service_Shipping"))
             {
                 var service = DAL.Constants.BanalServices("Shipping");
+                var sh = "Service_Shipping_";
 
                 service.Shipping = new DAL.Services.ShippingService
                 {
-                    Address = form["Service_Shipping_Address"],
-                    Phone = form["Service_Shipping_Phone"],
-                    Comment = form["Service_Shipping_Comment"],
-                    Overload = form["Service_Shipping_Overload"].ToString().StartsWith("true"),
+                    Address = form[sh + "Address"],
+                    Phone = form[sh + "Phone"],
+                    Comment = form[sh +"Comment"],
+                    Overload = form[sh + "Overload"].ToString().StartsWith("true"),
                 };
 
                 services.Add(service);
@@ -66,8 +69,10 @@ namespace system4.Pages.Create
                 }
             }
 
+            var request = form["Requests"].ToString();
 
-            return null;
+            var id = BLL.CreateDoc.Creation.Save(DocPack, services, request);
+            return Redirect($"/doc/{id}/");
         }
     }
 }
