@@ -644,5 +644,14 @@ namespace system4.DB.Entity
                 return brd;
             }
         }
+
+        public static List<Countries> Countries()
+        {
+            using (var db = new EntityContext())
+            {
+                var countries = db.Countries.ToList();
+                return countries;
+            }
+        }
     }
 }

@@ -61,6 +61,8 @@ namespace system4.DB.Entity
 
             public DbSet<SchengenItalianBrd> SchengenItalianBrd { get; set; }
 
+            public DbSet<Countries> Countries { get; set; }
+
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
