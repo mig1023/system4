@@ -130,39 +130,14 @@ namespace system4.DAL
                     ["1"] = "01",
                     ["2"] = "02",
                 },
-                ["FirstEntry"] = new Dictionary<string, string>
-                {
-                    ["A"] = "AUSTRIA",
-                    ["B"] = "BELGIO",
-                    ["BGR"] = "BULGARIA",
-                    ["HRV"] = "CROATIA",
-                    ["DK"] = "DANIMARCA",
-                    ["EE"] = "ESTONIA",
-                    ["FI"] = "FINLANDIA",
-                    ["F"] = "FRANCIA",
-                    ["D"] = "GERMANIA",
-                    ["GR"] = "GRECIA",
-                    ["IS"] = "ISLANDA",
-                    ["I"] = "ITALIA",
-                    ["LV"] = "LETTONIA",
-                    ["LT"] = "LITUANIA",
-                    ["L"] = "LUSSEMBURGO",
-                    ["MT"] = "MALTA",
-                    ["N"] = "NORVEGIA",
-                    ["NL"] = "PAESI BASSI",
-                    ["PL"] = "POLONIA",
-                    ["P"] = "PORTOGALLO",
-                    ["CZ"] = "REPUBBLICA CECA",
-                    ["ROU"] = "ROMANIA",
-                    ["SK"] = "SLOVACCHIA",
-                    ["SI"] = "SLOVENIA",
-                    ["E"] = "SPAGNA",
-                    ["S"] = "SVEZIA",
-                    ["CH"] = "SVIZZERA",
-                    ["HU"] = "UNGHERIA",
-                },
+                ["FirstEntry"] = new Dictionary<string, string>(),
                 ["SchengenItalianBrd"] = new Dictionary<string, string>(),
             };
+
+            foreach (var country in DB.Entity.Get.Countries().Where(x => x.Schengen == 1))
+            {
+                requests["FirstEntry"].Add(country.Code, country.Name);
+            }
 
             foreach (var schengen in DB.Entity.Get.SchengenItalianBrd())
             {
