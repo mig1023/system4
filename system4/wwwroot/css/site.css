@@ -113,6 +113,10 @@ html {
     width: 800px;
 }
 
+.doc_request_field {
+    margin-bottom: 15px;
+}
+
 .finger_status {
     color: royalblue;
 }
