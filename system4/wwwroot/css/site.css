@@ -109,6 +109,10 @@ html {
     display: none;
 }
 
+.doc_request_form {
+    width: 800px;
+}
+
 .finger_status {
     color: royalblue;
 }

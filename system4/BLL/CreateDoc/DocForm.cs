@@ -14,6 +14,8 @@
         public string FName { get; set; }
         public string MName { get; set; }
 
+        public string Requests { get; set; }
+
         public DocForm()
         {
             Applicants = new List<ApplicantForm>();

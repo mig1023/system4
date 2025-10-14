@@ -5,11 +5,11 @@
 }
 
 <div class="doc_request" id="DocRequest">
-    <div class="container p-0">
+    <div class="container p-0 doc_request_form">
         <div class="row text-start">
             <div class="col">
                 <div class="fs-6">VisaType</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                <select class="form-select form-select-sm doc_applicant_select" id="Request_VisaType" aria-label="form-select-sm example">
                     @foreach (var visa in Model.RequestData["VisaType"])
                     {
                         <option value="@visa.Key">@visa.Value</option>
@@ -18,7 +18,7 @@
             </div>
             <div class="col">
                 <div class="fs-6">Purpose of Travel</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                <select class="form-select form-select-sm doc_applicant_select" id="Request_Purpose" aria-label="form-select-sm example">
                     @foreach (var purpose in Model.RequestData["TravelPurp"])
                     {
                         <option value="@purpose.Key">@purpose.Value</option>
@@ -29,7 +29,7 @@
         <div class="row text-start">
             <div class="col">
                 <div class="fs-6">Number of Entries</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                <select class="form-select form-select-sm doc_applicant_select" id="Request_Entries" aria-label="form-select-sm example">
                     @foreach (var entries in Model.RequestData["NumEntries"])
                     {
                         <option value="@entries.Key">@entries.Value</option>
@@ -38,23 +38,23 @@
             </div>
             <div class="col">
                 <div class="fs-6">Duration of Stay</div>
-                <input type="text" class="form-control form-control-sm doc_applicant_field">
+                <input type="text" id="Request_Duration" class="form-control form-control-sm doc_applicant_field">
             </div>
         </div>
         <div class="row text-start">
             <div class="col">
                 <div class="fs-6">Beginning of travel (date)</div>
-                <input type="text" class="form-control form-control-sm doc_applicant_field">
+                <input type="text" id="Request_Beginning" class="form-control form-control-sm doc_applicant_field">
             </div>
             <div class="col">
                 <div class="fs-6">End of travel (date)</div>
-                <input type="text" class="form-control form-control-sm doc_applicant_field">
+                <input type="text" id="Request_End" class="form-control form-control-sm doc_applicant_field">
             </div>
         </div>
         <div class="row text-start">
             <div class="col">
                 <div class="fs-6">Border of First Entry (Country)</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                <select class="form-select form-select-sm doc_applicant_select" id="Request_Country" aria-label="form-select-sm example">
                     @foreach (var first in Model.RequestData["FirstEntry"])
                     {
                         <option value="@first.Key">@first.Value</option>
@@ -63,7 +63,7 @@
             </div>
             <div class="col">
                 <div class="fs-6">Italian Border of Entry</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                <select class="form-select form-select-sm doc_applicant_select" id="Request_Border" aria-label="form-select-sm example">
                     @foreach (var first in Model.RequestData["SchengenItalianBrd"])
                     {
                         <option value="@first.Key">@first.Value</option>
@@ -74,11 +74,11 @@
         <div class="row text-start">
             <div class="col">
                 <div class="fs-6">Border of Entry (City)</div>
-                <input type="text" class="form-control form-control-sm doc_applicant_field">
+                <input type="text" id="Request_City" class="form-control form-control-sm doc_applicant_field">
             </div>
             <div class="col">
                 <div class="fs-6">Main Destination</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                <select class="form-select form-select-sm doc_applicant_select" id="Request_MainDestination" aria-label="form-select-sm example">
                     @foreach (var country in Model.RequestData["MainDestination"])
                     {
                         <option value="@country.Key">@country.Value</option>
@@ -89,18 +89,22 @@
         <div class="row text-start">
             <div class="col">
                 <div class="fs-6">City of Destination</div>
-                <input type="text" class="form-control form-control-sm doc_applicant_field">
+                <input type="text" id="Request_DestinationCity" class="form-control form-control-sm doc_applicant_field">
             </div>
-            <div class="col">&nbsp;</div>
+            <div class="col align-self-end">
+                <button class="btn btn-success" id="AddNewRequest">добавить запрос</button>
+                <button class="btn btn-danger" id="CloseNewRequest">закрыть</button>
+            </div>
         </div>
-        <button class="btn btn-success" id="AddNewRequest">добавить запрос</button>
-        <button class="btn btn-danger" id="CloseNewRequest">закрыть</button>
+        
     </div>
 </div>
 
 <form method="post">
     <div class="container p-0">
         <h1 class="display-4 text-center">Создание договора:</h1>
+
+        <input type="hidden" id="Requests" name="Requests" value="" />
 
         <div class="row text-start">
             <div class="col">
@@ -385,10 +389,33 @@
 
                 requestsIndex += 1;
 
+                var allRequests = requestsIndex > 1 ? JSON.parse($('#Requests').val()) : [];
+
+                var request = {
+                    'Id': requestsIndex,
+                    'VisaType': $('#Request_VisaType').val(),
+                    'Purpose': $('#Request_Purpose').val(),
+                    'Entries': $('#Request_Entries').val(),
+                    'Duration': $('#Request_Duration').val(),
+                    'Beginning': $('#Request_Beginning').val(),
+                    'End': $('#Request_End').val(),
+                    'Country': $('#Request_Country').val(),
+                    'Border': $('#Request_Border').val(),
+                    'City': $('#Request_City').val(),
+                    'MainDestination': $('#Request_MainDestination').val(),
+                    'DestinationCity': $('#Request_DestinationCity').val(),
+                }
+
+                allRequests.push(request);
+                $('#Requests').val(JSON.stringify(allRequests));
+
+                var requestName = '#' + requestsIndex + ' ' + request["VisaType"] + 
+                        ' (' + request["Entries"] + ') ' + request["Duration"]
+
                 $(':input[id$="_Request"]').each(function () {
                     $(this).append($('<option>', {
                         value: requestsIndex,
-                        text: 'request ' + requestsIndex
+                        text: requestName,
                     }));
                 });
 
