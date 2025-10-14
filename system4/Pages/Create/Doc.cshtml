@@ -78,7 +78,12 @@
             </div>
             <div class="col">
                 <div class="fs-6">Main Destination</div>
-                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example"></select>
+                <select class="form-select form-select-sm doc_applicant_select" aria-label="form-select-sm example">
+                    @foreach (var country in Model.RequestData["MainDestination"])
+                    {
+                        <option value="@country.Key">@country.Value</option>
+                    }
+                </select>
             </div>
         </div>
         <div class="row text-start">

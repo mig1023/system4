@@ -132,11 +132,13 @@ namespace system4.DAL
                 },
                 ["FirstEntry"] = new Dictionary<string, string>(),
                 ["SchengenItalianBrd"] = new Dictionary<string, string>(),
+                ["MainDestination"] = new Dictionary<string, string>(),
             };
 
             foreach (var country in DB.Entity.Get.Countries().Where(x => x.Schengen == 1))
             {
                 requests["FirstEntry"].Add(country.Code, country.Name);
+                requests["MainDestination"].Add(country.Code, country.Name);
             }
 
             foreach (var schengen in DB.Entity.Get.SchengenItalianBrd())
