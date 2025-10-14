@@ -117,6 +117,10 @@ html {
     margin-bottom: 15px;
 }
 
+.doc_request_buttons {
+    width: 49%;
+}
+
 .finger_status {
     color: royalblue;
 }
