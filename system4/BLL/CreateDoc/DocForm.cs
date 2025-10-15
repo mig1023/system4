@@ -14,6 +14,19 @@
         public string FName { get; set; }
         public string MName { get; set; }
 
+        public string PassNum { get; set; }
+        public DateTime PassDate { get; set; }
+        public string PassWhom { get; set; }
+
+        public string DovNumber { get; set; }
+        public DateTime DovDate { get; set; }
+
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public string InfoMail { get; set; }
+
+        public string Comment { get; set; }
+
         public string Requests { get; set; }
 
         public DocForm()

@@ -121,6 +121,20 @@ html {
     width: 49%;
 }
 
+.doc_create_button {
+    margin-left: 12px;
+    margin-top: 20px;
+}
+
+.doc_create_header {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.doc_create_data_label {
+    margin-top: 10px;
+}
+
 .finger_status {
     color: royalblue;
 }

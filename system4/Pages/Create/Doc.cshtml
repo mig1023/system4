@@ -289,17 +289,78 @@
             }
         </div>
 
-        <div class="row text-start">
-            <div class="col">
-                <label class="fs-3">Данные для договора:</label><br />
+        <div class="container">
 
-                <input type="text" class="form-control doc_applicant_field" id="LName" name="LName" value="" disabled="disabled">
-                <input type="text" class="form-control doc_applicant_field" id="FName" name="FName" value="" disabled="disabled">
-                <input type="text" class="form-control doc_applicant_field" id="MName" name="MName" value="" disabled="disabled">
+            <label class="fs-3 doc_create_header">Данные для договора:</label><br />
+
+            <div class="row text-start">
+                <div class="col">
+                    <label for="LName" class="doc_create_data_label">Фамилия:</label>
+                    <input type="text" class="form-control" id="LName" name="LName" disabled="disabled">
+                </div>
+                <div class="col">
+                    <label for="FName" class="doc_create_data_label">Имя:</label>
+                    <input type="text" class="form-control" id="FName" name="FName" disabled="disabled">
+                </div>
+                <div class="col">
+                    <label for="MName" class="doc_create_data_label">Отчество:</label>
+                    <input type="text" class="form-control" id="MName" name="MName" disabled="disabled">
+                </div>
+            </div>
+
+            <div class="row text-start">
+                <div class="col">
+                    <label for="PassNum" class="doc_create_data_label">Паспорт:</label>
+                    <input type="text" class="form-control" id="PassNum" name="PassNum">
+                </div>
+                <div class="col">
+                    <label for="PassDate" class="doc_create_data_label">Дата выдачи:</label>
+                    <input type="text" class="form-control" id="PassDate" name="PassDate">
+                </div>
+                <div class="col">
+                    <label for="PassWhom" class="doc_create_data_label">Кем выдан:</label>
+                    <input type="text" class="form-control" id="PassWhom" name="PassWhom">
+                </div>
+            </div>
+
+            <div class="row text-start">
+                <div class="col">
+                    <label for="DovNumber" class="doc_create_data_label">Доверенность №:</label>
+                    <input type="text" class="form-control" id="DovNumber" name="DovNumber">
+                </div>
+                <div class="col">
+                    <label for="DovDate" class="doc_create_data_label">Дата доверенности:</label>
+                    <input type="text" class="form-control" id="DovDate" name="DovDate">
+                </div>
+                <div class="col">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row text-start">
+                <div class="col">
+                    <label for="Phone" class="doc_create_data_label">Телефон:</label>
+                    <input type="text" class="form-control" id="Phone" name="Phone">
+                </div>
+                <div class="col">
+                    <label for="Address" class="doc_create_data_label">Адрес:</label>
+                    <input type="text" class="form-control" id="Address" name="Address">
+                </div>
+                <div class="col">
+                    <label for="InfoMail" class="doc_create_data_label">EMail для отправки информации о получении:</label>
+                    <input type="text" class="form-control" id="InfoMail" name="InfoMail">
+                </div>
+            </div>
+
+            <div class="row text-start">
+                <div class="col">
+                    <label for="Comment" class="doc_create_data_label">Комментарий к договору:</label>
+                    <textarea class="form-control" name="Comment" id="Comment" rows="3"></textarea>
+                </div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">создать договор</button>
+        <button type="submit" class="btn btn-primary doc_create_button">создать договор</button>
 
     </div>
 </form>
