@@ -167,6 +167,9 @@
             foreach (DB.AppData app in Model.Appointment.AppData)
             {
                 applicantIndex += 1;
+                var bankIdGeneration = Model.Appointment.Center.genbank > 0;
+                var bankIdDisabled = bankIdGeneration ? "disabled='disabled'" : "";
+                var bankIdValue = bankIdGeneration ? "автоматически" : "2025/";
 
                 <div class="dynamic-field-row border doc_applicant_form">
                     <div class="row justify-content-center align-items-center application_row">
@@ -193,7 +196,8 @@
                         </div>
                         <div class="col">
                             <div class="fs-6">BankID:</div>
-                            <input type="text" class="form-control" id="Applicants_@(applicantIndex - 1)_BankId" name="Applicants[@(applicantIndex - 1)].BankId" value="2025/12345678">
+                            <input type="text" class="form-control" id="Applicants_@(applicantIndex - 1)_BankId"
+                                   name="Applicants[@(applicantIndex - 1)].BankId" value="@bankIdValue" @bankIdDisabled>
                             <div class="fs-6">Запрос:</div>
                             <div class="input-group">
                                 <select class="form-select form-select-sm doc_applicant_select" id="Applicants_@(applicantIndex - 1)_Request"
