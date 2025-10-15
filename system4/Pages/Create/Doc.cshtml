@@ -381,6 +381,25 @@
                 $("#DocRequest").show();
                 $(this).addClass('btn-primary');
                 $(this).removeClass('btn-outline-primary');
+
+            });
+
+            var firstBankIdEntry = true;
+
+            $(':input[id$="_BankId"]').keyup(function () {
+
+                var newBankId = $(this).val();
+
+                if (newBankId.match(/\d{4}\/\d{8}/) && firstBankIdEntry) {
+
+                    if (confirm("Скопировать данный BankID в другие поля?")) {
+                        $(':input[id$="_BankId"]').each(function () {
+                            $(this).val(newBankId);
+                        });
+                    }
+
+                    firstBankIdEntry = false;
+                }
             });
 
             $('#CloseNewRequest').click(function () {
