@@ -18,7 +18,7 @@ namespace system4.Pages.Create
         [BindProperty]
         public BLL.CreateDoc.DocForm DocPack { get; set; }
 
-        public void OnGet(int appid)
+        private void InitPageValues(int appid)
         {
             Appointment = DAL.Appointment.Get(appid);
 
@@ -32,21 +32,18 @@ namespace system4.Pages.Create
             RequestData = DAL.Constants.Requests();
         }
 
+        public void OnGet(int appid)
+        {
+            InitPageValues(appid);
+        }
+
         public IActionResult OnPost(int appid)
         {
             var form = Request.Form;
 
             if (!ModelState.IsValid)
             {
-                Appointment = DAL.Appointment.Get(appid);
-
-                VisaTypes = DB.Entity.Get.VisaTypesByCenter(Appointment.CenterId)
-                    .ToDictionary(x => x.Id, x => x.VName);
-
-                Services = DAL.Services.ServicesByCenter(Appointment.CenterId, Appointment.Center);
-
-                RequestData = DAL.Constants.Requests();
-
+                InitPageValues(appid);
                 return Page();
             }
 
@@ -79,7 +76,9 @@ namespace system4.Pages.Create
                     var valued = int.TryParse(form[$"Service_{serviceId}_Value"], out int value);
 
                     if (!valued)
+                    {
                         continue;
+                    }
 
                     service.Value = value;
                     services.Add(service);

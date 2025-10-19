@@ -174,7 +174,7 @@
                         <div class="col">
                             <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_DocPerson" asp-for="DocPack.Applicants[(applicantIndex - 1)].DocPerson" value="true" autocomplete="off">
                             <label class="btn btn-outline-primary btn-sm doc_applicant_data" for="Applicants_@(applicantIndex - 1)_DocPerson">✓</label>
-                            <input type="hidden" name="Applicants[@(applicantIndex - 1)].DocPerson" value="false" />
+                            <input type="hidden" name="DocPack.Applicants[@(applicantIndex - 1)].DocPerson" value="false" />
 
                             <div class="fs-6">@app.LName</div>
                             <div class="fs-6"><b>@app.FName</b></div>
@@ -202,8 +202,8 @@
                             <input type="text" class="form-control" id="Applicants_@(applicantIndex - 1)_BankId" 
                                     asp-for="DocPack.Applicants[(applicantIndex - 1)].BankId">
                             <div class="fs-6">Запрос:</div>
-                            <div class="input-group">
                             <span class="doc_error" asp-validation-for="DocPack.Applicants[(applicantIndex - 1)].Request"></span>
+                            <div class="input-group">
                                 <select class="form-select form-select-sm doc_applicant_select" id="Applicants_@(applicantIndex - 1)_Request"
                                         asp-for="DocPack.Applicants[(applicantIndex - 1)].Request" aria-label="form-select-sm example"></select>
                                 <span class="input-group-btn">
@@ -212,21 +212,21 @@
                             </div>
                         </div>
                         <div class="col">
-                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_Concil" name="Applicants[@(applicantIndex - 1)].Concil" value="true" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_Concil" name="DocPack.Applicants[@(applicantIndex - 1)].Concil" value="true" autocomplete="off">
                             <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="Applicants_@(applicantIndex - 1)_Concil">не платит консульский сбор</label>
-                            <input type="hidden" name="Applicants[@(applicantIndex - 1)].Concil" value="false" />
+                            <input type="hidden" name="DocPack.Applicants[@(applicantIndex - 1)].Concil" value="false" />
 
                             <br />
 
-                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_NRes" name="Applicants[@(applicantIndex - 1)].NRes" value="true" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_NRes" name="DocPack.Applicants[@(applicantIndex - 1)].NRes" value="true" autocomplete="off">
                             <label class="btn btn-outline-primary btn-sm doc_applicant_checkbox" for="Applicants_@(applicantIndex - 1)_NRes">не резидент</label>
-                            <input type="hidden" name="Applicants[@(applicantIndex - 1)].NRes" value="false" />
+                            <input type="hidden" name="DocPack.Applicants[@(applicantIndex - 1)].NRes" value="false" />
 
                             <br />
 
-                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_Removed" name="Applicants[@(applicantIndex - 1)].Removed" value="true" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_Removed" name="DocPack.Applicants[@(applicantIndex - 1)].Removed" value="true" autocomplete="off">
                             <label class="btn btn-outline-danger btn-sm doc_applicant_checkbox" for="Applicants_@(applicantIndex - 1)_Removed">не включать в договор</label>
-                            <input type="hidden" name="Applicants[@(applicantIndex - 1)].Removed" value="false" />
+                            <input type="hidden" name="DocPack.Applicants[@(applicantIndex - 1)].Removed" value="false" />
                         </div>
                     </div>
                 </div>
@@ -270,25 +270,29 @@
             </div>
 
             @{
+                var serviceIndex = -1;
+
                 foreach (DAL.Services service in Model.Services)
                 {
                     var serviceId = service.ServiceId > 0 ? service.ServiceId.ToString() : service.ServiceName;
+                    serviceIndex += 1;
 
-                            <div class="row doc_applicant_data align-items-center">
-                                <div class="col col-5 justify-content-end d-flex">
-                                    <input type="checkbox" class="btn-check" id="Service_@serviceId" name="Service_@serviceId" value="true" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="Service_@serviceId">@service.Name</label>
-                                    <input type="hidden" name="Service_@serviceId" value="false" />
-                                </div>
-                                <div class="col col-2">
+                    <div class="row doc_applicant_data align-items-center">
+                        <div class="col col-5 justify-content-end d-flex">
+                            <input type="checkbox" class="btn-check" id="Service_@serviceId" name="Service_@serviceId" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Service_@serviceId">@service.Name</label>
+                            <input type="hidden" name="Service_@serviceId" value="false" />
+                        </div>
+                        <div class="col col-2">
 
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="Service_@(serviceId)_Value"
-                                                name="Service_@(serviceId)_Value" value="" disabled="disabled">
-                                        <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
-                                    </div>
-                                </div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="Service_@(serviceId)_Value"
+                                       name="Service_@(serviceId)_Value" value="" disabled="disabled">
+                                <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
                             </div>
+                            <span asp-validation-for="Services[serviceIndex]"></span>
+                        </div>
+                    </div>
                 }
             }
         </div>
@@ -301,17 +305,17 @@
                 <div class="col">
                     <label for="LName" class="doc_create_data_label">Фамилия:</label>
                     <span class="doc_error" asp-validation-for="DocPack.LName"></span>
-                    <input type="text" class="form-control" id="LName" asp-for="DocPack.LName" disabled="disabled">
+                    <input type="text" class="form-control" id="LName" asp-for="DocPack.LName" readonly="true">
                 </div>
                 <div class="col">
                     <label for="FName" class="doc_create_data_label">Имя:</label>
                     <span class="doc_error" asp-validation-for="DocPack.FName"></span>
-                    <input type="text" class="form-control" id="FName" asp-for="DocPack.FName" disabled="disabled">
+                    <input type="text" class="form-control" id="FName" asp-for="DocPack.FName" readonly="true">
                 </div>
                 <div class="col">
                     <label for="MName" class="doc_create_data_label">Отчество:</label>
                     <span class="doc_error" asp-validation-for="DocPack.MName"></span>
-                    <input type="text" class="form-control" id="MName" asp-for="DocPack.MName" disabled="disabled">
+                    <input type="text" class="form-control" id="MName" asp-for="DocPack.MName" readonly="true">
                 </div>
             </div>
 

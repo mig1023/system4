@@ -10,15 +10,15 @@ namespace system4.BLL.CreateDoc
 
         public List<ApplicantForm> Applicants { get; set; }
 
-        public ApplicantForm ApplicantDwhom { get; set; }
+        public ApplicantForm? ApplicantDwhom { get; set; }
         
-        [Required(ErrorMessage = "Не выбрано на которого заключается договор")]
+        [Required(ErrorMessage = "Не выбрано на кого заключается договор")]
         public string LName { get; set; }
 
-        [Required(ErrorMessage = "Не выбрано на которого заключается договор")]
+        [Required(ErrorMessage = "Не выбрано на кого заключается договор")]
         public string FName { get; set; }
 
-        [Required(ErrorMessage = "Не выбрано на которого заключается договор")]
+        [Required(ErrorMessage = "Не выбрано на кого заключается договор")]
         public string MName { get; set; }
 
         [Required(ErrorMessage = "Не указан номер паспорта")]
@@ -47,9 +47,9 @@ namespace system4.BLL.CreateDoc
         [EmailAddress(ErrorMessage = "Неверный формат EMail")]
         public string InfoMail { get; set; }
 
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
 
-        public string Requests { get; set; }
+        public string? Requests { get; set; }
 
         public DocForm()
         {
