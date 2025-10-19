@@ -126,6 +126,15 @@ html {
     margin-top: 20px;
 }
 
+.doc_error {
+    color: white;
+    background-color: red;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 5px;
+    display: block;
+}
+
 .doc_create_header {
     margin-top: 30px;
     margin-bottom: 20px;

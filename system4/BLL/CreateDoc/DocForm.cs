@@ -1,4 +1,6 @@
-﻿namespace system4.BLL.CreateDoc
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace system4.BLL.CreateDoc
 {
     public class DocForm
     {
@@ -9,20 +11,40 @@
         public List<ApplicantForm> Applicants { get; set; }
 
         public ApplicantForm ApplicantDwhom { get; set; }
-
+        
+        [Required(ErrorMessage = "Не выбрано на которого заключается договор")]
         public string LName { get; set; }
+
+        [Required(ErrorMessage = "Не выбрано на которого заключается договор")]
         public string FName { get; set; }
+
+        [Required(ErrorMessage = "Не выбрано на которого заключается договор")]
         public string MName { get; set; }
 
+        [Required(ErrorMessage = "Не указан номер паспорта")]
         public string PassNum { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Не указана дата выдачи паспорта")]
         public DateTime PassDate { get; set; }
+
+        [Required(ErrorMessage = "Не указано кем выдан паспорт")]
         public string PassWhom { get; set; }
 
-        public string DovNumber { get; set; }
-        public DateTime DovDate { get; set; }
+        public string? DovNumber { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? DovDate { get; set; }
+
+        [Required(ErrorMessage = "Не указан контактный телефон")]
+        [Phone(ErrorMessage = "Неверный формат телефона")]
         public string Phone { get; set; }
+
+        [Required(ErrorMessage = "Не указан адрес")]
         public string Address { get; set; }
+
+        [Required(ErrorMessage = "Не указан EMail")]
+        [EmailAddress(ErrorMessage = "Неверный формат EMail")]
         public string InfoMail { get; set; }
 
         public string Comment { get; set; }
@@ -32,6 +54,24 @@
         public DocForm()
         {
             Applicants = new List<ApplicantForm>();
+        }
+
+        public DocForm(DAL.Appointment appointment)
+        {
+            Applicants = new List<ApplicantForm>();
+
+            foreach (var appdata in appointment.AppData)
+            {
+                var applicant = new ApplicantForm
+                {
+                    RLName = appdata.RLName,
+                    RFName = appdata.RFName,
+                    RMName = appdata.RMName,
+                    BirthDate = appdata.BirthDate,
+                    FlyDate = appdata.AppSDate,
+                };
+                Applicants.Add(applicant);
+            }
         }
     }
 }

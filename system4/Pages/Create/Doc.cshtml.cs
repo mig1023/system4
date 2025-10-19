@@ -22,6 +22,8 @@ namespace system4.Pages.Create
         {
             Appointment = DAL.Appointment.Get(appid);
 
+            DocPack = new BLL.CreateDoc.DocForm(Appointment);
+
             VisaTypes = DB.Entity.Get.VisaTypesByCenter(Appointment.CenterId)
                 .ToDictionary(x => x.Id, x => x.VName);
 
@@ -32,9 +34,24 @@ namespace system4.Pages.Create
 
         public IActionResult OnPost(int appid)
         {
+            var form = Request.Form;
+
+            if (!ModelState.IsValid)
+            {
+                Appointment = DAL.Appointment.Get(appid);
+
+                VisaTypes = DB.Entity.Get.VisaTypesByCenter(Appointment.CenterId)
+                    .ToDictionary(x => x.Id, x => x.VName);
+
+                Services = DAL.Services.ServicesByCenter(Appointment.CenterId, Appointment.Center);
+
+                RequestData = DAL.Constants.Requests();
+
+                return Page();
+            }
+
             var appointment = DAL.Appointment.Get(appid);
             var allServices = DAL.Services.ServicesByCenter(appointment.CenterId, appointment.Center);
-            var form = Request.Form;
             var services = new List<DAL.Services>();
 
             if (form.ContainsKey($"Service_Shipping"))
