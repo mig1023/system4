@@ -299,8 +299,11 @@
                                 }
 
                                 <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
-                                <span asp-validation-for="DocPack.Services[serviceIndex]"></span>
+                                
                             </div>
+                        </div>
+                        <div class="col col-3">
+                            <span class="doc_error" asp-validation-for="DocPack.Services[serviceIndex]"></span>
                         </div>
                     </div>
                 }

@@ -43,13 +43,6 @@ namespace system4.Pages.Create
         public IActionResult OnPost(int appid)
         {
             var form = Request.Form;
-
-            if (!ModelState.IsValid)
-            {
-                InitPageValues(appid, reload: true);
-                return Page();
-            }
-
             var appointment = DAL.Appointment.Get(appid);
             var allServices = DAL.Services.ServicesByCenter(appointment.CenterId, appointment.Center);
             var services = new List<DAL.Services>();
@@ -58,11 +51,13 @@ namespace system4.Pages.Create
             {
                 var service = DAL.Constants.BanalServices("Shipping");
                 var sh = "Service_Shipping_";
+                var address = form[sh + "Address"];
+                var phone = form[sh + "Phone"];
 
                 service.Shipping = new DAL.Services.ShippingService
                 {
-                    Address = form[sh + "Address"],
-                    Phone = form[sh + "Phone"],
+                    Address = address,
+                    Phone = phone,
                     Comment = form[sh +"Comment"],
                     Overload = form[sh + "Overload"].ToString().StartsWith("true"),
                 };
@@ -76,11 +71,26 @@ namespace system4.Pages.Create
             {
                 if (DocPack.Services[servicesIndex].Enabled)
                 {
-                    service.Value = DocPack.Services[servicesIndex].Value ?? 0;
-                    services.Add(service);
+                    var value = DocPack.Services[servicesIndex].Value ?? 0;
+
+                    if (value > 0)
+                    {
+                        service.Value = value;
+                        services.Add(service);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError($"DocPack.Services[{servicesIndex}]", "Значение услуги не задано");
+                    }
                 }
 
                 servicesIndex += 1;
+            }
+
+            if (!ModelState.IsValid)
+            {
+                InitPageValues(appid, reload: true);
+                return Page();
             }
 
             var request = form["Requests"].ToString();
