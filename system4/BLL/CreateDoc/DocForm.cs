@@ -27,8 +27,9 @@ namespace system4.BLL.CreateDoc
         public string PassNum { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Не указана дата выдачи паспорта")]
-        public DateTime PassDate { get; set; }
+        public DateTime? PassDate { get; set; }
 
         [Required(ErrorMessage = "Не указано кем выдан паспорт")]
         public string PassWhom { get; set; }
@@ -36,6 +37,7 @@ namespace system4.BLL.CreateDoc
         public string? DovNumber { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime? DovDate { get; set; }
 
         [Required(ErrorMessage = "Не указан контактный телефон")]

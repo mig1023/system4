@@ -402,6 +402,8 @@
     <script>
         $(document).ready(function () {
 
+            $(':input[id$="Date"]').mask("99.99.9999", { placeholder: "__.__.____" });
+
             $('#Service_Shipping').change(function () {
 
                 var shipping = $(this).is(":checked");
