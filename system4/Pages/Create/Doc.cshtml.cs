@@ -11,25 +11,28 @@ namespace system4.Pages.Create
 
         public Dictionary<int, string> VisaTypes { get; set; }
 
-        public List<DAL.Services> Services { get; set; }
-
         public Dictionary<string, Dictionary<string, string>> RequestData { get; set; }
 
         [BindProperty]
         public BLL.CreateDoc.DocForm DocPack { get; set; }
 
-        private void InitPageValues(int appid)
+        public List<DAL.Services> Services { get; set; }
+
+        private void InitPageValues(int appid, bool reload = false)
         {
             Appointment = DAL.Appointment.Get(appid);
 
-            DocPack = new BLL.CreateDoc.DocForm(Appointment);
+            Services = DAL.Services.ServicesByCenter(Appointment.CenterId, Appointment.Center);
 
             VisaTypes = DB.Entity.Get.VisaTypesByCenter(Appointment.CenterId)
                 .ToDictionary(x => x.Id, x => x.VName);
 
-            Services = DAL.Services.ServicesByCenter(Appointment.CenterId, Appointment.Center);
-
             RequestData = DAL.Constants.Requests();
+
+            if (!reload)
+            {
+                DocPack = new BLL.CreateDoc.DocForm(Appointment, Services);
+            }
         }
 
         public void OnGet(int appid)
@@ -43,7 +46,7 @@ namespace system4.Pages.Create
 
             if (!ModelState.IsValid)
             {
-                InitPageValues(appid);
+                InitPageValues(appid, reload: true);
                 return Page();
             }
 
@@ -67,22 +70,17 @@ namespace system4.Pages.Create
                 services.Add(service);
             }
 
+            var servicesIndex = 0;
+
             foreach (DAL.Services service in allServices)
             {
-                var serviceId = service.ServiceId > 0 ? service.ServiceId.ToString() : service.ServiceName;
-
-                if (form.ContainsKey($"Service_{serviceId}"))
+                if (DocPack.Services[servicesIndex].Enabled)
                 {
-                    var valued = int.TryParse(form[$"Service_{serviceId}_Value"], out int value);
-
-                    if (!valued)
-                    {
-                        continue;
-                    }
-
-                    service.Value = value;
+                    service.Value = DocPack.Services[servicesIndex].Value ?? 0;
                     services.Add(service);
                 }
+
+                servicesIndex += 1;
             }
 
             var request = form["Requests"].ToString();

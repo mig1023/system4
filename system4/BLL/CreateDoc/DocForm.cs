@@ -11,6 +11,8 @@ namespace system4.BLL.CreateDoc
         public List<ApplicantForm> Applicants { get; set; }
 
         public ApplicantForm? ApplicantDwhom { get; set; }
+
+        public List<Service> Services { get; set; }
         
         [Required(ErrorMessage = "Не выбрано на кого заключается договор")]
         public string LName { get; set; }
@@ -54,9 +56,10 @@ namespace system4.BLL.CreateDoc
         public DocForm()
         {
             Applicants = new List<ApplicantForm>();
+            Services = new List<Service>();
         }
 
-        public DocForm(DAL.Appointment appointment)
+        public DocForm(DAL.Appointment appointment, List<DAL.Services> services)
         {
             Applicants = new List<ApplicantForm>();
 
@@ -71,6 +74,21 @@ namespace system4.BLL.CreateDoc
                     FlyDate = appdata.AppSDate,
                 };
                 Applicants.Add(applicant);
+            }
+
+            Services = new List<Service>();
+
+            foreach (var data in services)
+            {
+                var service = new Service
+                {
+                    Name = data.ServiceId > 0 ? data.ServiceId.ToString() : data.ServiceName,
+                    Text = data.Name,
+                    Enabled = false,
+                    Value = 0,
+                    ValueType = data.ValueType,
+                };
+                Services.Add(service);
             }
         }
     }

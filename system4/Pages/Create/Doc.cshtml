@@ -272,25 +272,35 @@
             @{
                 var serviceIndex = -1;
 
-                foreach (DAL.Services service in Model.Services)
+                foreach (var service in Model.Services)
                 {
-                    var serviceId = service.ServiceId > 0 ? service.ServiceId.ToString() : service.ServiceName;
                     serviceIndex += 1;
+                    var serviceId = service.ServiceId > 0 ? service.ServiceId.ToString() : service.ServiceName;
 
                     <div class="row doc_applicant_data align-items-center">
                         <div class="col col-5 justify-content-end d-flex">
-                            <input type="checkbox" class="btn-check" id="Service_@serviceId" name="Service_@serviceId" value="true" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="Service_@serviceId" asp-for="DocPack.Services[serviceIndex].Enabled" value="true" autocomplete="off">
                             <label class="btn btn-outline-primary" for="Service_@serviceId">@service.Name</label>
-                            <input type="hidden" name="Service_@serviceId" value="false" />
+                            <input type="hidden" name="DocPack.Services[serviceIndex].Enabled" value="false" />
                         </div>
                         <div class="col col-2">
 
                             <div class="input-group">
-                                <input type="text" class="form-control" id="Service_@(serviceId)_Value"
-                                       name="Service_@(serviceId)_Value" value="" disabled="disabled">
+
+                                @if (Model.DocPack.Services[serviceIndex].Enabled)
+                                {
+                                    <input type="text" class="form-control" id="Service_@(serviceId)_Value"
+                                           asp-for="DocPack.Services[serviceIndex].Value">
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control" id="Service_@(serviceId)_Value"
+                                           asp-for="DocPack.Services[serviceIndex].Value" value="" disabled="disabled">
+                                }
+
                                 <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
+                                <span asp-validation-for="DocPack.Services[serviceIndex]"></span>
                             </div>
-                            <span asp-validation-for="Services[serviceIndex]"></span>
                         </div>
                     </div>
                 }
@@ -407,9 +417,9 @@
                 });
             });
 
-            $(':checkbox[id^="Service_"]').change(function () {
+            $(':input[id^="Service_"]').change(function () {
 
-                var element = $("#" + $(this).prop("name") + "_Value");
+                var element = $("#" + $(this).prop("id") + "_Value");
                 element.val("");
                 element.prop('disabled', !$(this).is(":checked"));
             });
