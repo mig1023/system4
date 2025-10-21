@@ -110,7 +110,7 @@
     <div class="container p-0">
         <h1 class="display-4 text-center">Создание договора:</h1>
 
-        <input type="hidden" id="Requests" name="Requests" value="" />
+        <input type="hidden" id="Requests" asp-for="Requests"/>
         <input type="hidden" id="GenBank" name="GenBank" value="@Model.Appointment.Center.genbank" />
 
         <div class="row text-start">
@@ -526,13 +526,41 @@
                 $('#Request_Duration').val("");
             });
 
-            var requestsIndex = 0;
+            reloadRequest();
+
+            function reloadRequest() {
+
+                if ($('#Requests').val() == "")
+                    return;
+
+                var allRequests = JSON.parse($('#Requests').val());
+
+                $(':input[id$="_Request"] option').each(function () {
+                    $(this).remove();
+                });
+
+                var requestsIndex = 0;
+
+                allRequests.forEach(function (request) {
+
+                    requestsIndex += 1;
+
+                    var requestName = '#' + requestsIndex + ' ' + request["VisaType"] +
+                        ' (' + request["Entries"] + ') ' + request["Duration"]
+
+                    $(':input[id$="_Request"]').each(function () {
+                        $(this).append($('<option>', {
+                            value: requestsIndex,
+                            text: requestName,
+                        }));
+                    });
+                });
+            }
 
             $('#AddNewRequest').click(function () {
 
-                requestsIndex += 1;
-
-                var allRequests = requestsIndex > 1 ? JSON.parse($('#Requests').val()) : [];
+                var allRequests = $('#Requests').val() == "" ? [] : JSON.parse($('#Requests').val());
+                var requestsIndex = allRequests.length;
 
                 var request = {
                     'Id': requestsIndex,
@@ -552,16 +580,7 @@
                 allRequests.push(request);
                 $('#Requests').val(JSON.stringify(allRequests));
 
-                var requestName = '#' + requestsIndex + ' ' + request["VisaType"] + 
-                        ' (' + request["Entries"] + ') ' + request["Duration"]
-
-                $(':input[id$="_Request"]').each(function () {
-                    $(this).append($('<option>', {
-                        value: requestsIndex,
-                        text: requestName,
-                    }));
-                });
-
+                reloadRequest();
                 $('#CloseNewRequest').click();
             });
         });

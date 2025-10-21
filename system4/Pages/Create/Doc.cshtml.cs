@@ -14,6 +14,9 @@ namespace system4.Pages.Create
         public Dictionary<string, Dictionary<string, string>> RequestData { get; set; }
 
         [BindProperty]
+        public string Requests { get; set; }
+
+        [BindProperty]
         public BLL.CreateDoc.DocForm DocPack { get; set; }
 
         public List<DAL.Services> Services { get; set; }
@@ -93,9 +96,7 @@ namespace system4.Pages.Create
                 return Page();
             }
 
-            var request = form["Requests"].ToString();
-
-            var id = BLL.CreateDoc.Creation.Save(DocPack, services, request);
+            var id = BLL.CreateDoc.Creation.Save(DocPack, services, Requests);
             return Redirect($"/doc/{id}/");
         }
     }
