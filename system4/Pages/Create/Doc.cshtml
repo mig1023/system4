@@ -402,7 +402,7 @@
     <script>
         $(document).ready(function () {
 
-            $(':input[id$="Date"]').mask("99.99.9999", { placeholder: "__.__.____" });
+            $(':input[id$="Date"], #Request_Beginning, #Request_End').mask("99.99.9999", { placeholder: "__.__.____" });
 
             $('#Service_Shipping').change(function () {
 
