@@ -205,7 +205,9 @@
                             <span class="doc_error" asp-validation-for="DocPack.Applicants[(applicantIndex - 1)].Request"></span>
                             <div class="input-group">
                                 <select class="form-select form-select-sm doc_applicant_select" id="Applicants_@(applicantIndex - 1)_Request"
-                                        asp-for="DocPack.Applicants[(applicantIndex - 1)].Request" aria-label="form-select-sm example"></select>
+                                        aria-label="form-select-sm example"></select>
+                                <input type="hidden" id="Applicants_@(applicantIndex - 1)_Request_Selected"
+                                       asp-for="DocPack.Applicants[(applicantIndex - 1)].Request" />
                                 <span class="input-group-btn">
                                     <button id="Applicants_@(applicantIndex - 1)_AddRequest" type="button" class="btn btn-outline-primary padding_search_buttons">+</button>
                                 </span>
@@ -471,14 +473,6 @@
                 }
             });
 
-            $(':input[id$="_AddRequest"]').click(function () {
-
-                $("#DocRequest").show();
-                $(this).addClass('btn-primary');
-                $(this).removeClass('btn-outline-primary');
-
-            });
-
             $(':input[id$="_BankId"]').each(function () {
 
                 if ($("#GenBank").val() > 0) {
@@ -508,6 +502,18 @@
 
                     firstBankIdEntry = false;
                 }
+            });
+
+            $(':input[id$="_AddRequest"]').click(function () {
+
+                $("#DocRequest").show();
+                $(this).addClass('btn-primary');
+                $(this).removeClass('btn-outline-primary');
+            });
+
+            $(':input[id$="_Request"]').change(function () {
+
+                $("#" + $(this).prop("id") + "_Selected").val($(this).val());
             });
 
             $('#CloseNewRequest').click(function () {
@@ -555,12 +561,17 @@
                         }));
                     });
                 });
+
+                $(':input[id$="_Request"]').each(function () {
+
+                    $(this).val($("#" + $(this).prop("id") + "_Selected").val());
+                });
             }
 
             $('#AddNewRequest').click(function () {
 
                 var allRequests = $('#Requests').val() == "" ? [] : JSON.parse($('#Requests').val());
-                var requestsIndex = allRequests.length;
+                var requestsIndex = allRequests.length + 1;
 
                 var request = {
                     'Id': requestsIndex,

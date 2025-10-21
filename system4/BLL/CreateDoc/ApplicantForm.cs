@@ -33,7 +33,7 @@ namespace system4.BLL.CreateDoc
         public string BankId { get; set; }
 
         [Required(ErrorMessage = "↓ Не указан запрос")]
-        public int Request { get; set; }
+        public int? Request { get; set; }
 
         public bool Concil { get; set; }
 
