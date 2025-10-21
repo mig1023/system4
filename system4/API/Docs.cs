@@ -32,5 +32,38 @@ namespace system4.API
                 }
             }
         }
+
+        [HttpGet("api/foxprice/{address}/{center}/{oversize}")]
+        public async Task<string> FoxPrice(string address, int center, int oversize)
+        {
+            var url = Secret.Fox["Url"]["Calc"];
+            var login = $"login={Secret.Fox["Moscow"]["Login"]}";
+            var password = $"password={Secret.Fox["Moscow"]["Password"]}";
+            var sender = $"senderAddress={Secret.Fox["Moscow"]["SenderAddress"]}";
+            var oversizeWeight = oversize == 1 ? "0.6" : "0.3";
+            var weight = $"weight={oversizeWeight}";
+            var recipient = $"recipientAddress={address}";
+
+            var request = $"{url}{login}&{password}&{sender}&{recipient}&{weight}&qty=1";
+
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(request);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return string.Empty;
+                    }
+
+                    return await response.Content.ReadAsStringAsync();
+                }
+                catch (Exception)
+                {
+                    return string.Empty;
+                }
+            }
+        }
     }
 }
