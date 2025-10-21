@@ -591,6 +591,16 @@
                 allRequests.push(request);
                 $('#Requests').val(JSON.stringify(allRequests));
 
+                $(':input[id$="_Request"]').each(function () {
+
+                    var selected = $("#" + $(this).prop("id") + "_Selected");
+
+                    if (selected.val() == "") {
+
+                        selected.val(requestsIndex);
+                    }
+                });
+
                 reloadRequest();
                 $('#CloseNewRequest').click();
             });
