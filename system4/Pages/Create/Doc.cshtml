@@ -605,6 +605,38 @@
                 reloadRequest();
                 $('#CloseNewRequest').click();
             });
+
+            var ajax;
+
+            $("#Service_Shipping_Address").autocomplete({
+                source: function (request, response) {
+
+                    ajax = $.ajax({
+                        url: "/api/dadata/" + $("#Service_Shipping_Address").val(),
+                        dataType: "json",
+                        beforeSend: function () {
+
+                            if (ajax) {
+                                ajax.abort();
+                            }
+                        },
+                        success: function (data) {
+                            response(data.suggestions, $.map(function (item) {
+                                return {
+                                    value: item,
+                                }
+                            }));
+                        }
+                    });
+                },
+                deferRequestBy: 5000,
+                minLength: 5,
+                select: function (event, ui) {
+
+                    $("#Service_Shipping_Address").val(ui.item.unrestricted_value);
+                    return false;
+                },
+            });
         });
     </script>
 }
