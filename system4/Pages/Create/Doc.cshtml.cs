@@ -80,7 +80,7 @@ namespace system4.Pages.Create
                     }
                     else
                     {
-                        ModelState.AddModelError($"DocPack.Services[{servicesIndex}]", "Значение услуги не задано");
+                        ModelState.AddModelError($"DocPack.Services[{servicesIndex}]", "← Значение услуги не задано");
                     }
                 }
 

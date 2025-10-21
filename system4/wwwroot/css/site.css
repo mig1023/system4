@@ -134,6 +134,10 @@ html {
     display: block;
 }
 
+.doc_service_error {
+    margin-left: -25px;
+}
+
 .doc_create_header {
     margin-top: 30px;
     margin-bottom: 20px;
