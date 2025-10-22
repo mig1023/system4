@@ -96,7 +96,7 @@ namespace system4.Pages.Create
                 return Page();
             }
 
-            var id = BLL.CreateDoc.Creation.Save(DocPack, services, Requests);
+            var id = BLL.CreateDoc.Creation.Save(appointment, DocPack, services, Requests, User.Identity.Name);
             return Redirect($"/doc/{id}/");
         }
     }

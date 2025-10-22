@@ -475,6 +475,20 @@ namespace system4.DB.Entity
             }
         }
 
+        public static PriceRate PriceRate(string currency, DateTime date, int centerId)
+        {
+            using (var db = new EntityContext())
+            {
+                var price = db.PriceRate
+                    .Where(x => (x.BranchId == centerId) && (x.RDate <= date) && (x.Currency == currency))
+                    .Where(x => x.isDeleted == 0)
+                    .OrderByDescending(x => x.RDate)
+                    .SingleOrDefault();
+
+                return price;
+            }
+        }
+
         public static List<PriceList> PriceList(int rateId, int visaType)
         {
             using (var db = new EntityContext())
