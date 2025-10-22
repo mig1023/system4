@@ -148,5 +148,23 @@ namespace system4.DAL
 
             return requests;
         }
+
+        public static bool ThisIsSaintPetersburg(int center)
+        {
+            var spbCenters = new Dictionary<int, string>
+            {
+                [11] = "SPb",
+                [27] = "Arkhangelsk",
+                [29] = "SPb Vip Premium lounge",
+                [30] = "SPb (Non CASH)",
+                [34] = "SPb Mobile Biometrix",
+                [37] = "SPb Partner",
+                [43] = "SPb PrimeTime",
+                [50] = "SPb Pre-check",
+                [51] = "SPb (online)",
+            };
+
+            return spbCenters.ContainsKey(center);
+        }
     }
 }

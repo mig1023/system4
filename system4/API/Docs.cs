@@ -36,10 +36,11 @@ namespace system4.API
         [HttpGet("api/foxprice/{address}/{center}/{oversize}")]
         public async Task<string> FoxPrice(string address, int center, int oversize)
         {
+            var type = DAL.Constants.ThisIsSaintPetersburg(center) ? "SPb" : "Moscow";
             var url = Secret.Fox["Url"]["Calc"];
-            var login = $"login={Secret.Fox["Moscow"]["Login"]}";
-            var password = $"password={Secret.Fox["Moscow"]["Password"]}";
-            var sender = $"senderAddress={Secret.Fox["Moscow"]["SenderAddress"]}";
+            var login = $"login={Secret.Fox[type]["Login"]}";
+            var password = $"password={Secret.Fox[type]["Password"]}";
+            var sender = $"senderAddress={Secret.Fox[type]["SenderAddress"]}";
             var oversizeWeight = oversize == 1 ? "0.6" : "0.3";
             var weight = $"weight={oversizeWeight}";
             var recipient = $"recipientAddress={address}";
