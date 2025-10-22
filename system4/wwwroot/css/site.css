@@ -134,6 +134,11 @@ html {
     display: block;
 }
 
+.doc_shipping_price {
+    display: none;
+    margin-top: 6px;
+}
+
 .doc_service_error {
     margin-left: -25px;
 }

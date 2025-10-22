@@ -113,6 +113,10 @@
         <input type="hidden" id="Requests" asp-for="Requests"/>
         <input type="hidden" id="GenBank" name="GenBank" value="@Model.Appointment.Center.genbank" />
 
+        <input type="hidden" id="FoxIndex" name="FoxIndex" value="">
+        <input type="hidden" id="FoxAddr" name="FoxAddr" value="">
+        <input type="hidden" id="FoxPrice" name="FoxPrice" value="">
+
         <div class="row text-start">
             <div class="col">
                 <label for="VisaType" class="form-label">Номер записи:</label><br />
@@ -246,9 +250,18 @@
                 </div>
                 <div class="col col-6">
                     <div class="input-group">
-                        <input type="text" class="form-control fw-lighter doc_service_field_big" id="Service_Shipping_Address"
-                               name="Service_Shipping_Address" placeholder="адрес доставки" value="@Model.Appointment.ShAddress"
-                               @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
+
+                        @if (Model.Appointment.Shipping > 0)
+                        {
+                            <input type="text" class="form-control fw-lighter doc_service_field_big" id="Service_Shipping_Address"
+                                   name="Service_Shipping_Address" placeholder="адрес доставки" asp-for="@Model.Appointment.ShAddress">
+                        }
+                        else
+                        {
+                            <input type="text" class="form-control fw-lighter doc_service_field_big" id="Service_Shipping_Address"
+                                   name="Service_Shipping_Address" placeholder="адрес доставки" asp-for="@Model.Appointment.ShAddress"
+                                   disabled='disabled'>
+                        }
                     </div>
                 </div>
             </div>
@@ -267,6 +280,10 @@
                                autocomplete="off" @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
                         <label class="btn btn-outline-primary" for="Service_Shipping_Overload">вес сверх лимита</label>
                         <input type="hidden" name="Service_Shipping_Overload" value="false" />
+                    </div>
+                    <div class="input-group doc_shipping_price" id="Service_Shipping_Price">
+                        <span id="ShDays" name="ShDays">Укажите адрес для доставки:</span>
+                        <span id="ShPrice" name="ShPrice">ЦЕНА</span>
                     </div>
                 </div>
             </div>
@@ -422,6 +439,14 @@
                         element.val("");
                     }
                 });
+
+                if (!shipping){
+
+                    $("#Service_Shipping_Price").hide();
+                    SetFoxData("", "", "");
+                    current_postal = "";
+                    current_value = "";
+                }
             });
 
             $(':input[id^="Service_"]').change(function () {
@@ -607,6 +632,8 @@
             });
 
             var ajax;
+            var current_postal;
+            var current_value;
 
             $("#Service_Shipping_Address").autocomplete({
                 source: function (request, response) {
@@ -632,11 +659,64 @@
                 deferRequestBy: 5000,
                 minLength: 5,
                 select: function (event, ui) {
-
-                    $("#Service_Shipping_Address").val(ui.item.unrestricted_value);
+                   
+                    current_postal = ui.item.data.postal_code;
+                    current_value = ui.item.value;
+                    ShippmentCalc(ui.item.unrestricted_value, ui.item.data.postal_code, ui.item.value);
                     return false;
                 },
             });
+
+            function SetFoxData(postal_code, address, price_from) {
+
+                $('#FoxIndex').val(postal_code);
+                $('#FoxAddr').val(address);
+                $('#FoxPrice').val(price_from);
+            };
+
+            function ShippmentCalc(full_address, postal_code, address) {
+
+                SetFoxData("", "", "");
+
+                $("#Service_Shipping_Address").val(full_address);
+                $("#Service_Shipping_Price").show();
+                $("#ShPrice").html('');
+                $("#ShDays").css('color', 'black');
+                $("#ShDays").html('Расчёт...');
+
+                var calcUrl = "/api/foxprice/";
+                var addresses = encodeURI(address);
+                var center = "/" + @Model.Appointment.CenterId;
+                var overs = "/" + ($("#Service_Shipping_Overload").is(':checked') ? "1" : "0");
+
+                $.ajax({
+                    url: calcUrl + addresses + center + overs,
+                    dataType: "json",
+
+                    error: function (data) {
+                        $("#ShDays").css('color', 'red');
+                        $("#ShDays").html('Ошибка расчёта стоимости!');
+                    },
+                    success: function (data) {
+
+                        if (data["tariffs"] == null) {
+                            $("#ShDays").css('color', 'red');
+                            $("#ShDays").html('Адрес не обслуживается!');
+                        }
+                        else {
+                            var price_from = data["tariffs"][0]["total"];
+                            var time_from = data["tariffs"][0]["minPeriod"];
+                            var time_to = data["tariffs"][0]["maxPeriod"];
+
+                            SetFoxData(postal_code, address, price_from);
+
+                            $("#ShPrice").css('color', 'green');
+                            $("#ShPrice").html(" стоимость: " + price_from + " руб");
+                            $("#ShDays").html("Сроки доставки: " + time_from + "-" + time_to + " рабочих дней, ");
+                        }
+                    }
+                });
+            }
         });
     </script>
 }
