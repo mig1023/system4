@@ -18,13 +18,7 @@ namespace system4.API
                     client.DefaultRequestHeaders.Add("Authorization", $"Token {Secret.Dadata["Token"]}");
 
                     HttpResponseMessage response = await client.PostAsJsonAsync(Secret.Dadata["Url"], new { query = address });
-
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        return string.Empty;
-                    }
-
-                    return await response.Content.ReadAsStringAsync();
+                    return !response.IsSuccessStatusCode ? string.Empty : await response.Content.ReadAsStringAsync();
                 }
                 catch (Exception)
                 {
@@ -33,7 +27,7 @@ namespace system4.API
             }
         }
 
-        [HttpGet("api/foxprice/{address}/{center}/{oversize}")]
+        [HttpGet("api/foxprice/{address}/{center:int}/{oversize:int}")]
         public async Task<string> FoxPrice(string address, int center, int oversize)
         {
             var type = DAL.Constants.ThisIsSaintPetersburg(center) ? "SPb" : "Moscow";
@@ -52,13 +46,7 @@ namespace system4.API
                 try
                 {
                     HttpResponseMessage response = await client.GetAsync(request);
-
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        return string.Empty;
-                    }
-
-                    return await response.Content.ReadAsStringAsync();
+                    return !response.IsSuccessStatusCode ? string.Empty : await response.Content.ReadAsStringAsync();
                 }
                 catch (Exception)
                 {
