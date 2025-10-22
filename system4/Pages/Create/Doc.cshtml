@@ -117,6 +117,11 @@
         <input type="hidden" id="FoxAddr" name="FoxAddr" value="">
         <input type="hidden" id="FoxPrice" name="FoxPrice" value="">
 
+        @if (Model.Appointment.Shipping > 0)
+        {
+            <input type="hidden" id="StartAddr" name="StartAddr" value="@Model.Appointment.ShAddress">
+        }
+
         <div class="row text-start">
             <div class="col">
                 <label for="VisaType" class="form-label">Номер записи:</label><br />
@@ -282,8 +287,8 @@
                         <input type="hidden" name="Service_Shipping_Overload" value="false" />
                     </div>
                     <div class="input-group doc_shipping_price" id="Service_Shipping_Price">
-                        <span id="ShDays" name="ShDays">Укажите адрес для доставки:</span>
-                        <span id="ShPrice" name="ShPrice">ЦЕНА</span>
+                        <span id="ShDays" name="ShDays"></span>
+                        <span id="ShPrice" name="ShPrice"></span>
                     </div>
                 </div>
             </div>
@@ -444,8 +449,7 @@
 
                     $("#Service_Shipping_Price").hide();
                     SetFoxData("", "", "");
-                    current_postal = "";
-                    current_value = "";
+                    currentAddress = "";
                 }
             });
 
@@ -632,8 +636,18 @@
             });
 
             var ajax;
-            var current_postal;
-            var current_value;
+            var currentAddress;
+            var startAddress = $("#StartAddr").val();
+
+            if (startAddress != ""){
+
+                ShippmentReCalc(startAddress);
+            }
+
+            $('#Service_Shipping_Overload').change(function () {
+
+                ShippmentReCalc(startAddress);
+            });
 
             $("#Service_Shipping_Address").autocomplete({
                 source: function (request, response) {
@@ -659,9 +673,8 @@
                 deferRequestBy: 5000,
                 minLength: 5,
                 select: function (event, ui) {
-                   
-                    current_postal = ui.item.data.postal_code;
-                    current_value = ui.item.value;
+
+                    currentAddress = ui.item.value;
                     ShippmentCalc(ui.item.unrestricted_value, ui.item.data.postal_code, ui.item.value);
                     return false;
                 },
@@ -673,6 +686,14 @@
                 $('#FoxAddr').val(address);
                 $('#FoxPrice').val(price_from);
             };
+
+            function ShippmentReCalc(full_address){
+
+                var comma = full_address.indexOf(", ");
+                var currentPostal = full_address.slice(0, comma);
+                currentAddress = full_address.slice(comma + 1);
+                ShippmentCalc(full_address, currentPostal, currentAddress);
+            }
 
             function ShippmentCalc(full_address, postal_code, address) {
 
