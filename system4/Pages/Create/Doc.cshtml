@@ -178,6 +178,8 @@
             {
                 applicantIndex += 1;
 
+                <input type="hidden" id="Applicants_@(applicantIndex - 1)_ApplId" asp-for="DocPack.Applicants[(applicantIndex - 1)].ApplId" />
+
                 <div class="dynamic-field-row border doc_applicant_form">
                     <div class="row justify-content-center align-items-center application_row">
                         <div class="col">

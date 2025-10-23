@@ -4,6 +4,8 @@ namespace system4.BLL.CreateDoc
 {
     public class ApplicantForm
     {
+        public int ApplId { get; set; }
+
         public bool Removed { get; set; }
 
         public bool DocPerson { get; set; }

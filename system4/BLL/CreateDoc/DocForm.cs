@@ -69,6 +69,7 @@ namespace system4.BLL.CreateDoc
             {
                 var applicant = new ApplicantForm
                 {
+                    ApplId = appdata.Id,
                     RLName = appdata.RLName,
                     RFName = appdata.RFName,
                     RMName = appdata.RMName,

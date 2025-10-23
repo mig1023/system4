@@ -46,7 +46,7 @@ namespace system4.BLL.CreateDoc
                 Login = user,
                 PType = 1, // doc form
                 Urgent = doc.Urgent ? 1 : 0,
-                VisaType = doc.VisaType,
+                VisaType = doc.VisaType, //  !!!
                 AppId = app.Id,
                 Phone = doc.Phone,
                 DovDate = doc.DovDate ?? DateTime.MinValue,
@@ -64,6 +64,7 @@ namespace system4.BLL.CreateDoc
                 TShipSum = 100,
                 ShippingPhone = "1112233",
 
+                // !!!
                 XeroxPage = 1,
                 AnketaSrv = 1,
                 PrintSrv = 1,
@@ -78,9 +79,13 @@ namespace system4.BLL.CreateDoc
                 isNewDHL = 1,
                 ConcilPaymentDate = DateTime.Now, // !!!
                 NoReceived = 0,
+                RANum = "",
+                SMS_mesid = "",
+                SMS_reason = "",
             };
 
-            // insert in DocPackService
+            // insert in DocPackService !!!
+
             // INSERT INTO DocPackOptional (DocPackID, ShippingFree, Reject, FeedbackKey)
             // INSERT INTO FoxShippment (DocID, ShippmentComment, Oversize) 
             // INSERT INTO DocComments (DocID, Login, CommentText, CommentDate)
@@ -118,7 +123,7 @@ namespace system4.BLL.CreateDoc
                     SDate = DateTime.Now,
                     Login = user,
                     Status = 1,
-                    ApplId = 1, // !!!
+                    ApplId = applicant.ApplId,
                     iNRes = applicant.NRes ? 1 : 0,
                     Concil = applicant.Concil ? 1 : 0,
                     MobileNums = "",
@@ -129,7 +134,10 @@ namespace system4.BLL.CreateDoc
                     ShipMail = "",
 
                     AgeCatA = 0, // !!!
-                    FPStatus = 1 // !!!
+                    FPStatus = 1, // !!!
+                    AddrIndexP = "",
+                    SMS_mesid = "",
+                    SMS_reason = "",
                 };
 
                 //FillAllNullableProperties(newApplicant);
