@@ -129,7 +129,7 @@
             </div>
             <div class="col">
                 <label for="VisaType" class="form-label">Тип визы:</label>
-                <select class="form-select form-select-lg mb-3" id="VisaType" name="VisaType" aria-label="form-select-lg example">
+                <select class="form-select form-select-lg mb-3" id="VisaType" asp-for="DocPack.VisaType" aria-label="form-select-lg example">
                     @foreach (var visa in Model.VisaTypes)
                     {
                         <option value="@visa.Key">@visa.Value</option>
@@ -138,9 +138,18 @@
             </div>
 
             <div class="col align-self-end application_service_button">
-                <input type="checkbox" class="btn-check" id="Urgent" name="Urgent" value="true"
-                       autocomplete="off" @(Model.Appointment.Center.isUrgent > 0 ? "" : "disabled='disabled'")>
-                <label class="btn btn-outline-primary btn-lg margin_doc_add_button" for="Urgent">срочная виза</label>
+
+                @if (Model.Appointment.Center.isUrgent > 0)
+                {
+                    <input type="checkbox" class="btn-check" id="Urgent" asp-for="DocPack.Urgent" value="true" autocomplete="off">
+                    <label class="btn btn-outline-primary btn-lg margin_doc_add_button" for="Urgent">срочная виза</label>
+                }
+                else
+                {
+                    <input type="checkbox" class="btn-check" id="Urgent" asp-for="DocPack.Urgent" value="true"
+                           autocomplete="off" disabled="disabled">
+                    <label class="btn btn-outline-secondary btn-lg margin_doc_add_button" for="Urgent">срочная виза</label>
+                }
                 <input type="hidden" name="Urgent" value="false" />
             </div>
         </div>
