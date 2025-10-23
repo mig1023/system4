@@ -46,7 +46,7 @@ namespace system4.BLL.CreateDoc
                 Login = user,
                 PType = 1, // doc form
                 Urgent = doc.Urgent ? 1 : 0,
-                VisaType = doc.VisaType, //  !!!
+                VisaType = doc.VisaType,
                 AppId = app.Id,
                 Phone = doc.Phone,
                 DovDate = doc.DovDate ?? DateTime.MinValue,
@@ -90,7 +90,6 @@ namespace system4.BLL.CreateDoc
             // INSERT INTO FoxShippment (DocID, ShippmentComment, Oversize) 
             // INSERT INTO DocComments (DocID, Login, CommentText, CommentDate)
 
-            // ???
             var newInfo = new DB.DocPackInfo
             {
                 BankId = "202512345678", // !!!
@@ -100,7 +99,6 @@ namespace system4.BLL.CreateDoc
                 Num_NC = 0,
                 Num_NN = 0,
                 WhomFilled = "",
-                //WhenFilled = DateTime.MinValue,
                 Num_ACon = 0,
                 Num_ANCon = 0,
             };
@@ -109,15 +107,17 @@ namespace system4.BLL.CreateDoc
 
             foreach (var applicant in doc.Applicants.Where(x => !x.Removed))
             {
+                var appData = app.AppData
+                    .SingleOrDefault(x => x.Id == applicant.ApplId);
+
                 var newApplicant = new DB.DocPackList
                 {
-                    PackInfoId = 0, // !!!
                     CBankId = "202512345678", // !!!
                     LName = applicant.RLName,
                     FName = applicant.RFName,
                     MName = applicant.RMName,
                     isChild = 0, // !!!
-                    PassNum = "111222333", // !!!
+                    PassNum = appData.PassNum,
                     FlyDate = applicant.FlyDate,
                     BthDate = applicant.BirthDate ?? DateTime.MinValue,
                     SDate = DateTime.Now,
@@ -126,15 +126,16 @@ namespace system4.BLL.CreateDoc
                     ApplId = applicant.ApplId,
                     iNRes = applicant.NRes ? 1 : 0,
                     Concil = applicant.Concil ? 1 : 0,
+
+                    AgeCatA = 0, // !!!
+                    FPStatus = 1, // !!!
+
                     MobileNums = "",
                     ShipAddress = "",
                     ShipNum = "",
                     RTShipSum = 0,
                     ShipPhone = "",
-                    ShipMail = "",
-
-                    AgeCatA = 0, // !!!
-                    FPStatus = 1, // !!!
+                    ShipMail = "",                 
                     AddrIndexP = "",
                     SMS_mesid = "",
                     SMS_reason = "",
