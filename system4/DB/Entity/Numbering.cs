@@ -53,7 +53,7 @@ namespace system4.DB.Entity
                     var number = int.Parse(line);
                     number += 1;
 
-                    return $"{center}{number}{currentDate}";
+                    return $"{center}{number:d6}{currentDate}";
                 }
             }
         }
