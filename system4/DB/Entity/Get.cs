@@ -483,7 +483,7 @@ namespace system4.DB.Entity
                     .Where(x => (x.BranchId == centerId) && (x.RDate <= date) && (x.Currency == currency))
                     .Where(x => x.isDeleted == 0)
                     .OrderByDescending(x => x.RDate)
-                    .SingleOrDefault();
+                    .FirstOrDefault();
 
                 return price;
             }
