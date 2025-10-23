@@ -148,7 +148,7 @@
                 {
                     <input type="checkbox" class="btn-check" id="Urgent" asp-for="DocPack.Urgent" value="true"
                            autocomplete="off" disabled="disabled">
-                    <label class="btn btn-outline-secondary btn-lg margin_doc_add_button" for="Urgent">срочная виза</label>
+                    <label class="btn btn-outline-secondary btn-lg margin_doc_add_button" for="Urgent">срочная виза недоступна</label>
                 }
                 <input type="hidden" name="Urgent" value="false" />
             </div>
@@ -193,7 +193,7 @@
                     <div class="row justify-content-center align-items-center application_row">
                         <div class="col">
                             <input type="checkbox" class="btn-check" id="Applicants_@(applicantIndex - 1)_DocPerson" asp-for="DocPack.Applicants[(applicantIndex - 1)].DocPerson" value="true" autocomplete="off">
-                            <label class="btn btn-outline-primary btn-sm doc_applicant_data" for="Applicants_@(applicantIndex - 1)_DocPerson">✓</label>
+                            <label id="Applicants_@(applicantIndex - 1)_DocPerson_Button" class="btn btn-outline-primary btn-sm doc_applicant_data" for="Applicants_@(applicantIndex - 1)_DocPerson">✓</label>
                             <input type="hidden" name="DocPack.Applicants[@(applicantIndex - 1)].DocPerson" value="false" />
 
                             <div class="fs-6">@app.LName</div>
@@ -476,13 +476,21 @@
                 var parts = $(this).prop("id").split('_');
                 var id = parts[0] + "_" + parts[1];
 
-                $(":input[id^='" + id + "']").prop('disabled', $(this).is(":checked"));
-                $(this).prop('disabled', false);
+                if ($(this).is(":checked")) {
 
-                if ($("#" + id + "_DocPerson").is(":checked")) {
+                    $(":input[id^='" + id + "']").prop('readonly', true);
 
-                    $("#" + id + "_DocPerson").prop('checked', false);
-                    $("#LName, #FName, #MName").val("");
+                    if ($("#" + id + "_DocPerson").is(":checked")) {
+
+                        $("#" + id + "_DocPerson").prop('checked', false);
+                        $("#LName, #FName, #MName").val("");
+                    }
+
+                    $("#" + id + "_DocPerson_Button").toggleClass('btn-outline-primary btn-outline-secondary');
+                }
+                else {
+                    $(":input[id^='" + id + "']").prop('readonly', false);
+                    $("#" + id + "_DocPerson_Button").toggleClass('btn-outline-secondary btn-outline-primary');
                 }
             });
 
