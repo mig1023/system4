@@ -45,13 +45,19 @@ namespace system4.BLL.CreateDoc
                 InsSum = 0,
                 InsData = null,
                 SkipIns = 0,
-                PersonalNo = "",
+                PersonalNo = string.Empty,
                 isNewDHL = 1,
                 ConcilPaymentDate = DateTime.Now, // !!!
                 NoReceived = 0,
-                RANum = "",
-                SMS_mesid = "",
-                SMS_reason = "",
+                RANum = string.Empty,
+                SMS_mesid = string.Empty,
+                SMS_reason = string.Empty,
+                ShipNum = string.Empty,
+                Shipping = 0,
+                ShippingAddress = string.Empty,
+                AddrIndex = string.Empty,
+                TShipSum = 0,
+                Mobile = string.Empty,
             };
 
             // INSERT INTO DocPackOptional (DocPackID, ShippingFree, Reject, FeedbackKey)
@@ -65,7 +71,7 @@ namespace system4.BLL.CreateDoc
                 Num_NR = 0,
                 Num_NC = 0,
                 Num_NN = 0,
-                WhomFilled = "",
+                WhomFilled = string.Empty,
                 Num_ACon = 0,
                 Num_ANCon = 0,
             };
@@ -97,15 +103,15 @@ namespace system4.BLL.CreateDoc
                     AgeCatA = 0, // !!!
                     FPStatus = 1, // !!!
 
-                    MobileNums = "",
-                    ShipAddress = "",
-                    ShipNum = "",
+                    MobileNums = string.Empty,
+                    ShipAddress = string.Empty,
+                    ShipNum = string.Empty,
                     RTShipSum = 0,
-                    ShipPhone = "",
-                    ShipMail = "",                 
-                    AddrIndexP = "",
-                    SMS_mesid = "",
-                    SMS_reason = "",
+                    ShipPhone = string.Empty,
+                    ShipMail = string.Empty,
+                    AddrIndexP = string.Empty,
+                    SMS_mesid = string.Empty,
+                    SMS_reason = string.Empty,
                 };
 
                 newApplicants.Add(newApplicant);
@@ -143,13 +149,13 @@ namespace system4.BLL.CreateDoc
 
             foreach (var service in services)
             {
-                if (servicesIntegrated.ContainsKey(service.ServiceName))
+                if (servicesIntegrated.ContainsKey(service?.ServiceName ?? string.Empty))
                 {
                     newDoc.GetType().GetProperty(servicesIntegrated[service.ServiceName]).SetValue(newDoc, service.Value);
                 }
                 else
                 {
-                    servicesAdditional.Add(new DocPackService { Id = service.ServiceId });
+                    servicesAdditional.Add(new DocPackService { ServiceId = service.ServiceId });
 
                     var fieldId = servicesFields
                         .Where(x => x.ServiceId == service.ServiceId)

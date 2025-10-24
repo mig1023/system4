@@ -23,6 +23,8 @@ namespace system4.Pages.Create
 
         public List<DAL.Services> Services { get; set; }
 
+        public string Error { get; set; }
+
         private void InitPageValues(int appid, bool reload = false)
         {
             Appointment = DAL.Appointment.Get(appid);
@@ -81,6 +83,14 @@ namespace system4.Pages.Create
             }
 
             var id = BLL.CreateDoc.Creation.Save(appointment, DocPack, services, Requests, User.Identity.Name);
+
+            if (id == 0)
+            {
+                ModelState.AddModelError("Error", "Ошибка создания договора");
+                InitPageValues(appid, reload: true);
+                return Page();
+            }
+
             return Redirect($"/doc/{id}/");
         }
     }

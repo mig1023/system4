@@ -74,6 +74,24 @@ namespace system4.DB.Entity
                         db.DocPackList.AddRange(docPackLists);
                         db.SaveChanges();
 
+                        if (shippment != null)
+                        {
+                            shippment.DocId = docPackId;
+                            db.FoxShippment.Add(shippment);
+                            db.SaveChanges();
+                        }
+
+                        for (var i = 0; i < services.Count; i++)
+                        {
+                            services[i].PackId = docPackId;
+                            db.DocPackService.Add(services[i]);
+                            db.SaveChanges();
+
+                            servicesValues[i].DocPackServiceId = services[i].Id;
+                            db.ServiceFieldValuesINT.Add(servicesValues[i]);
+                            db.SaveChanges();
+                        }
+                        
                         transaction.Commit();
                     }
                     catch (Exception ex)

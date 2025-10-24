@@ -110,6 +110,8 @@
     <div class="container p-0">
         <h1 class="display-4 text-center">Создание договора:</h1>
 
+        <span class="doc_error doc_service_error" asp-validation-for="Error"></span>
+
         <input type="hidden" id="Requests" asp-for="Requests"/>
         <input type="hidden" id="GenBank" name="GenBank" value="@Model.Appointment.Center.genbank" />
 
