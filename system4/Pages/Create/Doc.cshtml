@@ -408,6 +408,27 @@
                     <input type="text" class="form-control" id="Address" asp-for="DocPack.Address">
                 </div>
                 <div class="col">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <label class="fs-3 doc_create_header">Дополнительная информация:</label><br />
+
+            <div class="row text-start">
+                <div class="col">
+                    <label for="PayType" class="doc_create_data_label">Тип оплаты:</label>
+                    <select class="form-select form-select-sm doc_applicant_select doc_request_field"
+                            id="PayType" asp-for="DocPack.PayType" aria-label="form-select-sm example">
+                        @foreach (var visa in Model.PaymentTypes)
+                        {
+                            <option value="@visa.Key">@visa.Value</option>
+                        }
+                    </select>
+                </div>
+                <div class="col">
                     <label for="InfoMail" class="doc_create_data_label">EMail для отправки информации о получении:</label>
                     <span class="doc_error" asp-validation-for="DocPack.InfoMail"></span>
                     <input type="text" class="form-control" id="InfoMail" asp-for="DocPack.InfoMail">

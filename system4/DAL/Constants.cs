@@ -69,7 +69,7 @@ namespace system4.DAL
             return statuses[status ?? 1];
         }
 
-        public static string PaymentType(int? type)
+        public static Dictionary<int, string> PaymentTypes()
         {
             var statuses = new Dictionary<int, string>
             {
@@ -79,9 +79,12 @@ namespace system4.DAL
                 [4] = "банковская карта (сайт)",
             };
 
-            return statuses[type ?? 1];
+            return statuses;
         }
 
+        public static string PaymentType(int? type) =>
+            PaymentTypes()[type ?? 1];
+ 
         public static Services BanalServices(string name)
         {
             var services = new Dictionary<string, Services>

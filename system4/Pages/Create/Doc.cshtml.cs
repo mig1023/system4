@@ -11,6 +11,8 @@ namespace system4.Pages.Create
 
         public Dictionary<int, string> VisaTypes { get; set; }
 
+        public Dictionary<int, string> PaymentTypes { get; set; }
+
         public Dictionary<string, Dictionary<string, string>> RequestData { get; set; }
 
         [BindProperty]
@@ -31,6 +33,7 @@ namespace system4.Pages.Create
                 .ToDictionary(x => x.Id, x => x.VName);
 
             RequestData = DAL.Constants.Requests();
+            PaymentTypes = DAL.Constants.PaymentTypes();
 
             if (!reload)
             {

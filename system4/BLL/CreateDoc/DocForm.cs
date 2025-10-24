@@ -6,6 +6,8 @@ namespace system4.BLL.CreateDoc
     {
         public int VisaType { get; set; }
 
+        public int PayType { get; set; }
+
         public bool Urgent { get; set; }
 
         public List<ApplicantForm> Applicants { get; set; }
