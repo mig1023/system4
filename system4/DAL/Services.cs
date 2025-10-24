@@ -55,5 +55,19 @@ namespace system4.DAL
 
             return services;
         }
+
+        public static Dictionary<string, string> ServicesInDocPack()
+        {
+            var servicesInDocPack = new Dictionary<string, string>
+            {
+                ["Translate"] = "Translate",
+                ["Anketa"] = "AnketaSrv",
+                ["Printing"] = "PrintSrv",
+                ["Photo"] = "PhotoSrv",
+                ["Xerox"] = "XeroxPage",
+            };
+
+            return servicesInDocPack;
+        }
     }
 }

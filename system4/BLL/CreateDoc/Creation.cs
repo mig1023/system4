@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using system4.DB;
 
 namespace system4.BLL.CreateDoc
 {
@@ -31,7 +32,7 @@ namespace system4.BLL.CreateDoc
                 PDate = DateTime.Now,
                 PStatus = 1,
                 Login = user,
-                PType = 1, // doc form
+                PType = doc.PayType,
                 Urgent = doc.Urgent ? 1 : 0,
                 VisaType = doc.VisaType,
                 AppId = app.Id,
@@ -129,34 +130,50 @@ namespace system4.BLL.CreateDoc
                 }
             }
 
+            if (doc.SMS)
+            {
+                newDoc.SMS = 1;
+                newDoc.Mobile = doc.Mobile;
+            }
 
-            // insert in DocPackService !!!
+            var servicesIntegrated = DAL.Services.ServicesInDocPack();
+            var servicesAdditional = new List<DocPackService>();
+            var servicesAddValues = new List<ServiceFieldValuesINT>();
+            var servicesFields = DB.Entity.Get.ServiceFields();
 
-            //SMS = ServiceIsEnabled("SMS", services),
-            //    Mobile = doc.Phone, // service !!!
+            foreach (var service in services)
+            {
+                if (servicesIntegrated.ContainsKey(service.ServiceName))
+                {
+                    newDoc.GetType().GetProperty(servicesIntegrated[service.ServiceName]).SetValue(newDoc, service.Value);
+                }
+                else
+                {
+                    servicesAdditional.Add(new DocPackService { Id = service.ServiceId });
 
-            //    Shipping = ServiceIsEnabled("Shipping", services),
-            //    ShippingAddress = "Кривоколенная ул, д 10",
-            //    AddrIndex = "101000",
-            //    ShipNum = "0",
-            //    TShipSum = 100,
-            //    ShippingPhone = "1112233",
+                    var fieldId = servicesFields
+                        .Where(x => x.ServiceId == service.ServiceId)
+                        .SingleOrDefault();
 
+                    var servicesValue = new ServiceFieldValuesINT
+                    {
+                        ServiceFieldId = fieldId.ServiceId,
+                        Value = service.Value,
+                    };
 
-            //   !!!
-            //    XeroxPage = 1,
-            //    AnketaSrv = 1,
-            //    PrintSrv = 1,
-            //    PhotoSrv = 1,
-            //    VIPSrv = 1,
-            //    Translate = 1,
+                    servicesAddValues.Add(servicesValue);
+                }
+            }
+
+            // VIPSrv 
 
             // INSERT INTO FoxShippment (DocID, ShippmentComment, Oversize) 
 
             // INSERT INTO INSERT INTO DocHistory
             // INSERT INTO DocRequest
 
-            var id = DB.Entity.Save.DocPack(newDoc, newInfo, newApplicants, shippment);
+            var id = DB.Entity.Save.DocPack(newDoc, newInfo, newApplicants,
+                shippment, servicesAdditional, servicesAddValues);
 
             // recalc
 

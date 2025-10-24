@@ -61,7 +61,7 @@ namespace system4.BLL.CreateDoc
         public Shipping ShippingData { get; set; }
 
         public bool SMS { get; set; }
-        public string SmsMobile { get; set; }
+        public string Mobile { get; set; }
 
         public DocForm()
         {
@@ -106,7 +106,7 @@ namespace system4.BLL.CreateDoc
             Shipping = appointment.Shipping == 1;
 
             SMS = appointment.SMS == 1;
-            SmsMobile = appointment.Mobile;
+            Mobile = appointment.Mobile;
         }
     }
 }

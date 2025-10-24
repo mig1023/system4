@@ -560,7 +560,15 @@ namespace system4.DB.Entity
                 return company;
             }
         }
-        
+
+        public static List<ServiceFields> ServiceFields()
+        {
+            using (var db = new EntityContext())
+            {
+                return db.ServiceFields.ToList();
+            }
+        }
+
         public static List<DAL.Services> ServicesByCenter(int centerId)
         {
             using (var db = new EntityContext())

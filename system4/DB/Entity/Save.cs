@@ -43,7 +43,7 @@ namespace system4.DB.Entity
         }
 
         public static int DocPack(DocPack doc, DocPackInfo docInfo, List<DocPackList> docPackLists,
-            FoxShippment shippment)
+            FoxShippment shippment, List<DocPackService> services, List<ServiceFieldValuesINT> servicesValues)
         {
             using (var db = new EntityContext())
             {
