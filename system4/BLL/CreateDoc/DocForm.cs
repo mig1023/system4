@@ -11,8 +11,6 @@ namespace system4.BLL.CreateDoc
         public List<ApplicantForm> Applicants { get; set; }
 
         public ApplicantForm? ApplicantDwhom { get; set; }
-
-        public List<Service> Services { get; set; }
         
         [Required(ErrorMessage = "↓ Не выбрано на кого заключается договор")]
         public string LName { get; set; }
@@ -55,6 +53,8 @@ namespace system4.BLL.CreateDoc
 
         public string? Requests { get; set; }
 
+        public List<Service> Services { get; set; }
+
         public bool Shipping { get; set; }
         public string ShippingAddr { get; set; }
         public string ShippingPhone { get; set; }
@@ -95,7 +95,6 @@ namespace system4.BLL.CreateDoc
                     Name = data.ServiceId > 0 ? data.ServiceId.ToString() : data.ServiceName,
                     Text = data.Name,
                     Enabled = false,
-                    Value = 0,
                     ValueType = data.ValueType,
                 };
                 Services.Add(service);

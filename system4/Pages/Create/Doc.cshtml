@@ -308,20 +308,10 @@
                         <div class="col col-2">
 
                             <div class="input-group">
-
-                                @if (Model.DocPack.Services[serviceIndex].Enabled)
-                                {
-                                    <input type="text" class="form-control" id="Service_@(serviceId)_Value"
-                                           asp-for="DocPack.Services[serviceIndex].Value">
-                                }
-                                else
-                                {
-                                    <input type="text" class="form-control" id="Service_@(serviceId)_Value"
-                                           asp-for="DocPack.Services[serviceIndex].Value" value="" disabled="disabled">
-                                }
-
+                                <input type="text" class="form-control" id="Service_@(serviceId)_Value"
+                                       asp-for="DocPack.Services[serviceIndex].Value"
+                                       disabled="@(!Model.DocPack.Services[serviceIndex].Enabled)">
                                 <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
-
                             </div>
                         </div>
                         <div class="col col-3">
