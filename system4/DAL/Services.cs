@@ -4,17 +4,6 @@ namespace system4.DAL
 {
     public class Services
     {
-        public class ShippingService
-        {
-            public string Address { get; set; }
-
-            public string Phone { get; set; }
-
-            public string Comment { get; set; }
-
-            public bool Overload { get; set; }
-        }
-
         public int ServiceId { get; set; }
 
         public string ServiceName { get; set; }
@@ -26,8 +15,6 @@ namespace system4.DAL
         public int Value { get; set; }
 
         public double Price { get; set; }
-
-        public ShippingService Shipping { get; set; }
 
         public static List<Services> Get(DocPack doc)
         {

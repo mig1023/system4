@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Reflection;
 
 namespace system4.BLL.CreateDoc
 {
@@ -113,23 +112,23 @@ namespace system4.BLL.CreateDoc
 
             DB.FoxShippment shippment = null;
 
-            foreach (var service in services)
+            if (doc.Shipping)
             {
-                if (service.ServiceName == "Shipping")
-                {
-                    newDoc.Shipping = 1;
-                    newDoc.ShippingAddress = doc.ShippingAddr;
+                newDoc.Shipping = 1;
+                newDoc.ShippingAddress = doc.ShippingData.Addr;
+                newDoc.AddrIndex = doc.ShippingData.Index;
+                newDoc.TShipSum = (float)doc.ShippingData.Price;
 
-                    if (!string.IsNullOrEmpty(doc.ShippingInfo) || doc.ShippingOverload)
+                if (!string.IsNullOrEmpty(doc.ShippingData.Info) || doc.ShippingData.Overload)
+                {
+                    shippment = new DB.FoxShippment
                     {
-                        shippment = new DB.FoxShippment
-                        {
-                            ShippmentComment = doc.ShippingInfo,
-                            Oversize = doc.ShippingOverload ? 1 : 0,
-                        };
-                    }
+                        ShippmentComment = doc.ShippingData.Info,
+                        Oversize = doc.ShippingData.Overload ? 1 : 0,
+                    };
                 }
             }
+
 
             // insert in DocPackService !!!
 

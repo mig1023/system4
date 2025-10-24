@@ -58,10 +58,7 @@ namespace system4.BLL.CreateDoc
         public List<Service> Services { get; set; }
 
         public bool Shipping { get; set; }
-        public string ShippingAddr { get; set; }
-        public string ShippingPhone { get; set; }
-        public string ShippingInfo { get; set; }
-        public bool ShippingOverload { get; set; }
+        public Shipping ShippingData { get; set; }
 
         public bool SMS { get; set; }
         public string SmsMobile { get; set; }
@@ -70,6 +67,7 @@ namespace system4.BLL.CreateDoc
         {
             Applicants = new List<ApplicantForm>();
             Services = new List<Service>();
+            ShippingData = new Shipping();
         }
 
         public DocForm(DAL.Appointment appointment, List<DAL.Services> services)
@@ -104,8 +102,8 @@ namespace system4.BLL.CreateDoc
                 Services.Add(service);
             }
 
+            ShippingData = new Shipping { FullAddress = appointment.ShAddress };
             Shipping = appointment.Shipping == 1;
-            ShippingAddr = appointment.ShAddress;
 
             SMS = appointment.SMS == 1;
             SmsMobile = appointment.Mobile;

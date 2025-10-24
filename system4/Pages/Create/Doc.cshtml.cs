@@ -52,25 +52,6 @@ namespace system4.Pages.Create
             var appointment = DAL.Appointment.Get(appid);
             var allServices = DAL.Services.ServicesByCenter(appointment.CenterId, appointment.Center);
             var services = new List<DAL.Services>();
-
-            if (form.ContainsKey($"Service_Shipping"))
-            {
-                var service = DAL.Constants.BanalServices("Shipping");
-                var sh = "Service_Shipping_";
-                var address = form[sh + "Address"];
-                var phone = form[sh + "Phone"];
-
-                service.Shipping = new DAL.Services.ShippingService
-                {
-                    Address = address,
-                    Phone = phone,
-                    Comment = form[sh +"Comment"],
-                    Overload = form[sh + "Overload"].ToString().StartsWith("true"),
-                };
-
-                services.Add(service);
-            }
-
             var servicesIndex = 0;
 
             foreach (DAL.Services service in allServices)

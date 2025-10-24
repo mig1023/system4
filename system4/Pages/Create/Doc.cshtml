@@ -113,9 +113,9 @@
         <input type="hidden" id="Requests" asp-for="Requests"/>
         <input type="hidden" id="GenBank" name="GenBank" value="@Model.Appointment.Center.genbank" />
 
-        <input type="hidden" id="FoxIndex" name="FoxIndex" value="">
-        <input type="hidden" id="FoxAddr" name="FoxAddr" value="">
-        <input type="hidden" id="FoxPrice" name="FoxPrice" value="">
+        <input type="hidden" id="FoxIndex" asp-for="DocPack.ShippingData.Index">
+        <input type="hidden" id="FoxAddr" asp-for="DocPack.ShippingData.Addr">
+        <input type="hidden" id="FoxPrice" asp-for="DocPack.ShippingData.Price">
 
         @if (Model.Appointment.Shipping > 0)
         {
@@ -267,7 +267,7 @@
                 <div class="col col-6">
                     <div class="input-group">
                         <input type="text" class="form-control fw-lighter doc_service_field_big" id="Service_Shipping_Address"
-                               placeholder="адрес доставки" disabled="@(!Model.DocPack.Shipping)" asp-for="@Model.DocPack.ShippingAddr">
+                               placeholder="адрес доставки" disabled="@(!Model.DocPack.Shipping)" asp-for="@Model.DocPack.ShippingData.FullAddress">
                     </div>
                 </div>
             </div>
@@ -276,10 +276,10 @@
                 <div class="col col-6">
                     <div class="input-group">
                         <input type="text" class="form-control doc_service_field_right fw-lighter" id="Service_Shipping_Phone"
-                               asp-for="DocPack.ShippingPhone" placeholder="телефон" value="" disabled="@(!Model.DocPack.Shipping)">
+                               asp-for="DocPack.ShippingData.Phone" placeholder="телефон" value="" disabled="@(!Model.DocPack.Shipping)">
                         <input type="text" class="form-control doc_service_field_right fw-lighter" id="Service_Shipping_Comment"
-                               asp-for="DocPack.ShippingInfo" placeholder="информация" value="" disabled="@(!Model.DocPack.Shipping)">
-                        <input type="checkbox" class="btn-check" id="Service_Shipping_Overload" asp-for="DocPack.ShippingOverload"
+                               asp-for="DocPack.ShippingData.Info" placeholder="информация" value="" disabled="@(!Model.DocPack.Shipping)">
+                        <input type="checkbox" class="btn-check" id="Service_Shipping_Overload" asp-for="DocPack.ShippingData.Overload"
                                value="true" autocomplete="off" disabled="@(!Model.DocPack.Shipping)">
                         <label class="btn btn-outline-primary" for="Service_Shipping_Overload">вес сверх лимита</label>
                         <input type="hidden" name="Service_Shipping_Overload" value="false" />
