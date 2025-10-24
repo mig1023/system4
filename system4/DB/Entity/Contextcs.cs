@@ -63,6 +63,8 @@ namespace system4.DB.Entity
 
             public DbSet<Countries> Countries { get; set; }
 
+            public DbSet<FoxShippment> FoxShippment { get; set; }
+
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {

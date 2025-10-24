@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using system4.DAL;
+﻿using system4.DAL;
 using static system4.DB.Entity.Contextcs;
 
 namespace system4.DB.Entity
@@ -622,7 +621,7 @@ namespace system4.DB.Entity
                 return holidays;
             }
         }
-        
+ 
         public static List<Exclusions> Exclusions(int centerId)
         {
             using (var db = new EntityContext())
@@ -665,6 +664,17 @@ namespace system4.DB.Entity
             {
                 var countries = db.Countries.ToList();
                 return countries;
+            }
+        }
+
+        public static FoxShippment FoxShippment(int docId)
+        {
+            using (var db = new EntityContext())
+            {
+                var shippment = db.FoxShippment
+                    .SingleOrDefault(x => x.DocId == docId);
+
+                return shippment;
             }
         }
     }
