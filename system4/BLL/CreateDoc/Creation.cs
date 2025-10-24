@@ -1,18 +1,10 @@
 ﻿using Newtonsoft.Json;
+using System.Reflection;
 
 namespace system4.BLL.CreateDoc
 {
     public class Creation
     {
-        private static int ServiceIsEnabled(string name, List<DAL.Services> services)
-        {
-            var shipping = services
-                .Where(x => x.ServiceName == name)
-                .SingleOrDefault();
-
-            return shipping == null ? 0 : 1;
-        }
-
         public static int Save(DAL.Appointment app, DocForm doc,
             List<DAL.Services> services, string requestsJson, string user)
         {
@@ -21,8 +13,6 @@ namespace system4.BLL.CreateDoc
             var rate = DB.Entity.Get.PriceRate("RUR", DateTime.Now, app.CenterId);
 
             // gen bankid if genbank == 4
-
-            var dsum = 100; // !!!
 
             // concil ?
 
@@ -38,8 +28,6 @@ namespace system4.BLL.CreateDoc
                 PassNum = doc.PassNum,
                 PassDate = doc.PassDate ?? DateTime.MinValue,
                 PassWhom = doc.PassWhom,
-                DSum = dsum,
-                ServSum = dsum, // !!!
                 ADate = DateTime.Now,
                 PDate = DateTime.Now,
                 PStatus = 1,
@@ -54,24 +42,6 @@ namespace system4.BLL.CreateDoc
                 Template = "1", // template from center
                 CenterId = app.CenterId,
 
-                SMS = ServiceIsEnabled("SMS", services),
-                Mobile = doc.Phone, // service !!!
-
-                Shipping = ServiceIsEnabled("Shipping", services),
-                ShippingAddress = "Кривоколенная ул, д 10",
-                AddrIndex = "101000",
-                ShipNum = "0",
-                TShipSum = 100,
-                ShippingPhone = "1112233",
-
-                // !!!
-                XeroxPage = 1,
-                AnketaSrv = 1,
-                PrintSrv = 1,
-                PhotoSrv = 1,
-                VIPSrv = 1,
-                Translate = 1,
-
                 InsSum = 0,
                 InsData = null,
                 SkipIns = 0,
@@ -84,10 +54,7 @@ namespace system4.BLL.CreateDoc
                 SMS_reason = "",
             };
 
-            // insert in DocPackService !!!
-
             // INSERT INTO DocPackOptional (DocPackID, ShippingFree, Reject, FeedbackKey)
-            // INSERT INTO FoxShippment (DocID, ShippmentComment, Oversize) 
             // INSERT INTO DocComments (DocID, Login, CommentText, CommentDate)
 
             var newInfo = new DB.DocPackInfo
@@ -141,14 +108,63 @@ namespace system4.BLL.CreateDoc
                     SMS_reason = "",
                 };
 
-                //FillAllNullableProperties(newApplicant);
                 newApplicants.Add(newApplicant);
             }
+
+            DB.FoxShippment shippment = null;
+
+            foreach (var service in services)
+            {
+                if (service.ServiceName == "Shipping")
+                {
+                    newDoc.Shipping = 1;
+                    newDoc.ShippingAddress = doc.ShippingAddr;
+
+                    if (!string.IsNullOrEmpty(doc.ShippingInfo) || doc.ShippingOverload)
+                    {
+                        shippment = new DB.FoxShippment
+                        {
+                            ShippmentComment = doc.ShippingInfo,
+                            Oversize = doc.ShippingOverload ? 1 : 0,
+                        };
+                    }
+                }
+            }
+
+            // insert in DocPackService !!!
+
+            //SMS = ServiceIsEnabled("SMS", services),
+            //    Mobile = doc.Phone, // service !!!
+
+            //    Shipping = ServiceIsEnabled("Shipping", services),
+            //    ShippingAddress = "Кривоколенная ул, д 10",
+            //    AddrIndex = "101000",
+            //    ShipNum = "0",
+            //    TShipSum = 100,
+            //    ShippingPhone = "1112233",
+
+
+            //   !!!
+            //    XeroxPage = 1,
+            //    AnketaSrv = 1,
+            //    PrintSrv = 1,
+            //    PhotoSrv = 1,
+            //    VIPSrv = 1,
+            //    Translate = 1,
+
+            // INSERT INTO FoxShippment (DocID, ShippmentComment, Oversize) 
 
             // INSERT INTO INSERT INTO DocHistory
             // INSERT INTO DocRequest
 
-            return DB.Entity.Save.DocPack(newDoc, newInfo, newApplicants);
+            var id = DB.Entity.Save.DocPack(newDoc, newInfo, newApplicants, shippment);
+
+            // recalc
+
+            var dsum = 100; // !!! в конце через Finances/Services
+            var serv = 100; // ServSum
+
+            return id;
         }
     }
 }

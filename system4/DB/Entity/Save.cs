@@ -42,7 +42,8 @@ namespace system4.DB.Entity
             }
         }
 
-        public static int DocPack(DocPack doc, DocPackInfo docInfo, List<DocPackList> docPackLists)
+        public static int DocPack(DocPack doc, DocPackInfo docInfo, List<DocPackList> docPackLists,
+            FoxShippment shippment)
         {
             using (var db = new EntityContext())
             {

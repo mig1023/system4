@@ -61,7 +61,7 @@ namespace system4.BLL.CreateDoc
         public string ShippingAddr { get; set; }
         public string ShippingPhone { get; set; }
         public string ShippingInfo { get; set; }
-        public string ShippingOverload { get; set; }
+        public bool ShippingOverload { get; set; }
 
         public bool SMS { get; set; }
         public string SmsMobile { get; set; }
