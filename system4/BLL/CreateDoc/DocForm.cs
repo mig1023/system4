@@ -55,6 +55,13 @@ namespace system4.BLL.CreateDoc
 
         public string? Requests { get; set; }
 
+        public bool Shipping { get; set; }
+        public string ShippingAddr { get; set; }
+        public string ShippingPhone { get; set; }
+        public string ShippingInfo { get; set; }
+        public string ShippingOverload { get; set; }
+
+
         public DocForm()
         {
             Applicants = new List<ApplicantForm>();
@@ -93,6 +100,9 @@ namespace system4.BLL.CreateDoc
                 };
                 Services.Add(service);
             }
+
+            Shipping = appointment.Shipping == 1;
+            ShippingAddr = appointment.ShAddress;
         }
     }
 }

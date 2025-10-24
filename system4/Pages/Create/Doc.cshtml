@@ -102,7 +102,7 @@
                 <button class="btn btn-danger doc_request_buttons" id="CloseNewRequest">закрыть</button>
             </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -219,8 +219,8 @@
                         <div class="col">
                             <div class="fs-6">BankID:</div>
                             <span class="doc_error" asp-validation-for="DocPack.Applicants[(applicantIndex - 1)].BankId"></span>
-                            <input type="text" class="form-control" id="Applicants_@(applicantIndex - 1)_BankId" 
-                                    asp-for="DocPack.Applicants[(applicantIndex - 1)].BankId">
+                            <input type="text" class="form-control" id="Applicants_@(applicantIndex - 1)_BankId"
+                                   asp-for="DocPack.Applicants[(applicantIndex - 1)].BankId">
                             <div class="fs-6">Запрос:</div>
                             <span class="doc_error" asp-validation-for="DocPack.Applicants[(applicantIndex - 1)].Request"></span>
                             <div class="input-group">
@@ -259,25 +259,15 @@
 
             <div class="row doc_applicant_data align-items-center">
                 <div class="col col-5 justify-content-end d-flex">
-                    <input type="checkbox" class="btn-check" id="Service_Shipping" name="Service_Shipping" value="true" autocomplete="off"
-                           @(Model.Appointment.Shipping > 0 ? "checked='true'" : "")>
+                    <input type="checkbox" class="btn-check" id="Service_Shipping" asp-for="DocPack.Shipping"
+                           value="true" autocomplete="off" checked="@Model.DocPack.Shipping">
                     <label class="btn btn-outline-primary" for="Service_Shipping">Доставка</label>
                     <input type="hidden" name="Service_Shipping" value="false" />
                 </div>
                 <div class="col col-6">
                     <div class="input-group">
-
-                        @if (Model.Appointment.Shipping > 0)
-                        {
-                            <input type="text" class="form-control fw-lighter doc_service_field_big" id="Service_Shipping_Address"
-                                   name="Service_Shipping_Address" placeholder="адрес доставки" asp-for="@Model.Appointment.ShAddress">
-                        }
-                        else
-                        {
-                            <input type="text" class="form-control fw-lighter doc_service_field_big" id="Service_Shipping_Address"
-                                   name="Service_Shipping_Address" placeholder="адрес доставки" asp-for="@Model.Appointment.ShAddress"
-                                   disabled='disabled'>
-                        }
+                        <input type="text" class="form-control fw-lighter doc_service_field_big" id="Service_Shipping_Address"
+                               placeholder="адрес доставки" disabled="@(!Model.DocPack.Shipping)" asp-for="@Model.DocPack.ShippingAddr">
                     </div>
                 </div>
             </div>
@@ -286,14 +276,11 @@
                 <div class="col col-6">
                     <div class="input-group">
                         <input type="text" class="form-control doc_service_field_right fw-lighter" id="Service_Shipping_Phone"
-                               name="Service_Shipping_Phone" placeholder="телефон" value=""
-                               @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
+                               asp-for="DocPack.ShippingPhone" placeholder="телефон" value="" disabled="@(!Model.DocPack.Shipping)">
                         <input type="text" class="form-control doc_service_field_right fw-lighter" id="Service_Shipping_Comment"
-                               name="Service_Shipping_Comment" placeholder="информация" value=""
-                               @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
-
-                        <input type="checkbox" class="btn-check" id="Service_Shipping_Overload" name="Service_Shipping_Overload" value="true"
-                               autocomplete="off" @(Model.Appointment.Shipping > 0 ? "" : "disabled='disabled'")>
+                               asp-for="DocPack.ShippingInfo" placeholder="информация" value="" disabled="@(!Model.DocPack.Shipping)">
+                        <input type="checkbox" class="btn-check" id="Service_Shipping_Overload" asp-for="DocPack.ShippingOverload"
+                               value="true" autocomplete="off" disabled="@(!Model.DocPack.Shipping)">
                         <label class="btn btn-outline-primary" for="Service_Shipping_Overload">вес сверх лимита</label>
                         <input type="hidden" name="Service_Shipping_Overload" value="false" />
                     </div>
@@ -334,7 +321,7 @@
                                 }
 
                                 <span class="input-group-text">@(service.ValueType == "1" ? "руб" : "штук")</span>
-                                
+
                             </div>
                         </div>
                         <div class="col col-3">
@@ -445,7 +432,7 @@
 
                 ["Address", "Phone", "Comment", "Overload"].forEach((x) => {
 
-                    var element = $("#Service_Shipping_" + x);          
+                    var element = $("#Service_Shipping_" + x);
                     element.prop('disabled', !shipping);
 
                     if (element.prop('type') == "checkbox") {
@@ -456,7 +443,7 @@
                     }
                 });
 
-                if (!shipping){
+                if (!shipping) {
 
                     $("#Service_Shipping_Price").hide();
                     SetFoxData("", "", "");
@@ -496,8 +483,7 @@
 
             $(':checkbox[id$="_DocPerson"]').change(function () {
 
-                if (!$(this).is(":checked"))
-                {
+                if (!$(this).is(":checked")) {
                     $("#LName, #FName, #MName").val("");
                 }
                 else {
@@ -658,7 +644,7 @@
             var currentAddress;
             var startAddress = $("#StartAddr").val();
 
-            if (startAddress != ""){
+            if (startAddress != "") {
 
                 ShippmentReCalc(startAddress);
             }
@@ -706,7 +692,7 @@
                 $('#FoxPrice').val(price_from);
             };
 
-            function ShippmentReCalc(full_address){
+            function ShippmentReCalc(full_address) {
 
                 var comma = full_address.indexOf(", ");
                 var currentPostal = full_address.slice(0, comma);
