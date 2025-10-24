@@ -61,6 +61,8 @@ namespace system4.BLL.CreateDoc
         public string ShippingInfo { get; set; }
         public string ShippingOverload { get; set; }
 
+        public bool SMS { get; set; }
+        public string SmsMobile { get; set; }
 
         public DocForm()
         {
@@ -102,6 +104,9 @@ namespace system4.BLL.CreateDoc
 
             Shipping = appointment.Shipping == 1;
             ShippingAddr = appointment.ShAddress;
+
+            SMS = appointment.SMS == 1;
+            SmsMobile = appointment.Mobile;
         }
     }
 }

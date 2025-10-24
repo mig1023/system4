@@ -291,6 +291,25 @@
                 </div>
             </div>
 
+            <div class="row doc_applicant_data align-items-center">
+                <div class="col col-5 justify-content-end d-flex">
+                    <input type="checkbox" class="btn-check" id="Service_SMS" asp-for="DocPack.SMS" value="true" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="Service_SMS">SMS</label>
+                    <input type="hidden" name="Service_SMS" value="false" />
+                </div>
+                <div class="col col-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="Service_SMS_Value"
+                               asp-for="DocPack.SmsMobile"
+                               disabled="@(!Model.DocPack.SMS)">
+                        <span class="input-group-text">телефон</span>
+                    </div>
+                </div>
+                <div class="col col-3">
+                    <span class="doc_error doc_service_error" asp-validation-for="DocPack.SmsMobile"></span>
+                </div>
+            </div>
+
             @{
                 var serviceIndex = -1;
 
@@ -306,7 +325,6 @@
                             <input type="hidden" name="DocPack.Services[serviceIndex].Enabled" value="false" />
                         </div>
                         <div class="col col-2">
-
                             <div class="input-group">
                                 <input type="text" class="form-control" id="Service_@(serviceId)_Value"
                                        asp-for="DocPack.Services[serviceIndex].Value"
