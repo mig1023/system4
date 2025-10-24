@@ -50,31 +50,8 @@ namespace system4.Pages.Create
 
         public IActionResult OnPost(int appid)
         {
-            var form = Request.Form;
             var appointment = DAL.Appointment.Get(appid);
-            var allServices = DAL.Services.ServicesByCenter(appointment.CenterId, appointment.Center);
-            var services = new List<DAL.Services>();
-            var servicesIndex = 0;
-
-            foreach (DAL.Services service in allServices)
-            {
-                if (DocPack.Services[servicesIndex].Enabled)
-                {
-                    var value = DocPack.Services[servicesIndex].Value ?? 0;
-
-                    if (value > 0)
-                    {
-                        service.Value = value;
-                        services.Add(service);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError($"DocPack.Services[{servicesIndex}]", "← Значение услуги не задано");
-                    }
-                }
-
-                servicesIndex += 1;
-            }
+            var services = BLL.CreateDoc.Parsing.Services(Request, appointment, DocPack, ModelState);
 
             if (!ModelState.IsValid)
             {
