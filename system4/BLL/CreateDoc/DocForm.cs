@@ -61,7 +61,7 @@ namespace system4.BLL.CreateDoc
         public Shipping ShippingData { get; set; }
 
         public bool SMS { get; set; }
-        public string Mobile { get; set; }
+        public string? Mobile { get; set; }
 
         public DocForm()
         {

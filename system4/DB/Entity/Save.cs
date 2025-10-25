@@ -14,7 +14,7 @@ namespace system4.DB.Entity
                 {
                     try
                     {
-                        appointment.AppNum = Numbering.Appointment(appointment.AppDate, appointment.CenterId);
+                        appointment.AppNum = DAL.Numbering.Appointment(appointment.AppDate, appointment.CenterId);
 
                         db.Appointments.Add(appointment);
                         db.SaveChanges();
@@ -43,22 +43,30 @@ namespace system4.DB.Entity
         }
 
         public static int DocPack(DocPack doc, DocPackInfo docInfo, List<DocPackList> docPackLists,
-            FoxShippment shippment, List<DocPackService> services, List<ServiceFieldValuesINT> servicesValues)
+            FoxShippment shippment, List<DocPackService> services, List<ServiceFieldValuesINT> servicesValues,
+            string bankIdTemplate)
         {
             using (var db = new EntityContext())
             {
                 var docPackId = 0;
+                string bankId = string.Empty;
 
                 using (var transaction = db.Database.BeginTransaction())
                 {
                     try
                     {
-                        doc.AgreementNo = Numbering.DocPack(doc.PDate, doc.CenterId);
+                        doc.AgreementNo = DAL.Numbering.DocPack(doc.PDate, doc.CenterId);
 
                         db.DocPack.Add(doc);
                         db.SaveChanges();
 
                         docPackId = doc.Id;
+
+                        if (!string.IsNullOrEmpty(bankIdTemplate))
+                        {
+                            bankId = DAL.Numbering.BankId(bankIdTemplate);
+                            docInfo.BankId = bankId;
+                        }
 
                         docInfo.PackId = docPackId;
                         db.DocPackInfo.Add(docInfo);
@@ -69,6 +77,9 @@ namespace system4.DB.Entity
                         foreach (var docPackList in docPackLists)
                         {
                             docPackList.PackInfoId = docPackInfo;
+
+                            if (!string.IsNullOrEmpty(bankIdTemplate))
+                                docPackList.CBankId = bankId;
                         }
 
                         db.DocPackList.AddRange(docPackLists);

@@ -9,7 +9,6 @@ namespace system4.BLL.CreateDoc
             List<DAL.Services> services, string requestsJson, string user)
         {
             var requests = JsonConvert.DeserializeObject(requestsJson);
-
             var rate = DB.Entity.Get.PriceRate("RUR", DateTime.Now, app.CenterId);
 
             // gen bankid if genbank == 4
@@ -39,7 +38,7 @@ namespace system4.BLL.CreateDoc
                 Phone = doc.Phone,
                 DovDate = doc.DovDate ?? DateTime.MinValue,
                 DovNum = doc.DovNumber ?? ".",
-                Template = "1", // template from center
+                Template =  "1", // template
                 CenterId = app.CenterId,
 
                 InsSum = 0,
@@ -65,7 +64,6 @@ namespace system4.BLL.CreateDoc
 
             var newInfo = new DB.DocPackInfo
             {
-                BankId = "202512345678", // !!!
                 PSum = 0,
                 VisaCnt = doc.Applicants.Where(x => !x.Removed).Count(),
                 Num_NR = 0,
@@ -85,7 +83,6 @@ namespace system4.BLL.CreateDoc
 
                 var newApplicant = new DB.DocPackList
                 {
-                    CBankId = "202512345678", // !!!
                     LName = applicant.RLName,
                     FName = applicant.RFName,
                     MName = applicant.RMName,
@@ -113,6 +110,11 @@ namespace system4.BLL.CreateDoc
                     SMS_mesid = string.Empty,
                     SMS_reason = string.Empty,
                 };
+
+                if (app.Center.genbank == 0)
+                {
+                    newApplicant.CBankId = applicant.BankId;
+                }
 
                 newApplicants.Add(newApplicant);
             }
@@ -173,13 +175,22 @@ namespace system4.BLL.CreateDoc
 
             // VIPSrv 
 
-            // INSERT INTO FoxShippment (DocID, ShippmentComment, Oversize) 
-
             // INSERT INTO INSERT INTO DocHistory
             // INSERT INTO DocRequest
 
+            string bankIdTemplate = string.Empty;
+
+            if (app.Center.genbank == 0)
+            {
+                newInfo.BankId = newApplicants.First().CBankId;
+            }
+            else
+            {
+                bankIdTemplate = rate.SAutoFormat;
+            }
+
             var id = DB.Entity.Save.DocPack(newDoc, newInfo, newApplicants,
-                shippment, servicesAdditional, servicesAddValues);
+                shippment, servicesAdditional, servicesAddValues, bankIdTemplate);
 
             // recalc
 
