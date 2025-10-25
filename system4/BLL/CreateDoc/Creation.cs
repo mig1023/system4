@@ -11,8 +11,6 @@ namespace system4.BLL.CreateDoc
             var requests = JsonConvert.DeserializeObject(requestsJson);
             var rate = DB.Entity.Get.PriceRate("RUR", DateTime.Now, app.CenterId);
 
-            // gen bankid if genbank == 4
-
             // concil ?
 
             var newDoc = new DB.DocPack
